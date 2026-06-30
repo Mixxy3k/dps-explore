@@ -9,7 +9,7 @@
 
 **KRDO Explorer** is a client-side single-page application that lets users browse, filter, sort, and save care homes from Poland's National Register of Care Facilities (KRDO). Built for a real-world need — helping a family member find an appropriate long-term care placement.
 
-**Live demo:** → _[github pages link here after deploy]_
+**Live demo:** → [https://mixxy3k.github.io/dps-explore/](https://mixxy3k.github.io/dps-explore/)
 
 ---
 
