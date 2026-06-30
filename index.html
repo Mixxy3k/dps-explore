@@ -1,312 +1,660 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>KRDO - Eksplorator</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-<style>
-:root{--bg:#f8fafc;--card:#fff;--hover:#f1f5f9;--text:#1e293b;--muted:#94a3b8;--border:#e2e8f0;--brand:#059669;--brand-dark:#047857;--brand-light:#6ee7b7;--shadow:0 1px 3px rgba(0,0,0,.08)}
-.dark{--bg:#0f172a;--card:#1e293b;--hover:#334155;--text:#f1f5f9;--muted:#64748b;--border:#334155;--brand:#10b981;--brand-dark:#059669;--brand-light:#34d399;--shadow:0 1px 3px rgba(0,0,0,.3)}
-body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;transition:background .2s,color .2s}
-@media(min-width:900px){body{height:100vh;overflow:hidden;display:flex;flex-direction:column}body>header{flex-shrink:0}body>main{flex:1;min-height:0}}
-.bg-c{background:var(--card)}.bg-h{background:var(--hover)}.b{border-color:var(--border)}.text-m{color:var(--muted)}.text-brand{color:var(--brand)}
-.shadow-c{box-shadow:var(--shadow)}
-.grad{background:linear-gradient(135deg,var(--brand),var(--brand-dark))}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;transition:all .2s;border:1px solid transparent;cursor:pointer}
-.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
-.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border:none}
-.btn-outline{background:var(--card);border-color:var(--border);color:var(--text)}
-.btn-ghost{background:transparent;border-color:transparent;color:var(--muted)}
-.btn-ghost:hover{background:var(--hover);color:var(--text)}
-.fav-btn,.fav-btn-cell{width:1.4em;display:inline-flex;align-items:center;justify-content:center;text-align:center}
-.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:.3px}
-.tag-pub{background:#d1fae5;color:#065f46}.tag-priv{background:#ede9fe;color:#5b21b6}.tag-zol{background:#e0e7ff;color:#3730a3}.tag-sds{background:#fce7f3;color:#9d174d}
-.badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase}
-.badge-rec{background:#fef3c7;color:#92400e}.badge-reg{background:#dbeafe;color:#1e40af}
-.dist{font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;display:inline-block}
-.dist-n{background:#d1fae5;color:#065f46}.dist-m{background:#fef3c7;color:#92400e}.dist-f{background:#fee2e2;color:#991b1b}.dist-u{background:var(--hover);color:var(--muted)}
-.pc input,.pc select,.pc textarea{background:var(--bg);border-color:var(--border);color:var(--text);border-radius:10px;padding:8px 14px;font-size:13px;outline:none;width:100%}
-.pc input:focus,.pc select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(5,150,105,.15)}
-@keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.animate-fade{animation:fadeIn .2s ease}
 
-/* Scrollbar */
-html{scroll-behavior:smooth}
-::-webkit-scrollbar{width:7px;height:7px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;border:1px solid transparent;background-clip:content-box}
-::-webkit-scrollbar-thumb:hover{background:var(--muted);background-clip:content-box}
-*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-#tableScroll::-webkit-scrollbar{width:7px;height:7px}
-#tableScroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
-#stats::-webkit-scrollbar{height:4px}
-#stats::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
-#basketList::-webkit-scrollbar{width:5px}
-#basketList::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
-@media(min-width:900px){.desktop-full{flex:1;overflow:hidden;display:flex;flex-direction:column}.desktop-full #tableWrap{flex:1;overflow:hidden;display:flex!important;flex-direction:column}.desktop-full #tableScroll{flex:1;overflow-y:auto;max-height:none!important}.desktop-full #pagination{flex-shrink:0}}
-</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KRDO - Eksplorator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card: #fff;
+            --hover: #f1f5f9;
+            --text: #1e293b;
+            --muted: #94a3b8;
+            --border: #e2e8f0;
+            --brand: #059669;
+            --brand-dark: #047857;
+            --brand-light: #6ee7b7;
+            --shadow: 0 1px 3px rgba(0, 0, 0, .08)
+        }
+
+        .dark {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --hover: #334155;
+            --text: #f1f5f9;
+            --muted: #64748b;
+            --border: #334155;
+            --brand: #10b981;
+            --brand-dark: #059669;
+            --brand-light: #34d399;
+            --shadow: 0 1px 3px rgba(0, 0, 0, .3)
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            transition: background .2s, color .2s
+        }
+
+        @media(min-width:900px) {
+            body {
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column
+            }
+
+            body>header {
+                flex-shrink: 0
+            }
+
+            body>main {
+                flex: 1;
+                min-height: 0
+            }
+        }
+
+        .bg-c {
+            background: var(--card)
+        }
+
+        .bg-h {
+            background: var(--hover)
+        }
+
+        .b {
+            border-color: var(--border)
+        }
+
+        .text-m {
+            color: var(--muted)
+        }
+
+        .text-brand {
+            color: var(--brand)
+        }
+
+        .shadow-c {
+            box-shadow: var(--shadow)
+        }
+
+        .grad {
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark))
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all .2s;
+            border: 1px solid transparent;
+            cursor: pointer
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .12)
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            color: #fff;
+            border: none
+        }
+
+        .btn-outline {
+            background: var(--card);
+            border-color: var(--border);
+            color: var(--text)
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border-color: transparent;
+            color: var(--muted)
+        }
+
+        .btn-ghost:hover {
+            background: var(--hover);
+            color: var(--text)
+        }
+
+        .fav-btn,
+        .fav-btn-cell {
+            width: 1.4em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center
+        }
+
+        .tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 5px;
+            letter-spacing: .3px
+        }
+
+        .tag-pub {
+            background: #d1fae5;
+            color: #065f46
+        }
+
+        .tag-priv {
+            background: #ede9fe;
+            color: #5b21b6
+        }
+
+        .tag-zol {
+            background: #e0e7ff;
+            color: #3730a3
+        }
+
+        .tag-sds {
+            background: #fce7f3;
+            color: #9d174d
+        }
+
+        .badge {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase
+        }
+
+        .badge-rec {
+            background: #fef3c7;
+            color: #92400e
+        }
+
+        .badge-reg {
+            background: #dbeafe;
+            color: #1e40af
+        }
+
+        .dist {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            display: inline-block
+        }
+
+        .dist-n {
+            background: #d1fae5;
+            color: #065f46
+        }
+
+        .dist-m {
+            background: #fef3c7;
+            color: #92400e
+        }
+
+        .dist-f {
+            background: #fee2e2;
+            color: #991b1b
+        }
+
+        .dist-u {
+            background: var(--hover);
+            color: var(--muted)
+        }
+
+        .pc input,
+        .pc select,
+        .pc textarea {
+            background: var(--bg);
+            border-color: var(--border);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 13px;
+            outline: none;
+            width: 100%
+        }
+
+        .pc input:focus,
+        .pc select:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, .15)
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(.95)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+
+        .animate-fade {
+            animation: fadeIn .2s ease
+        }
+
+        /* Scrollbar */
+        html {
+            scroll-behavior: smooth
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+            border: 1px solid transparent;
+            background-clip: content-box
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--muted);
+            background-clip: content-box
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent
+        }
+
+        #tableScroll::-webkit-scrollbar {
+            width: 7px;
+            height: 7px
+        }
+
+        #tableScroll::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px
+        }
+
+        #stats::-webkit-scrollbar {
+            height: 4px
+        }
+
+        #stats::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px
+        }
+
+        #basketList::-webkit-scrollbar {
+            width: 5px
+        }
+
+        #basketList::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px
+        }
+
+        @media(min-width:900px) {
+            .desktop-full {
+                flex: 1;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column
+            }
+
+            .desktop-full #tableWrap {
+                flex: 1;
+                overflow: hidden;
+                display: flex !important;
+                flex-direction: column
+            }
+
+            .desktop-full #tableScroll {
+                flex: 1;
+                overflow-y: auto;
+                max-height: none !important
+            }
+
+            .desktop-full #pagination {
+                flex-shrink: 0
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<header class="sticky top-0 z-50 bg-c border-b b shadow-sm" style="background:var(--card);backdrop-filter:blur(12px)">
-  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
-    <div class="w-9 h-9 rounded-xl grad flex items-center justify-center text-white text-sm font-bold shrink-0" style="box-shadow:0 2px 8px rgba(5,150,105,.25)">K</div>
-    <div class="flex-1">
-      <h1 class="text-lg font-bold" style="color:var(--text)">KRDO Explorer</h1>
-      <p class="text-xs text-m">Krajowy Rejestr Domów Opieki · 3 475+ placówek</p>
+    <header class="sticky top-0 z-50 bg-c border-b b shadow-sm"
+        style="background:var(--card);backdrop-filter:blur(12px)">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl grad flex items-center justify-center text-white text-sm font-bold shrink-0"
+                style="box-shadow:0 2px 8px rgba(5,150,105,.25)">K</div>
+            <div class="flex-1">
+                <h1 class="text-lg font-bold" style="color:var(--text)">KRDO Explorer</h1>
+                <p class="text-xs text-m">Krajowy Rejestr Domów Opieki · 3 475+ placówek</p>
+            </div>
+            <button id="themeToggle" class="btn btn-ghost text-lg" title="Motyw">🌙</button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-4 desktop-full" style="display:flex;flex-direction:column">
+
+        <div id="stats" class="flex gap-2 overflow-x-auto pb-2 mb-4 shrink-0"></div>
+
+        <div id="fileLoader" class="bg-c border b rounded-2xl shadow-c p-12 text-center mb-4">
+            <div class="text-5xl mb-3">📂</div>
+            <h2 class="text-lg font-bold mb-1" style="color:var(--text)">Ładowanie danych</h2>
+            <p class="text-sm text-m mb-4">Automatycznie pobieram dane z repozytorium</p>
+            <div class="inline-block w-8 h-8 border-[3px] rounded-full animate-spin mb-4"
+                style="border-color:var(--border);border-top-color:var(--brand)"></div>
+            <div class="mt-2">
+                <label for="csvFile" class="btn btn-primary">📄 Wybierz plik ręcznie</label>
+                <input type="file" id="csvFile" accept=".csv" class="hidden">
+            </div>
+            <p class="text-xs text-m mt-3" id="loadStatus"></p>
+        </div>
+
+        <div id="loading" class="hidden text-center py-16">
+            <div class="inline-block w-8 h-8 border-[3px] rounded-full animate-spin mb-4"
+                style="border-color:var(--border);border-top-color:var(--brand)"></div>
+            <p class="text-sm text-m">Przetwarzanie danych...</p>
+        </div>
+
+        <div id="presets" class="hidden flex-wrap gap-2 mb-4"></div>
+
+        <div id="controls" class="hidden space-y-3 mb-4">
+            <div class="flex flex-wrap gap-2">
+                <input id="searchBox" type="text"
+                    class="flex-1 min-w-[160px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none focus:border-brand transition-all"
+                    style="background:var(--card);border-color:var(--border);color:var(--text)"
+                    placeholder="🔍 Szukaj...">
+                <select id="filterPublic"
+                    class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none"
+                    style="background:var(--card);border-color:var(--border);color:var(--text)">
+                    <option value="">Typ</option>
+                    <option value="Publiczny">🏢 Publiczny</option>
+                    <option value="Prywatny">🏡 Prywatny</option>
+                </select>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <select id="filterBadge"
+                    class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none"
+                    style="background:var(--card);border-color:var(--border);color:var(--text)">
+                    <option value="">Oznaczenia</option>
+                    <option value="REKOMENDACJA KIDO">⭐ Rekomendowane</option>
+                    <option value="ZAREJESTROWANO W KIDO">✅ Zarejestrowane</option>
+                    <option value="none">Brak</option>
+                </select>
+                <select id="filterVoivodeship"
+                    class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none"
+                    style="background:var(--card);border-color:var(--border);color:var(--text)">
+                    <option value="">Województwo</option>
+                </select>
+                <button id="clearBtn" class="btn btn-ghost text-lg">✕</button>
+            </div>
+            <div class="flex gap-2 items-center">
+                <span class="text-sm text-m font-medium">📍 Odległość od:</span>
+                <input id="cityInput" type="text" value="Elbląg"
+                    class="flex-1 max-w-[200px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none"
+                    style="background:var(--card);border-color:var(--border);color:var(--text)">
+                <button id="updateCity" class="btn btn-primary">Oblicz</button>
+            </div>
+        </div>
+
+        <div id="resultsInfo" class="hidden text-sm text-m mb-3">
+            Znaleziono <strong id="resultCount" style="color:var(--text)">0</strong> placówek <span
+                id="resultDetail"></span>
+        </div>
+
+        <div id="cardList" class="hidden space-y-3"></div>
+
+        <div id="tableWrap" class="hidden bg-c border b rounded-2xl shadow-c overflow-hidden">
+            <div id="tableScroll" class="overflow-x-auto max-h-[70vh] overflow-y-auto">
+                <table class="w-full text-sm">
+                    <thead class="sticky top-0 z-10 bg-h">
+                        <tr class="text-xs uppercase tracking-wider text-m">
+                            <th class="p-3 text-center w-10 font-medium">★</th>
+                            <th data-col="distance"
+                                class="p-3 text-center font-medium cursor-pointer hover:text-brand whitespace-nowrap">📏
+                                km <span class="ml-0.5 opacity-40">↕</span></th>
+                            <th data-col="nazwa_instytucji"
+                                class="p-3 text-left font-medium cursor-pointer hover:text-brand whitespace-nowrap">
+                                Nazwa <span class="ml-0.5 opacity-40">↕</span></th>
+                            <th data-col="lokalizacja"
+                                class="p-3 text-left font-medium cursor-pointer hover:text-brand whitespace-nowrap">
+                                Lokalizacja <span class="ml-0.5 opacity-40">↕</span></th>
+                            <th data-col="ilosc_miejsc"
+                                class="p-3 text-center font-medium cursor-pointer hover:text-brand whitespace-nowrap">
+                                Miejsca <span class="ml-0.5 opacity-40">↕</span></th>
+                            <th class="p-3 text-left font-medium">Rodzaj</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="divide-y" style="border-color:var(--border)"></tbody>
+                </table>
+            </div>
+            <div id="pagination" class="hidden flex items-center justify-center gap-3 p-4 border-t b">
+                <button id="prevBtn" class="btn btn-outline text-sm">←</button>
+                <span id="pageInfo" class="text-lg font-bold" style="color:var(--text)"></span>
+                <button id="nextBtn" class="btn btn-outline text-sm">→</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Detail modal -->
+    <div id="detailModal" class="hidden fixed inset-0 z-[200] items-center justify-center p-4"
+        style="background:rgba(0,0,0,.35);cursor:pointer">
+        <div class="bg-c border b rounded-2xl shadow-c max-w-lg w-full max-h-[85vh] overflow-hidden animate-fade"
+            style="box-shadow:0 20px 60px rgba(0,0,0,.2)">
+            <div class="p-5 pb-3 border-b b flex items-start justify-between gap-4">
+                <div>
+                    <h3 id="detName" class="text-lg font-bold" style="color:var(--text)"></h3>
+                    <div id="detBadges" class="flex flex-wrap gap-1.5 mt-2"></div>
+                </div>
+                <button id="closeDetail" class="shrink-0"
+                    style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s"
+                    title="Zamknij">✕</button>
+            </div>
+            <div id="detBody" class="p-5 pt-3 overflow-y-auto" style="max-height:calc(85vh - 130px)"></div>
+            <div id="detActions" class="p-4 pt-3 border-t b flex gap-2 items-center"
+                style="flex-wrap:nowrap;overflow-x:auto">
+            </div>
+        </div>
     </div>
-    <button id="themeToggle" class="btn btn-ghost text-lg" title="Motyw">🌙</button>
-  </div>
-</header>
 
-<main class="max-w-7xl mx-auto px-4 py-4 desktop-full" style="display:flex;flex-direction:column">
-
-  <div id="stats" class="flex gap-2 overflow-x-auto pb-2 mb-4 shrink-0"></div>
-
-  <div id="fileLoader" class="bg-c border b rounded-2xl shadow-c p-12 text-center mb-4">
-    <div class="text-5xl mb-3">📂</div>
-    <h2 class="text-lg font-bold mb-1" style="color:var(--text)">Ładowanie danych</h2>
-    <p class="text-sm text-m mb-4">Automatycznie pobieram dane z repozytorium</p>
-    <div class="inline-block w-8 h-8 border-[3px] rounded-full animate-spin mb-4" style="border-color:var(--border);border-top-color:var(--brand)"></div>
-    <div class="mt-2">
-      <label for="csvFile" class="btn btn-primary">📄 Wybierz plik ręcznie</label>
-      <input type="file" id="csvFile" accept=".csv" class="hidden">
+    <!-- Basket -->
+    <div id="overlay" class="hidden fixed inset-0 z-[99]" style="background:rgba(0,0,0,.35)"></div>
+    <div id="basketPanel"
+        class="hidden fixed top-0 right-0 h-full w-[380px] max-w-[90vw] bg-c shadow-c z-[100] flex flex-col"
+        style="box-shadow:-8px 0 30px rgba(0,0,0,.15)">
+        <div class="flex items-center justify-between p-4 border-b b">
+            <h3 class="font-bold" style="color:var(--text)">⭐ Zapamiętane</h3>
+            <button id="closeBasket" class="btn btn-ghost">✕</button>
+        </div>
+        <div id="basketList" class="flex-1 overflow-y-auto p-3">
+            <div class="text-center py-12 text-sm text-m">Kliknij ★ przy placówce, aby zapamiętać</div>
+        </div>
     </div>
-    <p class="text-xs text-m mt-3" id="loadStatus"></p>
-  </div>
 
-  <div id="loading" class="hidden text-center py-16">
-    <div class="inline-block w-8 h-8 border-[3px] rounded-full animate-spin mb-4" style="border-color:var(--border);border-top-color:var(--brand)"></div>
-    <p class="text-sm text-m">Przetwarzanie danych...</p>
-  </div>
+    <button id="basketToggle"
+        class="hidden fixed bottom-6 right-6 w-14 h-14 rounded-full grad text-white text-2xl shadow-c z-[90] items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+        style="box-shadow:0 4px 16px rgba(5,150,105,.35)">
+        ⭐<span id="basketCount"
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+    </button>
 
-  <div id="presets" class="hidden flex-wrap gap-2 mb-4"></div>
+    <script>
+        const ROWS_PER_PAGE = 50, ELBLAG = { lat: 54.1989, lon: 19.4411 };
+        let allData = [], filteredData = [], currentPage = 1, sortCol = "distance", sortDir = 1, geoData = {}, cityCoords = ELBLAG, currentCity = "Elbląg", isMobile = innerWidth < 900, geocache = {}, favorites = JSON.parse(localStorage.getItem('krdo_favs') || '[]'), activePreset = null, rejected = JSON.parse(localStorage.getItem('krdo_rejected') || '[]'), notes = JSON.parse(localStorage.getItem('krdo_notes') || '{}');
+        // Migration: if old format (objects), convert to IDs only
+        if (favorites.length && typeof favorites[0] === 'object') favorites = favorites.map(f => f.id);
+        function saveRejected() { localStorage.setItem('krdo_rejected', JSON.stringify(rejected)) }
+        function isRejected(id) { return rejected.includes(id) }
+        function toggleReject(id) { const i = rejected.indexOf(id); if (i >= 0) rejected.splice(i, 1); else rejected.push(id); saveRejected(); render() }
+        function getNote(id) { return notes[id] || '' }
+        function setNote(id, txt) { if (txt.trim()) notes[id] = txt.trim(); else delete notes[id]; localStorage.setItem('krdo_notes', JSON.stringify(notes)) }
 
-  <div id="controls" class="hidden space-y-3 mb-4">
-    <div class="flex flex-wrap gap-2">
-      <input id="searchBox" type="text" class="flex-1 min-w-[160px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none focus:border-brand transition-all" style="background:var(--card);border-color:var(--border);color:var(--text)" placeholder="🔍 Szukaj...">
-      <select id="filterPublic" class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)">
-        <option value="">Typ</option><option value="Publiczny">🏢 Publiczny</option><option value="Prywatny">🏡 Prywatny</option>
-      </select>
-    </div>
-    <div class="flex flex-wrap gap-2">
-      <select id="filterBadge" class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)">
-        <option value="">Oznaczenia</option><option value="REKOMENDACJA KIDO">⭐ Rekomendowane</option><option value="ZAREJESTROWANO W KIDO">✅ Zarejestrowane</option><option value="none">Brak</option>
-      </select>
-      <select id="filterVoivodeship" class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)"><option value="">Województwo</option></select>
-      <button id="clearBtn" class="btn btn-ghost text-lg">✕</button>
-    </div>
-    <div class="flex gap-2 items-center">
-      <span class="text-sm text-m font-medium">📍 Odległość od:</span>
-      <input id="cityInput" type="text" value="Elbląg" class="flex-1 max-w-[200px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)">
-      <button id="updateCity" class="btn btn-primary">Oblicz</button>
-    </div>
-  </div>
+        function clean(t) { return t ? t.replace(/[\n\t]+/g, ' ').replace(/\s+/g, ' ').trim() : '' }
+        function distKm(l1, o1, l2, o2) { const R = 6371, dL = (l2 - l1) * Math.PI / 180, dO = (o2 - o1) * Math.PI / 180; return Math.round(R * 2 * Math.atan2(Math.sqrt(Math.sin(dL / 2) ** 2 + Math.cos(l1 * Math.PI / 180) * Math.cos(l2 * Math.PI / 180) * Math.sin(dO / 2) ** 2), Math.sqrt(1 - Math.sin(dL / 2) ** 2 - Math.cos(l1 * Math.PI / 180) * Math.cos(l2 * Math.PI / 180) * Math.sin(dO / 2) ** 2))) }
+        function parseType(r) { const t = clean(r.rodzaj_dzialalnosci); let cat = 'Inny'; if (t.includes('(Publiczny)')) cat = 'Publiczny'; else if (t.includes('(Prywatny)')) cat = 'Prywatny'; else if (t.includes('Zakład Opiekuńczo') || t.includes('Zakład Pielęgnacyjno')) cat = 'ZOL'; else if (t.includes('Środowiskowy Dom Samopomocy')) cat = 'ŚDS'; let ct = t.replace(/\((Publiczny|Prywatny|Zakład Opiekuńczo - Leczniczy|Zakład Pielęgnacyjno-Opiekuńczy|Środowiskowy Dom Samopomocy|Mieszkanie serwisowane|Dzienny Dom Seniora)\)/g, '').trim().replace(/[,\s-]+$/, '').trim(); return { clean: ct || t, cat } }
+        function getVoiv(l) {
+            const o = l.toLowerCase(); const m = { 'dolnośląskie': 'dolnośląskie', 'kujawsko-pomorskie': 'kujawsko-pomorskie', 'lubelskie': 'lubelskie', 'lubuskie': 'lubuskie', 'łódzkie': 'łódzkie', 'małopolskie': 'małopolskie', 'mazowieckie': 'mazowieckie', 'opolskie': 'opolskie', 'podkarpackie': 'podkarpackie', 'podlaskie': 'podlaskie', 'pomorskie': 'pomorskie', 'śląskie': 'śląskie', 'świętokrzyskie': 'świętokrzyskie', 'warmińsko-mazurskie': 'warmińsko-mazurskie', 'wielkopolskie': 'wielkopolskie', 'zachodniopomorskie': 'zachodniopomorskie' }; for (const [k, v] of Object.entries(m)) { if (o.includes(k)) return v }
+            const c = { 'warszawa': 'mazowieckie', 'kraków': 'małopolskie', 'poznań': 'wielkopolskie', 'wrocław': 'dolnośląskie', 'łódź': 'łódzkie', 'gdańsk': 'pomorskie', 'katowice': 'śląskie', 'lublin': 'lubelskie', 'rzeszów': 'podkarpackie', 'szczecin': 'zachodniopomorskie', 'bydgoszcz': 'kujawsko-pomorskie', 'toruń': 'kujawsko-pomorskie', 'olsztyn': 'warmińsko-mazurskie', 'opole': 'opolskie', 'kielce': 'świętokrzyskie', 'białystok': 'podlaskie', 'elbląg': 'warmińsko-mazurskie' }; for (const [k, v] of Object.entries(c)) { if (o.includes(k)) return v } return 'inne'
+        }
+        function getRowId(r) { return r.wpis_krdo || r._n + r._l }
+        function isFav(r) { return favorites.includes(getRowId(r)) }
+        function krdoSlug(s) { s = s.toLowerCase().trim(); const reps = { 'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n', 'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z' }; for (const [k, v] of Object.entries(reps)) s = s.replaceAll(k, v); return s.replace(/[^a-z0-9\s-]/g, '').replace(/[\s-]+/g, '-').replace(/^-+|-+$/g, '') }
+        function krdoUrl(r) { return `https://krdo.pl/dom-opieki/${krdoSlug(r._n)}/` }
+        async function geocode(c) { if (geocache[c]) return geocache[c]; try { const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(c + ', Polska')}&format=json&limit=1&accept-language=pl`, { headers: { 'User-Agent': 'KRDO-Explorer/1.0' } }); const d = await r.json(); if (d && d[0]) { const res = { lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon) }; geocache[c] = res; return res } } catch (e) { } return null }
 
-  <div id="resultsInfo" class="hidden text-sm text-m mb-3">
-    Znaleziono <strong id="resultCount" style="color:var(--text)">0</strong> placówek <span id="resultDetail"></span>
-  </div>
+        function processData(data) {
+            allData = data.filter(r => r.nazwa_instytucji && r.nazwa_instytucji.trim());
+            allData.forEach(r => { r._n = clean(r.nazwa_instytucji); r._l = clean(r.lokalizacja); const p = parseType(r); r._t = p.clean; r._c = p.cat; r._p = parseInt(r.ilosc_miejsc) || 0; r._b = clean(r.badges); const g = geoData[r.lokalizacja]; r._lat = g?.lat || null; r._lon = g?.lon || null; r._d = 0 });
+            hide('loading'); hide('fileLoader'); show('presets'); show('controls'); show('resultsInfo'); show('pagination'); document.getElementById('basketToggle').style.display = 'flex';
+            if (isMobile) show('cardList'); else show('tableWrap');
+            renderPresets(); populateFilters(); calcDists(); applyFilters(); renderBasket();
+        }
+        function hide(id) { document.getElementById(id).classList.add('hidden') }
+        function show(id) { document.getElementById(id).classList.remove('hidden') }
 
-  <div id="cardList" class="hidden space-y-3"></div>
+        function renderPresets() {
+            const p = document.getElementById('presets');
+            p.innerHTML = [{ l: '📋 Wszystkie', k: 'all' }, { l: '🧠 Niepełnosprawni intelektualnie', k: 'intel' }, { l: '💊 Psychicznie chorzy', k: 'psych' }, { l: '⭐ Rekomendowane KIDO', k: 'recommended' }, { l: '📍 Blisko (50 km)', k: 'nearby' }].map(i => `<button class="preset-btn px-3 py-1 text-xs font-medium rounded-full border" style="background:var(--card);border-color:var(--border);color:var(--text)" data-key="${i.k}">${i.l}</button>`).join('');
+            p.querySelectorAll('.preset-btn').forEach(b => {
+                b.addEventListener('click', function () {
+                    const k = this.dataset.key;
+                    p.querySelectorAll('.preset-btn').forEach(x => { x.style.background = 'var(--card)'; x.style.borderColor = 'var(--border)'; x.style.color = 'var(--text)' });
+                    if (activePreset === k) { activePreset = null; applyFilters(); return }
+                    this.style.background = 'var(--brand)'; this.style.borderColor = 'var(--brand)'; this.style.color = '#fff'; activePreset = k;
+                    ['searchBox', 'filterPublic', 'filterBadge', 'filterVoivodeship'].forEach(id => document.getElementById(id).value = '');
+                    applyFilters()
+                })
+            });
+        }
 
-  <div id="tableWrap" class="hidden bg-c border b rounded-2xl shadow-c overflow-hidden">
-    <div id="tableScroll" class="overflow-x-auto max-h-[70vh] overflow-y-auto">
-      <table class="w-full text-sm">
-        <thead class="sticky top-0 z-10 bg-h">
-          <tr class="text-xs uppercase tracking-wider text-m">
-            <th class="p-3 text-center w-10 font-medium">★</th>
-            <th data-col="distance" class="p-3 text-center font-medium cursor-pointer hover:text-brand whitespace-nowrap">📏 km <span class="ml-0.5 opacity-40">↕</span></th>
-            <th data-col="nazwa_instytucji" class="p-3 text-left font-medium cursor-pointer hover:text-brand whitespace-nowrap">Nazwa <span class="ml-0.5 opacity-40">↕</span></th>
-            <th data-col="lokalizacja" class="p-3 text-left font-medium cursor-pointer hover:text-brand whitespace-nowrap">Lokalizacja <span class="ml-0.5 opacity-40">↕</span></th>
-            <th data-col="ilosc_miejsc" class="p-3 text-center font-medium cursor-pointer hover:text-brand whitespace-nowrap">Miejsca <span class="ml-0.5 opacity-40">↕</span></th>
-            <th class="p-3 text-left font-medium">Rodzaj</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody" class="divide-y" style="border-color:var(--border)"></tbody>
-      </table>
-    </div>
-    <div id="pagination" class="hidden flex items-center justify-center gap-3 p-4 border-t b">
-      <button id="prevBtn" class="btn btn-outline text-sm">←</button>
-      <span id="pageInfo" class="text-sm text-m"></span>
-      <button id="nextBtn" class="btn btn-outline text-sm">→</button>
-    </div>
-  </div>
-</main>
+        async function autoLoadCSV() {
+            document.getElementById('loadStatus').textContent = 'Pobieranie danych...';
+            try { const r = await fetch('krdo_dps_poland.csv'); if (!r.ok) throw Error('HTTP ' + r.status); const t = await r.text(); document.getElementById('loadStatus').textContent = 'Parsowanie...'; Papa.parse(t, { header: true, complete: function (r) { processData(r.data) } }) }
+            catch (e) { document.getElementById('loadStatus').textContent = 'Nie udało się pobrać — wybierz plik'; document.querySelector('#fileLoader h2').textContent = 'Załaduj dane'; document.querySelector('#fileLoader p').textContent = 'Wybierz plik krdo_dps_poland.csv'; document.querySelector('#fileLoader .animate-spin').style.display = 'none' }
+        }
 
-<!-- Detail modal -->
-<div id="detailOverlay" class="hidden fixed inset-0 z-[200]" style="background:rgba(0,0,0,.35)"></div>
-<div id="detailModal" class="hidden fixed inset-0 z-[201] items-center justify-center p-4">
-  <div class="bg-c border b rounded-2xl shadow-c max-w-lg w-full max-h-[85vh] overflow-hidden animate-fade" style="box-shadow:0 20px 60px rgba(0,0,0,.2)">
-    <div class="p-5 pb-3 border-b b flex items-start justify-between gap-4">
-      <div>
-        <h3 id="detName" class="text-lg font-bold" style="color:var(--text)"></h3>
-        <div id="detBadges" class="flex flex-wrap gap-1.5 mt-2"></div>
-      </div>
-      <button id="closeDetail" class="btn btn-ghost shrink-0">✕</button>
-    </div>
-    <div id="detBody" class="p-5 pt-3 overflow-y-auto" style="max-height:calc(85vh - 130px)"></div>
-    <div id="detActions" class="p-4 pt-3 border-t b flex gap-1.5" style="flex-wrap:nowrap;overflow-x:auto"></div>
-  </div>
-</div>
+        document.getElementById('csvFile').addEventListener('change', async function (e) { const f = e.target.files[0]; if (!f) return; show('loading'); hide('fileLoader'); Papa.parse(f, { header: true, encoding: 'UTF-8', complete: function (r) { processData(r.data) } }) });
+        (async function init() { try { const r = await fetch('locations_geo.json'); geoData = await r.json() } catch (e) { } autoLoadCSV() })();
 
-<!-- Basket -->
-<div id="overlay" class="hidden fixed inset-0 z-[99]" style="background:rgba(0,0,0,.35)"></div>
-<div id="basketPanel" class="hidden fixed top-0 right-0 h-full w-[380px] max-w-[90vw] bg-c shadow-c z-[100] flex flex-col" style="box-shadow:-8px 0 30px rgba(0,0,0,.15)">
-  <div class="flex items-center justify-between p-4 border-b b">
-    <h3 class="font-bold" style="color:var(--text)">⭐ Zapamiętane</h3>
-    <button id="closeBasket" class="btn btn-ghost">✕</button>
-  </div>
-  <div id="basketList" class="flex-1 overflow-y-auto p-3"><div class="text-center py-12 text-sm text-m">Kliknij ★ przy placówce, aby zapamiętać</div></div>
-</div>
+        function populateFilters() {
+            const vS = document.getElementById('filterVoivodeship'); vS.innerHTML = '<option value="">Województwo</option>';
+            ['dolnośląskie', 'kujawsko-pomorskie', 'lubelskie', 'lubuskie', 'łódzkie', 'małopolskie', 'mazowieckie', 'opolskie', 'podkarpackie', 'podlaskie', 'pomorskie', 'śląskie', 'świętokrzyskie', 'warmińsko-mazurskie', 'wielkopolskie', 'zachodniopomorskie'].forEach(v => { let o = document.createElement('option'); o.value = v; o.textContent = v.charAt(0).toUpperCase() + v.slice(1); vS.appendChild(o) });
+        }
 
-<button id="basketToggle" class="hidden fixed bottom-6 right-6 w-14 h-14 rounded-full grad text-white text-2xl shadow-c z-[90] items-center justify-center hover:scale-110 active:scale-95 transition-transform" style="box-shadow:0 4px 16px rgba(5,150,105,.35)">
-  ⭐<span id="basketCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
-</button>
+        async function calcDists() { if (currentCity.toLowerCase() !== 'elbląg') { const c = await geocode(currentCity); if (c) cityCoords = c } else cityCoords = ELBLAG; allData.forEach(r => { r._d = (r._lat && r._lon) ? distKm(cityCoords.lat, cityCoords.lon, r._lat, r._lon) : 99999 }) }
 
-<script>
-const ROWS_PER_PAGE=50,ELBLAG={lat:54.1989,lon:19.4411};
-let allData=[],filteredData=[],currentPage=1,sortCol="distance",sortDir=1,geoData={},cityCoords=ELBLAG,currentCity="Elbląg",isMobile=innerWidth<900,geocache={},favorites=JSON.parse(localStorage.getItem('krdo_favs')||'[]'),activePreset=null;
+        document.getElementById('updateCity').addEventListener('click', async function () { const c = document.getElementById('cityInput').value.trim(); if (!c) return; currentCity = c; show('loading'); await calcDists(); hide('loading'); if (activePreset === 'nearby') activePreset = null; resetPresets(); applyFilters() });
+        function resetPresets() { document.querySelectorAll('.preset-btn').forEach(x => { x.style.background = 'var(--card)'; x.style.borderColor = 'var(--border)'; x.style.color = 'var(--text)' }) }
 
-function clean(t){return t?t.replace(/[\n\t]+/g,' ').replace(/\s+/g,' ').trim():''}
-function distKm(l1,o1,l2,o2){const R=6371,dL=(l2-l1)*Math.PI/180,dO=(o2-o1)*Math.PI/180;return Math.round(R*2*Math.atan2(Math.sqrt(Math.sin(dL/2)**2+Math.cos(l1*Math.PI/180)*Math.cos(l2*Math.PI/180)*Math.sin(dO/2)**2),Math.sqrt(1-Math.sin(dL/2)**2-Math.cos(l1*Math.PI/180)*Math.cos(l2*Math.PI/180)*Math.sin(dO/2)**2)))}
-function parseType(r){const t=clean(r.rodzaj_dzialalnosci);let cat='Inny';if(t.includes('(Publiczny)'))cat='Publiczny';else if(t.includes('(Prywatny)'))cat='Prywatny';else if(t.includes('Zakład Opiekuńczo')||t.includes('Zakład Pielęgnacyjno'))cat='ZOL';else if(t.includes('Środowiskowy Dom Samopomocy'))cat='ŚDS';let ct=t.replace(/\((Publiczny|Prywatny|Zakład Opiekuńczo - Leczniczy|Zakład Pielęgnacyjno-Opiekuńczy|Środowiskowy Dom Samopomocy|Mieszkanie serwisowane|Dzienny Dom Seniora)\)/g,'').trim().replace(/[,\s-]+$/,'').trim();return{clean:ct||t,cat}}
-function getVoiv(l){const o=l.toLowerCase();const m={'dolnośląskie':'dolnośląskie','kujawsko-pomorskie':'kujawsko-pomorskie','lubelskie':'lubelskie','lubuskie':'lubuskie','łódzkie':'łódzkie','małopolskie':'małopolskie','mazowieckie':'mazowieckie','opolskie':'opolskie','podkarpackie':'podkarpackie','podlaskie':'podlaskie','pomorskie':'pomorskie','śląskie':'śląskie','świętokrzyskie':'świętokrzyskie','warmińsko-mazurskie':'warmińsko-mazurskie','wielkopolskie':'wielkopolskie','zachodniopomorskie':'zachodniopomorskie'};for(const[k,v]of Object.entries(m)){if(o.includes(k))return v}
-const c={'warszawa':'mazowieckie','kraków':'małopolskie','poznań':'wielkopolskie','wrocław':'dolnośląskie','łódź':'łódzkie','gdańsk':'pomorskie','katowice':'śląskie','lublin':'lubelskie','rzeszów':'podkarpackie','szczecin':'zachodniopomorskie','bydgoszcz':'kujawsko-pomorskie','toruń':'kujawsko-pomorskie','olsztyn':'warmińsko-mazurskie','opole':'opolskie','kielce':'świętokrzyskie','białystok':'podlaskie','elbląg':'warmińsko-mazurskie'};for(const[k,v]of Object.entries(c)){if(o.includes(k))return v}return'inne'}
-function getRowId(r){return r.wpis_krdo||r._n+r._l}
-function isFav(r){return favorites.some(f=>f.id===getRowId(r))}
-function krdoSlug(s){s=s.toLowerCase().trim();const reps={'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z'};for(const[k,v]of Object.entries(reps))s=s.replaceAll(k,v);return s.replace(/[^a-z0-9\s-]/g,'').replace(/[\s-]+/g,'-').replace(/^-+|-+$/g,'')}
-function krdoUrl(r){return`https://krdo.pl/dom-opieki/${krdoSlug(r._n)}/`}
-async function geocode(c){if(geocache[c])return geocache[c];try{const r=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(c+', Polska')}&format=json&limit=1&accept-language=pl`,{headers:{'User-Agent':'KRDO-Explorer/1.0'}});const d=await r.json();if(d&&d[0]){const res={lat:parseFloat(d[0].lat),lon:parseFloat(d[0].lon)};geocache[c]=res;return res}}catch(e){}return null}
+        function applyFilters() {
+            const s = document.getElementById('searchBox').value.toLowerCase().trim(), pf = document.getElementById('filterPublic').value, bf = document.getElementById('filterBadge').value, vf = document.getElementById('filterVoivodeship').value;
+            filteredData = allData.filter(r => {
+                if (activePreset === 'intel' && !r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')) return false;
+                if (activePreset === 'psych' && !r.rodzaj_dzialalnosci.toLowerCase().includes('psychicznie')) return false;
+                if (activePreset === 'recommended' && !r._b.includes('REKOMENDACJA KIDO')) return false;
+                if (activePreset === 'nearby' && r._d > 50) return false;
+                if (s) { const h = (r._n + ' ' + r._l + ' ' + r._t + ' ' + r.rodzaj_dzialalnosci).toLowerCase(); if (!h.includes(s)) return false }
+                if (pf && r._c !== pf) return false;
+                if (bf === 'none' && r._b) return false; if (bf && bf !== 'none' && !r._b.includes(bf)) return false;
+                if (vf && getVoiv(r.lokalizacja) !== vf) return false; return true;
+            });
+            if (sortCol) filteredData.sort((a, b) => { let va, vb; if (sortCol === 'distance') { va = a._d; vb = b._d } else if (sortCol === 'ilosc_miejsc') { va = a._p; vb = b._p } else if (sortCol === 'nazwa_instytucji') { va = a._n; vb = b._n } else if (sortCol === 'lokalizacja') { va = a._l; vb = b._l } else { va = ''; vb = '' }; return typeof va === 'string' ? sortDir * va.localeCompare(vb, 'pl') : sortDir * (va - vb) });
+            currentPage = 1; render(); updateStats();
+        }
 
-function processData(data){
-  allData=data.filter(r=>r.nazwa_instytucji&&r.nazwa_instytucji.trim());
-  allData.forEach(r=>{r._n=clean(r.nazwa_instytucji);r._l=clean(r.lokalizacja);const p=parseType(r);r._t=p.clean;r._c=p.cat;r._p=parseInt(r.ilosc_miejsc)||0;r._b=clean(r.badges);const g=geoData[r.lokalizacja];r._lat=g?.lat||null;r._lon=g?.lon||null;r._d=0});
-  hide('loading');hide('fileLoader');show('presets');show('controls');show('resultsInfo');show('pagination');document.getElementById('basketToggle').style.display='flex';
-  if(isMobile)show('cardList');else show('tableWrap');
-  renderPresets();populateFilters();calcDists();applyFilters();renderBasket();
-}
-function hide(id){document.getElementById(id).classList.add('hidden')}
-function show(id){document.getElementById(id).classList.remove('hidden')}
+        function render() {
+            const total = filteredData.length, tp = Math.ceil(total / ROWS_PER_PAGE), s = (currentPage - 1) * ROWS_PER_PAGE, e = Math.min(s + ROWS_PER_PAGE, total), pd = filteredData.slice(s, e);
+            document.getElementById('resultCount').textContent = total; document.getElementById('resultDetail').textContent = total < allData.length ? `(str. ${currentPage}/${tp})` : ''; document.getElementById('pageInfo').innerHTML = `Strona <strong>${currentPage}</strong> z <strong>${tp || 1}</strong>`; document.getElementById('prevBtn').disabled = currentPage <= 1; document.getElementById('nextBtn').disabled = currentPage >= tp || tp === 0;
+            const cn = currentCity;
+            if (isMobile) {
+                document.getElementById('cardList').innerHTML = pd.map(r => {
+                    const d = r._d; let dc = 'dist-u', dt = d >= 99999 ? '?' : `~${d} km`; if (d < 50) dc = 'dist-n'; else if (d < 150) dc = 'dist-m'; else if (d < 99999) dc = 'dist-f';
+                    const isRec = r._b.includes('REKOMENDACJA'), isReg = r._b.includes('ZAREJESTROWANO');
+                    let recIcon = ''; if (isRec) recIcon = '<span style="color:#f59e0b;font-size:13px" title="Rekomendowane KIDO">🥇</span>'; else if (isReg) recIcon = '<span style="color:#3b82f6;font-size:13px" title="Zarejestrowane w KIDO">✅</span>';
+                    let ct = ''; if (r._c === 'Publiczny') ct = '<span class="tag tag-pub">Publiczny</span>'; else if (r._c === 'Prywatny') ct = '<span class="tag tag-priv">Prywatny</span>'; else if (r._c === 'ZOL') ct = '<span class="tag tag-zol">ZOL</span>'; else if (r._c === 'ŚDS') ct = '<span class="tag tag-sds">ŚDS</span>';
+                    const fid = getRowId(r), saved = isFav(r);
+                    return `<div class="card bg-c border b rounded-xl shadow-c p-4 cursor-pointer transition-all ${isRejected(fid) ? 'opacity-75' : ''}" style="background:var(--card);border-color:${isRejected(fid) ? '#ef4444' : 'var(--border)'};${isRejected(fid) ? 'border-width:2px' : ''}" data-detail="${fid}"><button class="fav-btn text-lg absolute top-3 right-3 ${saved ? 'opacity-100' : 'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer" style="width:1.4em;height:1.4em;display:inline-flex;align-items:center;justify-content:center" data-favid="${fid}">${saved ? '⭐' : '☆'}</button><div class="font-semibold pr-7 text-sm" style="color:var(--text)">${recIcon} ${r._n}</div><div class="mt-1.5 flex items-center gap-2"><span class="${dc} text-xs">📍 ${dt} od ${cn}</span>${isRejected(fid) ? '<span class="text-xs font-bold" style="color:#ef4444">❌ Odrzucona</span>' : ''}</div><div class="mt-2 flex gap-2"><span class="text-xs text-m">📍 ${r._l}</span><span class="text-xs text-m">🛏️ ${r._p > 0 ? r._p : '?'}</span></div><div class="mt-2 pt-2 border-t b flex justify-between items-center"><span class="text-xs text-m">${ct}</span><span class="text-xs font-semibold text-brand" style="cursor:pointer">▶ Szczegóły</span></div></div>`;
+                }).join('');
+                document.querySelectorAll('.fav-btn').forEach(b => { b.addEventListener('click', function (e) { e.stopPropagation(); toggleFav(this) }) });
+                document.querySelectorAll('[data-detail]').forEach(c => { c.addEventListener('click', function () { const id = this.dataset.detail; const r = filteredData.find(i => getRowId(i) === id); if (r) showDetail(r) }) });
+            } else {
+                document.getElementById('tableBody').innerHTML = pd.map(r => {
+                    const d = r._d, dt = d >= 99999 ? '?' : `${d} km`; const isRec = r._b.includes('REKOMENDACJA'), isReg = r._b.includes('ZAREJESTROWANO'); let recIcon = ''; if (isRec) recIcon = '<span style="color:#f59e0b;font-size:13px" title="Rekomendowane KIDO">🥇 </span>'; else if (isReg) recIcon = '<span style="color:#3b82f6;font-size:13px" title="Zarejestrowane w KIDO">✅ </span>'; const fid = getRowId(r), saved = isFav(r);
+                    return `<tr class="cursor-pointer hover:bg-h transition-colors" style="border-color:var(--border);${isRejected(fid) ? 'border-left:4px solid #ef4444' : ''}" data-detail="${fid}"><td class="p-3 text-center" onclick="event.stopPropagation()"><button class="fav-btn-cell text-base ${saved ? 'opacity-100' : 'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer" data-favid="${fid}">${saved ? '⭐' : '☆'}</button></td><td class="p-3 text-center font-semibold text-brand">${dt}</td><td class="p-3 font-semibold" style="color:var(--text)">${recIcon}${r._n}${isRejected(fid) ? ' <span style="color:#ef4444;font-size:10px">❌</span>' : ''}</td><td class="p-3 text-m">${r._l}</td><td class="p-3 text-center font-semibold" style="color:var(--text)">${r._p > 0 ? r._p : '-'}</td><td class="p-3 text-xs text-m">${r._t}</td></tr>`;
+                }).join('');
+                document.querySelectorAll('.fav-btn-cell').forEach(b => { b.addEventListener('click', function (e) { e.stopPropagation(); toggleFav(this) }) });
+                document.querySelectorAll('tr[data-detail]').forEach(r => { r.addEventListener('click', function () { const id = this.dataset.detail; const ri = filteredData.find(i => getRowId(i) === id); if (ri) showDetail(ri) }) });
+            }
+        }
 
-function renderPresets(){
-  const p=document.getElementById('presets');
-  p.innerHTML=[{l:'📋 Wszystkie',k:'all'},{l:'🧠 Niepełnosprawni intelektualnie',k:'intel'},{l:'💊 Psychicznie chorzy',k:'psych'},{l:'⭐ Rekomendowane KIDO',k:'recommended'},{l:'📍 Blisko (50 km)',k:'nearby'}].map(i=>`<button class="preset-btn px-3 py-1 text-xs font-medium rounded-full border" style="background:var(--card);border-color:var(--border);color:var(--text)" data-key="${i.k}">${i.l}</button>`).join('');
-  p.querySelectorAll('.preset-btn').forEach(b=>{b.addEventListener('click',function(){
-    const k=this.dataset.key;
-    p.querySelectorAll('.preset-btn').forEach(x=>{x.style.background='var(--card)';x.style.borderColor='var(--border)';x.style.color='var(--text)'});
-    if(activePreset===k){activePreset=null;applyFilters();return}
-    this.style.background='var(--brand)';this.style.borderColor='var(--brand)';this.style.color='#fff';activePreset=k;
-    ['searchBox','filterPublic','filterBadge','filterVoivodeship'].forEach(id=>document.getElementById(id).value='');
-    applyFilters()})});
-}
+        function updateStats() {
+            const d = filteredData, tp = d.reduce((s, r) => s + r._p, 0);
+            const colors = [{ bg: '#05966915', txt: '#059669' }, { bg: '#0d948815', txt: '#0d9488' }, { bg: '#6366f115', txt: '#6366f1' }, { bg: '#a855f715', txt: '#a855f7' }, { bg: '#f59e0b15', txt: '#d97706' }, { bg: '#ef444415', txt: '#dc2626' }];
+            const items = [{ n: d.length.toLocaleString(), l: 'Placówek', i: '🏠' }, { n: tp.toLocaleString(), l: 'Miejsc', i: '🛏️' }, { n: d.filter(r => r._c === 'Publiczny').length, l: 'Publiczne', i: '🏢' }, { n: d.filter(r => r._c === 'Prywatny').length, l: 'Prywatne', i: '🏡' }, { n: d.filter(r => r._b.includes('REKOMENDACJA KIDO')).length, l: 'Rekomend.', i: '⭐' }, { n: d.filter(r => r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')).length, l: 'Niep. intel.', i: '🧠' }];
+            document.getElementById('stats').innerHTML = items.map((s, idx) => `<div class="flex-none min-w-[105px] rounded-xl p-3" style="background:${colors[idx].bg};border:1px solid ${colors[idx].txt}20"><div class="text-xs text-m mb-0.5 font-medium">${s.i} ${s.l}</div><div class="text-2xl font-extrabold" style="color:${colors[idx].txt}">${s.n}</div></div>`).join('');
+        }
 
-async function autoLoadCSV(){
-  document.getElementById('loadStatus').textContent='Pobieranie danych...';
-  try{const r=await fetch('krdo_dps_poland.csv');if(!r.ok)throw Error('HTTP '+r.status);const t=await r.text();document.getElementById('loadStatus').textContent='Parsowanie...';Papa.parse(t,{header:true,complete:function(r){processData(r.data)}})}
-  catch(e){document.getElementById('loadStatus').textContent='Nie udało się pobrać — wybierz plik';document.querySelector('#fileLoader h2').textContent='Załaduj dane';document.querySelector('#fileLoader p').textContent='Wybierz plik krdo_dps_poland.csv';document.querySelector('#fileLoader .animate-spin').style.display='none'}
-}
+        function showDetail(r) {
+            const addr = clean(r.adres), gq = encodeURIComponent(r._n + ' ' + addr), mq = encodeURIComponent(r._n + ', ' + r._l + ', ' + addr), fid = getRowId(r), saved = isFav(r);
+            const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'badge-rec' : 'badge-reg'; return `<span class="badge ${c}">${b}</span>` }).join('') : '';
+            document.getElementById('detName').textContent = r._n; document.getElementById('detBadges').innerHTML = bgs || '';
+            document.getElementById('detBody').innerHTML = `<div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Adres</span><span style="color:var(--text)">${addr}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejscowość</span><span style="color:var(--text)">${r._l}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Rodzaj</span><span style="color:var(--text)">${r._t}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Typ</span><span style="color:var(--text)">${r._c}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejsca</span><span style="color:var(--text)">${r._p > 0 ? r._p + ' miejsc' : 'Nie podano'}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Wpis</span><span style="color:var(--text)">${r.wpis_krdo}</span></div>${r._d < 99999 ? `<div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Odległość</span><span style="color:var(--text)">~${r._d} km od ${currentCity}</span></div>` : ''}${isRejected(fid) ? '<div class="flex py-3"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Status</span><span style="color:#ef4444;font-weight:600">❌ Odrzucona</span></div>' : ''}<div class="pt-3 mt-1"><label class="text-xs text-m font-medium uppercase tracking-wider">Notatki</label><textarea id="noteInput" class="w-full mt-1.5 p-2.5 rounded-xl text-sm outline-none resize-none" rows="2" style="background:var(--bg);border:1px solid var(--border);color:var(--text)">${getNote(fid)}</textarea></div>`;
+            document.getElementById('detActions').innerHTML = `<button class="btn" id="detFavBtn" style="background:linear-gradient(135deg,#059669,#0d9488);color:#fff;border:none;padding:7px 18px;font-size:13px;font-weight:600;white-space:nowrap;border-radius:8px;box-shadow:0 2px 8px rgba(5,150,105,.3);cursor:pointer">${saved ? '⭐ Zapamiętane' : '⭐ Zapamiętaj'}</button><button id="detRejectBtn" style="padding:7px 14px;font-size:12px;font-weight:600;white-space:nowrap;border-radius:8px;cursor:pointer;border:2px solid ${isRejected(fid) ? '#ef4444' : '#fca5a5'};background:${isRejected(fid) ? '#fef2f2' : 'transparent'};color:${isRejected(fid) ? '#dc2626' : '#f87171'}">${isRejected(fid) ? '❌ Odrzucona' : '🚫 Odrzuć'}</button><a class="btn" href="${krdoUrl(r)}" target="_blank" style="background:#eef2ff;color:#4338ca;border-color:#c7d2fe;padding:3px 8px;font-size:10px;white-space:nowrap;opacity:.7">🌐 KRDO</a><a class="btn" href="https://www.google.com/search?q=${gq}" target="_blank" style="background:#fef2f2;color:#dc2626;border-color:#fecaca;padding:3px 8px;font-size:10px;white-space:nowrap;opacity:.7">🔍 Google</a><a class="btn" href="https://www.google.com/maps/search/${mq}" target="_blank" style="background:#f0fdf4;color:#16a34a;border-color:#bbf7b7;padding:3px 8px;font-size:10px;white-space:nowrap;opacity:.7">📍 Maps</a>`;
+            show('detailModal'); document.getElementById('detailModal').style.display = 'flex'; document.body.style.overflow = 'hidden';
+            document.getElementById('detFavBtn').addEventListener('click', function () { const star = document.querySelector(`.fav-btn-cell[data-favid="${fid}"],.fav-btn[data-favid="${fid}"]`); if (star) toggleFav(star); this.textContent = isFav(r) ? '⭐ Zapamiętane' : '⭐ Zapamiętaj'; this.style.background = isFav(r) ? 'linear-gradient(135deg,#059669,#0d9488)' : 'linear-gradient(135deg,#059669,#0d9488)' });
+            const rejectBtn = document.getElementById('detRejectBtn');
+            if (rejectBtn) rejectBtn.addEventListener('click', function () { toggleReject(fid); const rej = isRejected(fid); this.textContent = rej ? '❌ Odrzucona' : '🚫 Odrzuć'; this.style.border = `2px solid ${rej ? '#ef4444' : '#fca5a5'}`; this.style.background = rej ? '#fef2f2' : 'transparent'; this.style.color = rej ? '#dc2626' : '#f87171'; render() });
+            const noteInput = document.getElementById('noteInput');
+            if (noteInput) { let nt; noteInput.addEventListener('input', function () { clearTimeout(nt); nt = setTimeout(() => setNote(fid, this.value), 400) }) }
+        }
 
-document.getElementById('csvFile').addEventListener('change',async function(e){const f=e.target.files[0];if(!f)return;show('loading');hide('fileLoader');Papa.parse(f,{header:true,encoding:'UTF-8',complete:function(r){processData(r.data)}})});
-(async function init(){try{const r=await fetch('locations_geo.json');geoData=await r.json()}catch(e){}autoLoadCSV()})();
+        function closeModal() { hide('detailModal'); document.getElementById('detailModal').style.display = 'none'; document.body.style.overflow = '' }
+        document.getElementById('closeDetail').addEventListener('click', closeModal);
+        document.getElementById('detailModal').addEventListener('click', function (e) { if (e.target === this) closeModal() });
 
-function populateFilters(){
-  const vS=document.getElementById('filterVoivodeship');vS.innerHTML='<option value="">Województwo</option>';
-  ['dolnośląskie','kujawsko-pomorskie','lubelskie','lubuskie','łódzkie','małopolskie','mazowieckie','opolskie','podkarpackie','podlaskie','pomorskie','śląskie','świętokrzyskie','warmińsko-mazurskie','wielkopolskie','zachodniopomorskie'].forEach(v=>{let o=document.createElement('option');o.value=v;o.textContent=v.charAt(0).toUpperCase()+v.slice(1);vS.appendChild(o)});
-}
+        function toggleFav(btn) { const id = btn.dataset.favid, idx = favorites.indexOf(id); if (idx >= 0) { favorites.splice(idx, 1); btn.textContent = '☆'; btn.classList.remove('opacity-100'); btn.classList.add('opacity-40') } else { favorites.push(id); btn.textContent = '⭐'; btn.classList.remove('opacity-40'); btn.classList.add('opacity-100') } localStorage.setItem('krdo_favs', JSON.stringify(favorites)); renderBasket() }
 
-async function calcDists(){if(currentCity.toLowerCase()!=='elbląg'){const c=await geocode(currentCity);if(c)cityCoords=c}else cityCoords=ELBLAG;allData.forEach(r=>{r._d=(r._lat&&r._lon)?distKm(cityCoords.lat,cityCoords.lon,r._lat,r._lon):99999})}
+        function renderBasket() {
+            document.getElementById('basketCount').textContent = favorites.length; const l = document.getElementById('basketList');
+            if (!favorites.length) { l.innerHTML = '<div class="text-center py-12 text-sm text-m">Kliknij ★ przy placówce, aby zapamiętać</div>'; return }
+            l.innerHTML = favorites.map((id, i) => { const f = allData.find(r => getRowId(r) === id); if (!f) return ''; const d = f._d, rej = isRejected(id), note = getNote(id); return `<div class="p-3 border b rounded-xl mb-2 ${rej ? 'bg-h' : 'bg-h'}" style="${rej ? 'border-color:#ef4444;border-width:2px' : ''}"><div class="font-semibold text-sm" style="color:var(--text)">${f._n}</div><div class="text-xs text-m mt-1">📍 ${f._l}${d < 99999 ? ' • ~' + d + ' km' : ''} • 📋 ${f.wpis_krdo}</div><div class="text-xs text-m">${f._t}${f._b ? ' • ' + f._b : ''}${rej ? ' • <span style="color:#ef4444">❌ Odrzucona</span>' : ''}</div>${note ? '<div class="text-xs mt-1 p-1.5 rounded" style="background:var(--bg);color:var(--muted)">📝 ' + note + '</div>' : ''}<button class="text-xs bg-transparent border-none cursor-pointer mt-2" style="color:#f87171" data-idx="${i}">🗑️ Usuń</button></div>`; }).filter(Boolean).join('');
+            l.querySelectorAll('[data-idx]').forEach(b => { b.addEventListener('click', function () { const i = parseInt(this.dataset.idx); favorites.splice(i, 1); localStorage.setItem('krdo_favs', JSON.stringify(favorites)); renderBasket(); render() }) });
+        }
 
-document.getElementById('updateCity').addEventListener('click',async function(){const c=document.getElementById('cityInput').value.trim();if(!c)return;currentCity=c;show('loading');await calcDists();hide('loading');if(activePreset==='nearby')activePreset=null;resetPresets();applyFilters()});
-function resetPresets(){document.querySelectorAll('.preset-btn').forEach(x=>{x.style.background='var(--card)';x.style.borderColor='var(--border)';x.style.color='var(--text)'})}
+        document.getElementById('basketToggle').addEventListener('click', function () { show('basketPanel'); document.getElementById('basketPanel').style.display = 'flex'; show('overlay') });
+        document.getElementById('closeBasket').addEventListener('click', () => { hide('basketPanel'); document.getElementById('basketPanel').style.display = 'none'; hide('overlay') });
+        document.getElementById('overlay').addEventListener('click', () => { hide('basketPanel'); document.getElementById('basketPanel').style.display = 'none'; hide('overlay') });
 
-function applyFilters(){
-  const s=document.getElementById('searchBox').value.toLowerCase().trim(),pf=document.getElementById('filterPublic').value,bf=document.getElementById('filterBadge').value,vf=document.getElementById('filterVoivodeship').value;
-  filteredData=allData.filter(r=>{
-    if(activePreset==='intel'&&!r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie'))return false;
-    if(activePreset==='psych'&&!r.rodzaj_dzialalnosci.toLowerCase().includes('psychicznie'))return false;
-    if(activePreset==='recommended'&&!r._b.includes('REKOMENDACJA KIDO'))return false;
-    if(activePreset==='nearby'&&r._d>50)return false;
-    if(s){const h=(r._n+' '+r._l+' '+r._t+' '+r.rodzaj_dzialalnosci).toLowerCase();if(!h.includes(s))return false}
-    if(pf&&r._c!==pf)return false;
-    if(bf==='none'&&r._b)return false;if(bf&&bf!=='none'&&!r._b.includes(bf))return false;
-    if(vf&&getVoiv(r.lokalizacja)!==vf)return false;return true;
-  });
-  if(sortCol)filteredData.sort((a,b)=>{let va,vb;if(sortCol==='distance'){va=a._d;vb=b._d}else if(sortCol==='ilosc_miejsc'){va=a._p;vb=b._p}else if(sortCol==='nazwa_instytucji'){va=a._n;vb=b._n}else if(sortCol==='lokalizacja'){va=a._l;vb=b._l}else{va='';vb=''};return typeof va==='string'?sortDir*va.localeCompare(vb,'pl'):sortDir*(va-vb)});
-  currentPage=1;render();updateStats();
-}
+        document.querySelectorAll('th[data-col]').forEach(th => { th.addEventListener('click', function () { const c = this.dataset.col; if (sortCol === c) sortDir *= -1; else { sortCol = c; sortDir = 1 } this.querySelector('.opacity-40').textContent = sortDir === 1 ? '↑' : '↓'; applyFilters() }) });
+        document.getElementById('searchBox').addEventListener('input', () => { if (activePreset) { activePreset = null; resetPresets() } applyFilters() });
+        document.getElementById('filterPublic').addEventListener('change', () => { if (activePreset) { activePreset = null; resetPresets() } applyFilters() });
+        document.getElementById('filterBadge').addEventListener('change', () => { if (activePreset) { activePreset = null; resetPresets() } applyFilters() });
+        document.getElementById('filterVoivodeship').addEventListener('change', () => { if (activePreset) { activePreset = null; resetPresets() } applyFilters() });
+        document.getElementById('prevBtn').addEventListener('click', () => { if (currentPage > 1) { currentPage--; render() } });
+        document.getElementById('nextBtn').addEventListener('click', () => { const tp = Math.ceil(filteredData.length / ROWS_PER_PAGE); if (currentPage < tp) { currentPage++; render() } });
+        document.getElementById('clearBtn').addEventListener('click', () => { ['searchBox', 'filterType', 'filterPublic', 'filterBadge', 'filterVoivodeship'].forEach(id => document.getElementById(id).value = ''); activePreset = null; resetPresets(); sortCol = 'distance'; sortDir = 1; applyFilters() });
+        window.addEventListener('resize', () => { const m = innerWidth < 900; if (m !== isMobile) { isMobile = m; if (m) { show('cardList'); hide('tableWrap') } else { hide('cardList'); show('tableWrap') } render() } });
 
-function render(){
-  const total=filteredData.length,tp=Math.ceil(total/ROWS_PER_PAGE),s=(currentPage-1)*ROWS_PER_PAGE,e=Math.min(s+ROWS_PER_PAGE,total),pd=filteredData.slice(s,e);
-  document.getElementById('resultCount').textContent=total;document.getElementById('resultDetail').textContent=total<allData.length?`(str. ${currentPage}/${tp})`:'';document.getElementById('pageInfo').textContent=`${currentPage}/${tp||1}`;document.getElementById('prevBtn').disabled=currentPage<=1;document.getElementById('nextBtn').disabled=currentPage>=tp||tp===0;
-  const cn=currentCity;
-  if(isMobile){
-    document.getElementById('cardList').innerHTML=pd.map(r=>{
-      const d=r._d;let dc='dist-u',dt=d>=99999?'?':`~${d} km`;if(d<50)dc='dist-n';else if(d<150)dc='dist-m';else if(d<99999)dc='dist-f';
-      const isRec=r._b.includes('REKOMENDACJA'),isReg=r._b.includes('ZAREJESTROWANO');
-      let recIcon='';if(isRec)recIcon='<span style="color:#f59e0b;font-size:13px" title="Rekomendowane KIDO">🥇</span>';else if(isReg)recIcon='<span style="color:#3b82f6;font-size:13px" title="Zarejestrowane w KIDO">✅</span>';
-      let ct='';if(r._c==='Publiczny')ct='<span class="tag tag-pub">Publiczny</span>';else if(r._c==='Prywatny')ct='<span class="tag tag-priv">Prywatny</span>';else if(r._c==='ZOL')ct='<span class="tag tag-zol">ZOL</span>';else if(r._c==='ŚDS')ct='<span class="tag tag-sds">ŚDS</span>';
-      const fid=getRowId(r),saved=isFav(r);
-      return`<div class="card bg-c border b rounded-xl shadow-c p-4 cursor-pointer hover:-translate-y-0.5 transition-all" style="background:var(--card);border-color:var(--border)" data-detail="${fid}"><button class="fav-btn text-lg absolute top-3 right-3 ${saved?'opacity-100':'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer" style="width:1.4em;height:1.4em;display:inline-flex;align-items:center;justify-content:center" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button><div class="font-semibold pr-8" style="color:var(--text)">${recIcon} ${r._n}</div><span class="${dc}">📍 ${dt} od ${cn}</span><div class="text-xs text-m mt-2 flex flex-wrap gap-x-4 gap-y-1"><span>📍 ${r._l}</span><span>🛏️ ${r._p>0?r._p:'?'}</span><span>📋 ${r.wpis_krdo}</span></div><div class="text-xs text-m mt-1.5">${ct} ${r._t}</div></div>`;
-    }).join('');
-    document.querySelectorAll('.fav-btn').forEach(b=>{b.addEventListener('click',function(e){e.stopPropagation();toggleFav(this)})});
-    document.querySelectorAll('[data-detail]').forEach(c=>{c.addEventListener('click',function(){const id=this.dataset.detail;const r=filteredData.find(i=>getRowId(i)===id);if(r)showDetail(r)})});
-  }else{
-    document.getElementById('tableBody').innerHTML=pd.map(r=>{
-      const d=r._d,dt=d>=99999?'?':`${d} km`;const isRec=r._b.includes('REKOMENDACJA'),isReg=r._b.includes('ZAREJESTROWANO');let recIcon='';if(isRec)recIcon='<span style="color:#f59e0b;font-size:13px" title="Rekomendowane KIDO">🥇 </span>';else if(isReg)recIcon='<span style="color:#3b82f6;font-size:13px" title="Zarejestrowane w KIDO">✅ </span>';const fid=getRowId(r),saved=isFav(r);
-      return`<tr class="cursor-pointer hover:bg-h transition-colors" style="border-color:var(--border)" data-detail="${fid}"><td class="p-3 text-center" onclick="event.stopPropagation()"><button class="fav-btn-cell text-base ${saved?'opacity-100':'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button></td><td class="p-3 text-center font-semibold text-brand">${dt}</td><td class="p-3 font-semibold" style="color:var(--text)">${recIcon}${r._n}</td><td class="p-3 text-m">${r._l}</td><td class="p-3 text-center font-semibold" style="color:var(--text)">${r._p>0?r._p:'-'}</td><td class="p-3 text-xs text-m">${r._t}</td></tr>`;
-    }).join('');
-    document.querySelectorAll('.fav-btn-cell').forEach(b=>{b.addEventListener('click',function(e){e.stopPropagation();toggleFav(this)})});
-    document.querySelectorAll('tr[data-detail]').forEach(r=>{r.addEventListener('click',function(){const id=this.dataset.detail;const ri=filteredData.find(i=>getRowId(i)===id);if(ri)showDetail(ri)})});
-  }
-}
-
-function updateStats(){
-  const d=filteredData,tp=d.reduce((s,r)=>s+r._p,0);
-  document.getElementById('stats').innerHTML=[{n:d.length.toLocaleString(),l:'Placówek'},{n:tp.toLocaleString(),l:'Miejsc'},{n:d.filter(r=>r._c==='Publiczny').length,l:'Publiczne'},{n:d.filter(r=>r._c==='Prywatny').length,l:'Prywatne'},{n:d.filter(r=>r._b.includes('REKOMENDACJA KIDO')).length,l:'Rekomend.'},{n:d.filter(r=>r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')).length,l:'Niep. intel.'}].map(i=>`<div class="flex-none min-w-[90px] bg-c border b rounded-xl shadow-c p-2.5 px-3.5"><div class="text-lg font-extrabold" style="color:var(--brand)">${i.n}</div><div class="text-[9px] text-m uppercase tracking-wider font-semibold">${i.l}</div></div>`).join('');
-}
-
-function showDetail(r){
-  const addr=clean(r.adres),gq=encodeURIComponent(r._n+' '+addr),mq=encodeURIComponent(r._n+', '+r._l+', '+addr),fid=getRowId(r),saved=isFav(r);
-  const bgs=r._b?r._b.split(', ').filter(Boolean).map(b=>{const c=b.includes('REKOMENDACJA')?'badge-rec':'badge-reg';return`<span class="badge ${c}">${b}</span>`}).join(''):'';
-  document.getElementById('detName').textContent=r._n;document.getElementById('detBadges').innerHTML=bgs||'';
-  document.getElementById('detBody').innerHTML=`<div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Adres</span><span style="color:var(--text)">${addr}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejscowość</span><span style="color:var(--text)">${r._l}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Rodzaj</span><span style="color:var(--text)">${r._t}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Typ</span><span style="color:var(--text)">${r._c}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejsca</span><span style="color:var(--text)">${r._p>0?r._p+' miejsc':'Nie podano'}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Wpis</span><span style="color:var(--text)">${r.wpis_krdo}</span></div>${r._d<99999?`<div class="flex py-3"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Odległość</span><span style="color:var(--text)">~${r._d} km od ${currentCity}</span></div>`:''}`;
-  document.getElementById('detActions').innerHTML=`<a class="btn" href="${krdoUrl(r)}" target="_blank" style="background:#eef2ff;color:#4338ca;border-color:#c7d2fe;padding:6px 12px;font-size:12px;white-space:nowrap">🌐 KRDO</a><a class="btn" href="https://www.google.com/search?q=${gq}" target="_blank" style="background:#fef2f2;color:#dc2626;border-color:#fecaca;padding:6px 12px;font-size:12px;white-space:nowrap">🔍 Google</a><a class="btn" href="https://www.google.com/maps/search/${mq}" target="_blank" style="background:#f0fdf4;color:#16a34a;border-color:#bbf7b7;padding:6px 12px;font-size:12px;white-space:nowrap">📍 Maps</a><button class="btn" id="detFavBtn" style="background:#fffbeb;color:#d97706;border-color:#fde68a;padding:6px 12px;font-size:12px;white-space:nowrap">${saved?'⭐ Zapamiętane':'☆ Zapamiętaj'}</button>`;
-  show('detailModal');document.getElementById('detailModal').style.display='flex';show('detailOverlay');
-  document.getElementById('detFavBtn').addEventListener('click',function(){const star=document.querySelector(`.fav-btn-cell[data-favid="${fid}"],.fav-btn[data-favid="${fid}"]`);if(star)toggleFav(star);this.textContent=isFav(r)?'⭐ Zapamiętane':'☆ Zapamiętaj'});
-}
-
-document.getElementById('closeDetail').addEventListener('click',()=>{hide('detailModal');document.getElementById('detailModal').style.display='none';hide('detailOverlay')});
-document.getElementById('detailOverlay').addEventListener('click',()=>{hide('detailModal');document.getElementById('detailModal').style.display='none';hide('detailOverlay')});
-
-function toggleFav(btn){const id=btn.dataset.favid,idx=favorites.findIndex(f=>f.id===id);if(idx>=0){favorites.splice(idx,1);btn.textContent='☆';btn.classList.remove('opacity-100');btn.classList.add('opacity-40')}else{favorites.push({id,nazwa:btn.dataset.favname,lokalizacja:btn.dataset.favloc,dystans:parseInt(btn.dataset.favdist)||0,wpis:btn.dataset.favkrdo,typ:btn.dataset.favtype,kategoria:btn.dataset.favcat,badges:btn.dataset.favbadges});btn.textContent='⭐';btn.classList.remove('opacity-40');btn.classList.add('opacity-100')}localStorage.setItem('krdo_favs',JSON.stringify(favorites));renderBasket()}
-
-function renderBasket(){
-  document.getElementById('basketCount').textContent=favorites.length;const l=document.getElementById('basketList');
-  if(!favorites.length){l.innerHTML='<div class="text-center py-12 text-sm text-m">Kliknij ★ przy placówce, aby zapamiętać</div>';return}
-  l.innerHTML=favorites.map((f,i)=>`<div class="p-3 border b rounded-xl mb-2 bg-h"><div class="font-semibold text-sm" style="color:var(--text)">${f.nazwa}</div><div class="text-xs text-m mt-1">📍 ${f.lokalizacja}${f.dystans<99999?' • ~'+f.dystans+' km':''} • 📋 ${f.wpis}</div><div class="text-xs text-m">${f.typ}${f.badges?' • '+f.badges:''}</div><button class="text-xs bg-transparent border-none cursor-pointer mt-2" style="color:#f87171" data-idx="${i}">🗑️ Usuń</button></div>`).join('');
-  l.querySelectorAll('[data-idx]').forEach(b=>{b.addEventListener('click',function(){const i=parseInt(this.dataset.idx);favorites.splice(i,1);localStorage.setItem('krdo_favs',JSON.stringify(favorites));renderBasket();render()})});
-}
-
-document.getElementById('basketToggle').addEventListener('click',function(){show('basketPanel');document.getElementById('basketPanel').style.display='flex';show('overlay')});
-document.getElementById('closeBasket').addEventListener('click',()=>{hide('basketPanel');document.getElementById('basketPanel').style.display='none';hide('overlay')});
-document.getElementById('overlay').addEventListener('click',()=>{hide('basketPanel');document.getElementById('basketPanel').style.display='none';hide('overlay')});
-
-document.querySelectorAll('th[data-col]').forEach(th=>{th.addEventListener('click',function(){const c=this.dataset.col;if(sortCol===c)sortDir*=-1;else{sortCol=c;sortDir=1}this.querySelector('.opacity-40').textContent=sortDir===1?'↑':'↓';applyFilters()})});
-document.getElementById('searchBox').addEventListener('input',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
-document.getElementById('filterPublic').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
-document.getElementById('filterBadge').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
-document.getElementById('filterVoivodeship').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
-document.getElementById('prevBtn').addEventListener('click',()=>{if(currentPage>1){currentPage--;render()}});
-document.getElementById('nextBtn').addEventListener('click',()=>{const tp=Math.ceil(filteredData.length/ROWS_PER_PAGE);if(currentPage<tp){currentPage++;render()}});
-document.getElementById('clearBtn').addEventListener('click',()=>{['searchBox','filterType','filterPublic','filterBadge','filterVoivodeship'].forEach(id=>document.getElementById(id).value='');activePreset=null;resetPresets();sortCol='distance';sortDir=1;applyFilters()});
-window.addEventListener('resize',()=>{const m=innerWidth<900;if(m!==isMobile){isMobile=m;if(m){show('cardList');hide('tableWrap')}else{hide('cardList');show('tableWrap')}render()}});
-
-// Theme
-(function initTheme(){const s=localStorage.getItem('krdo_theme');if(s==='dark'){document.documentElement.classList.add('dark');document.getElementById('themeToggle').textContent='☀️'}})();
-document.getElementById('themeToggle').addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');document.getElementById('themeToggle').textContent=d?'☀️':'🌙';localStorage.setItem('krdo_theme',d?'dark':'light')});
-</script>
+        // Theme
+        (function initTheme() { const s = localStorage.getItem('krdo_theme'); if (s === 'dark') { document.documentElement.classList.add('dark'); document.getElementById('themeToggle').textContent = '☀️' } })();
+        document.getElementById('themeToggle').addEventListener('click', function () { const d = document.documentElement.classList.toggle('dark'); document.getElementById('themeToggle').textContent = d ? '☀️' : '🌙'; localStorage.setItem('krdo_theme', d ? 'dark' : 'light') });
+    </script>
 </body>
+
 </html>
