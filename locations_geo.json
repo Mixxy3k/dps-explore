@@ -1,0 +1,2432 @@
+{
+  "Powiat aleksandrowski": {
+    "lat": 50.427416,
+    "lon": 20.514513,
+    "display_name": "Aleksandrów, gmina Pińczów, powiat pińczowski, województwo świętokrzyskie, Polska",
+    "query": "aleksandrowski, Polska"
+  },
+  "Powiat raciborski": {
+    "lat": 51.9492818,
+    "lon": 20.9103338,
+    "display_name": "Racibory, gmina Tarczyn, powiat piaseczyński, województwo mazowieckie, Polska",
+    "query": "raciborski, Polska"
+  },
+  "Gdańsk": {
+    "lat": 54.4288032,
+    "lon": 18.798327,
+    "display_name": "Gdańsk, województwo pomorskie, Polska",
+    "query": "Gdańsk, Polska"
+  },
+  "Powiat łódzki": {
+    "lat": 51.7713325,
+    "lon": 19.4740973,
+    "display_name": "Uniwersytet Łódzki, Williama H. Lindleya, Fabryczna, Łódź-Śródmieście, Łódź, województwo łódzkie, 90-131, Polska",
+    "query": "łódzki, Polska"
+  },
+  "Powiat nowodworski": {
+    "lat": 52.0872222,
+    "lon": 21.5866667,
+    "display_name": "Nowodwór, gmina Siennica, powiat miński, województwo mazowieckie, Polska",
+    "query": "nowodworski, Polska"
+  },
+  "Powiat polkopwicki": {
+    "lat": 51.4987756,
+    "lon": 16.0647552,
+    "display_name": "59-100, Polkowice, gmina Polkowice, powiat polkowicki, województwo dolnośląskie, Polska",
+    "query": "59-100          Polkowice, Polska"
+  },
+  "Powiat wołowski": {
+    "lat": 52.565345,
+    "lon": 19.9666465,
+    "display_name": "Wołowa, gmina Bulkowo, powiat płocki, województwo mazowieckie, 09-452, Polska",
+    "query": "wołowski, Polska"
+  },
+  "Powiat warszawski zachodni": {
+    "lat": 52.257233,
+    "lon": 20.5895037,
+    "display_name": "Walpol Polska, Michałów, Leszno, gmina Leszno, powiat warszawski zachodni, województwo mazowieckie, Polska",
+    "query": "warszawski zachodni, Polska"
+  },
+  "Powiat otwocki": {
+    "lat": 52.0475811,
+    "lon": 21.398038,
+    "display_name": "powiat otwocki, województwo mazowieckie, Polska",
+    "query": "otwocki, Polska"
+  },
+  "Warszawa": {
+    "lat": 52.2333742,
+    "lon": 21.0711489,
+    "display_name": "Warszawa, województwo mazowieckie, Polska",
+    "query": "Warszawa, Polska"
+  },
+  "Powiat legnicki": {
+    "lat": 51.2412925,
+    "lon": 16.3436947,
+    "display_name": "powiat legnicki, województwo dolnośląskie, Polska",
+    "query": "legnicki, Polska"
+  },
+  "Powiat stargardzki": {
+    "lat": 53.3152879,
+    "lon": 15.1651033,
+    "display_name": "powiat stargardzki, województwo zachodniopomorskie, Polska",
+    "query": "stargardzki, Polska"
+  },
+  "Powiat jaworski": {
+    "lat": 51.36762,
+    "lon": 20.0564706,
+    "display_name": "Jawor, gmina Mniszków, powiat opoczyński, województwo łódzkie, Polska",
+    "query": "jaworski, Polska"
+  },
+  "Powiat brzeziński": {
+    "lat": 50.4788889,
+    "lon": 18.3186111,
+    "display_name": "Brzezina, gmina Strzelce Opolskie, powiat strzelecki, województwo opolskie, 47-100, Polska",
+    "query": "brzeziński, Polska"
+  },
+  "Łódź": {
+    "lat": 51.7728245,
+    "lon": 19.478486,
+    "display_name": "Łódź, województwo łódzkie, Polska",
+    "query": "Łódź, Polska"
+  },
+  "Powiat oświęcimski": {
+    "lat": 51.42,
+    "lon": 18.1944444,
+    "display_name": "Oświęcim, gmina Doruchów, powiat ostrzeszowski, województwo wielkopolskie, 63-505, Polska",
+    "query": "oświęcimski, Polska"
+  },
+  "Powiat lubiński": {
+    "lat": 52.2197222,
+    "lon": 18.5472222,
+    "display_name": "obręb Lubiny, gmina Koło, powiat kolski, województwo wielkopolskie, Polska",
+    "query": "lubiński, Polska"
+  },
+  "Powiat międzyrzecki": {
+    "lat": 52.4996618,
+    "lon": 15.5804251,
+    "display_name": "powiat międzyrzecki, województwo lubuskie, Polska",
+    "query": "międzyrzecki, Polska"
+  },
+  "Powiat pruszkowski": {
+    "lat": 52.1008922,
+    "lon": 20.8407742,
+    "display_name": "powiat pruszkowski, województwo mazowieckie, Polska",
+    "query": "pruszkowski, Polska"
+  },
+  "Powiat bielski": {
+    "lat": 52.7461046,
+    "lon": 23.0043871,
+    "display_name": "powiat bielski, województwo podlaskie, Polska",
+    "query": "bielski, Polska"
+  },
+  "Powiat radziejowski": {
+    "lat": 52.5737847,
+    "lon": 18.5970066,
+    "display_name": "powiat radziejowski, województwo kujawsko-pomorskie, Polska",
+    "query": "radziejowski, Polska"
+  },
+  "Powiat lęborski": {
+    "lat": 54.5692193,
+    "lon": 17.6897153,
+    "display_name": "powiat lęborski, województwo pomorskie, Polska",
+    "query": "lęborski, Polska"
+  },
+  "Powiat oleski": {
+    "lat": 49.7433717,
+    "lon": 20.0861849,
+    "display_name": "Oleskówka, Węglówka, gmina Wiśniowa, powiat myślenicki, województwo małopolskie, 32-412, Polska",
+    "query": "oleski, Polska"
+  },
+  "Powiat tomaszowski": {
+    "lat": 50.4782265,
+    "lon": 23.5796822,
+    "display_name": "powiat tomaszowski, województwo lubelskie, Polska",
+    "query": "tomaszowski, Polska"
+  },
+  "Powiat kołobrzeski": {
+    "lat": 54.0496789,
+    "lon": 15.5997735,
+    "display_name": "powiat kołobrzeski, województwo zachodniopomorskie, Polska",
+    "query": "kołobrzeski, Polska"
+  },
+  "Powiat oleśnicki": {
+    "lat": 51.2547988,
+    "lon": 17.5004545,
+    "display_name": "powiat oleśnicki, województwo dolnośląskie, Polska",
+    "query": "oleśnicki, Polska"
+  },
+  "Powiat rawicki": {
+    "lat": 51.6452891,
+    "lon": 16.9845426,
+    "display_name": "powiat rawicki, województwo wielkopolskie, Polska",
+    "query": "rawicki, Polska"
+  },
+  "Powiat gnieźnieński": {
+    "lat": 52.5535891,
+    "lon": 17.5868304,
+    "display_name": "powiat gnieźnieński, województwo wielkopolskie, Polska",
+    "query": "gnieźnieński, Polska"
+  },
+  "Powiat wieluński": {
+    "lat": 51.2326953,
+    "lon": 18.5818013,
+    "display_name": "powiat wieluński, województwo łódzkie, Polska",
+    "query": "wieluński, Polska"
+  },
+  "Powiat piaseczyński": {
+    "lat": 52.0160584,
+    "lon": 21.0141594,
+    "display_name": "powiat piaseczyński, województwo mazowieckie, Polska",
+    "query": "piaseczyński, Polska"
+  },
+  "Powiat olecki": {
+    "lat": 49.5930556,
+    "lon": 18.8852778,
+    "display_name": "Olecki, Istebna, gmina Istebna, powiat cieszyński, województwo śląskie, 43-470, Polska",
+    "query": "olecki, Polska"
+  },
+  "Rzeszów": {
+    "lat": 50.013319,
+    "lon": 22.0161677,
+    "display_name": "Rzeszów, województwo podkarpackie, Polska",
+    "query": "Rzeszów, Polska"
+  },
+  "Powiat puławski": {
+    "lat": 51.4187204,
+    "lon": 22.0702959,
+    "display_name": "powiat puławski, województwo lubelskie, Polska",
+    "query": "puławski, Polska"
+  },
+  "Powiat łowicki": {
+    "lat": 53.3330884,
+    "lon": 16.0328932,
+    "display_name": "Łowicz Wałecki, gmina Mirosławiec, powiat wałecki, województwo zachodniopomorskie, 78-650, Polska",
+    "query": "łowicki, Polska"
+  },
+  "Powiat goleniowski": {
+    "lat": 53.6105938,
+    "lon": 14.8973802,
+    "display_name": "powiat goleniowski, województwo zachodniopomorskie, Polska",
+    "query": "goleniowski, Polska"
+  },
+  "Powiat pyrzycki": {
+    "lat": 53.1461083,
+    "lon": 14.8924485,
+    "display_name": "Pyrzyce, gmina Pyrzyce, powiat pyrzycki, województwo zachodniopomorskie, 74-200, Polska",
+    "query": "pyrzycki, Polska"
+  },
+  "Powiat gostyniński": {
+    "lat": 52.3898899,
+    "lon": 19.4823337,
+    "display_name": "powiat gostyniński, województwo mazowieckie, Polska",
+    "query": "gostyniński, Polska"
+  },
+  "Powiat legionowski": {
+    "lat": 52.4518034,
+    "lon": 20.9373768,
+    "display_name": "powiat legionowski, województwo mazowieckie, Polska",
+    "query": "legionowski, Polska"
+  },
+  "Powiat wyszkowski": {
+    "lat": 52.6509659,
+    "lon": 21.5106942,
+    "display_name": "powiat wyszkowski, województwo mazowieckie, Polska",
+    "query": "wyszkowski, Polska"
+  },
+  "Powiat siedlecki": {
+    "lat": 52.1918111,
+    "lon": 22.453206,
+    "display_name": "powiat siedlecki, województwo mazowieckie, Polska",
+    "query": "siedlecki, Polska"
+  },
+  "Powiat ostrołęcki": {
+    "lat": 53.140012,
+    "lon": 21.4523805,
+    "display_name": "powiat ostrołęcki, województwo mazowieckie, Polska",
+    "query": "ostrołęcki, Polska"
+  },
+  "Powiat wołomiński": {
+    "lat": 52.4061646,
+    "lon": 21.4164609,
+    "display_name": "powiat wołomiński, województwo mazowieckie, Polska",
+    "query": "wołomiński, Polska"
+  },
+  "Powiat gostyński": {
+    "lat": 53.8296851,
+    "lon": 15.3375425,
+    "display_name": "Gostyń Łobeski, gmina Płoty, powiat gryficki, województwo zachodniopomorskie, 72-310, Polska",
+    "query": "gostyński, Polska"
+  },
+  "Powiat śremski": {
+    "lat": 52.062481,
+    "lon": 17.1009978,
+    "display_name": "powiat śremski, województwo wielkopolskie, Polska",
+    "query": "śremski, Polska"
+  },
+  "Powiat wejherowski": {
+    "lat": 54.6173684,
+    "lon": 18.1016147,
+    "display_name": "powiat wejherowski, województwo pomorskie, Polska",
+    "query": "wejherowski, Polska"
+  },
+  "Gdynia": {
+    "lat": 54.5164982,
+    "lon": 18.5402738,
+    "display_name": "Gdynia, województwo pomorskie, Polska",
+    "query": "Gdynia, Polska"
+  },
+  "Powiat starogardzki": {
+    "lat": 53.8990805,
+    "lon": 18.3716071,
+    "display_name": "powiat starogardzki, województwo pomorskie, Polska",
+    "query": "starogardzki, Polska"
+  },
+  "Powiat kartuski": {
+    "lat": 54.3268193,
+    "lon": 18.1088841,
+    "display_name": "powiat kartuski, województwo pomorskie, Polska",
+    "query": "kartuski, Polska"
+  },
+  "Powiat słupski": {
+    "lat": 51.9501736,
+    "lon": 21.7332017,
+    "display_name": "Słup Pierwszy, gmina Borowie, powiat garwoliński, województwo mazowieckie, Polska",
+    "query": "słupski, Polska"
+  },
+  "Powiat gdański": {
+    "lat": 54.396405,
+    "lon": 18.57401,
+    "display_name": "Uniwersytet Gdański, Ignacego Kurzyńskiego, VII Dwór, Gdańsk, województwo pomorskie, 80-306, Polska",
+    "query": "gdański, Polska"
+  },
+  "Powiat łomżyński": {
+    "lat": 53.2083296,
+    "lon": 22.2775632,
+    "display_name": "powiat łomżyński, województwo podlaskie, Polska",
+    "query": "łomżyński, Polska"
+  },
+  "Powiat hajnowski": {
+    "lat": 52.7084983,
+    "lon": 23.6610524,
+    "display_name": "powiat hajnowski, województwo podlaskie, Polska",
+    "query": "hajnowski, Polska"
+  },
+  "Powiat siemiatycki": {
+    "lat": 52.488889,
+    "lon": 22.8845436,
+    "display_name": "powiat siemiatycki, województwo podlaskie, Polska",
+    "query": "siemiatycki, Polska"
+  },
+  "Powiat nyski": {
+    "lat": 50.4604059,
+    "lon": 17.3041895,
+    "display_name": "powiat nyski, województwo opolskie, Polska",
+    "query": "nyski, Polska"
+  },
+  "Opolski": {
+    "lat": 51.9966667,
+    "lon": 19.1627778,
+    "display_name": "Opole, gmina Parzęczew, powiat zgierski, województwo łódzkie, Polska",
+    "query": "Opolski, Polska"
+  },
+  "Powiat krośnieński": {
+    "lat": 49.5946937,
+    "lon": 21.7630864,
+    "display_name": "powiat krośnieński, województwo podkarpackie, Polska",
+    "query": "krośnieński, Polska"
+  },
+  "Powiat gorzowski": {
+    "lat": 52.7386103,
+    "lon": 14.9663702,
+    "display_name": "powiat gorzowski, województwo lubuskie, Polska",
+    "query": "gorzowski, Polska"
+  },
+  "Powiat biłgorajski": {
+    "lat": 50.5857368,
+    "lon": 22.7488684,
+    "display_name": "powiat biłgorajski, województwo lubelskie, Polska",
+    "query": "biłgorajski, Polska"
+  },
+  "Powiat dzierżoniowski": {
+    "lat": 50.7349875,
+    "lon": 16.7055293,
+    "display_name": "powiat dzierżoniowski, województwo dolnośląskie, Polska",
+    "query": "dzierżoniowski, Polska"
+  },
+  "Powiat wałbrzyski": {
+    "lat": 50.7573293,
+    "lon": 16.1683942,
+    "display_name": "powiat wałbrzyski, województwo dolnośląskie, Polska",
+    "query": "wałbrzyski, Polska"
+  },
+  "Powiat kłodzki": {
+    "lat": 50.3887622,
+    "lon": 16.5886836,
+    "display_name": "powiat kłodzki, województwo dolnośląskie, Polska",
+    "query": "kłodzki, Polska"
+  },
+  "Powiat bolesławiecki": {
+    "lat": 51.7902336,
+    "lon": 20.5918181,
+    "display_name": "Bolesławiec Leśny, gmina Błędów, powiat grójecki, województwo mazowieckie, Polska",
+    "query": "bolesławiecki, Polska"
+  },
+  "Powiat wrocławski": {
+    "lat": 51.043121,
+    "lon": 16.8730785,
+    "display_name": "powiat wrocławski, województwo dolnośląskie, Polska",
+    "query": "wrocławski, Polska"
+  },
+  "Powiat kamiennogórski": {
+    "lat": 50.7559349,
+    "lon": 15.9857014,
+    "display_name": "powiat kamiennogórski, województwo dolnośląskie, Polska",
+    "query": "kamiennogórski, Polska"
+  },
+  "Powiat świdnicki": {
+    "lat": 50.8704294,
+    "lon": 16.4776174,
+    "display_name": "powiat świdnicki, województwo dolnośląskie, Polska",
+    "query": "świdnicki, Polska"
+  },
+  "Powiat ząbkowicki": {
+    "lat": 50.5567621,
+    "lon": 16.8564374,
+    "display_name": "powiat ząbkowicki, województwo dolnośląskie, Polska",
+    "query": "ząbkowicki, Polska"
+  },
+  "Rybnik": {
+    "lat": 50.1105691,
+    "lon": 18.5531874,
+    "display_name": "Rybnik, województwo śląskie, Polska",
+    "query": "Rybnik, Polska"
+  },
+  "Powiat mikołowski": {
+    "lat": 50.1511219,
+    "lon": 18.830734,
+    "display_name": "powiat mikołowski, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "mikołowski, Polska"
+  },
+  "Powiat tarnogórski": {
+    "lat": 50.4723435,
+    "lon": 18.8793106,
+    "display_name": "powiat tarnogórski, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "tarnogórski, Polska"
+  },
+  "Powiat lubliniecki": {
+    "lat": 50.6738095,
+    "lon": 18.7464627,
+    "display_name": "powiat lubliniecki, województwo śląskie, Polska",
+    "query": "lubliniecki, Polska"
+  },
+  "Powiat włocławski": {
+    "lat": 52.5566788,
+    "lon": 19.0418541,
+    "display_name": "powiat włocławski, województwo kujawsko-pomorskie, Polska",
+    "query": "włocławski, Polska"
+  },
+  "Powiat żniński": {
+    "lat": 52.8223682,
+    "lon": 17.6906822,
+    "display_name": "powiat żniński, województwo kujawsko-pomorskie, Polska",
+    "query": "żniński, Polska"
+  },
+  "Powiat toruński": {
+    "lat": 53.0467163,
+    "lon": 18.7943173,
+    "display_name": "powiat toruński, województwo kujawsko-pomorskie, Polska",
+    "query": "toruński, Polska"
+  },
+  "Ostrołęka": {
+    "lat": 53.0779641,
+    "lon": 21.5748428,
+    "display_name": "Ostrołęka, województwo mazowieckie, Polska",
+    "query": "Ostrołęka, Polska"
+  },
+  "Powiat namysłowski": {
+    "lat": 51.0160121,
+    "lon": 17.722372,
+    "display_name": "powiat namysłowski, województwo opolskie, Polska",
+    "query": "namysłowski, Polska"
+  },
+  "Powiat kutnowski": {
+    "lat": 52.2513773,
+    "lon": 19.4269344,
+    "display_name": "powiat kutnowski, województwo łódzkie, Polska",
+    "query": "kutnowski, Polska"
+  },
+  "Powiat tucholski": {
+    "lat": 53.5815262,
+    "lon": 17.9249005,
+    "display_name": "powiat tucholski, województwo kujawsko-pomorskie, Polska",
+    "query": "tucholski, Polska"
+  },
+  "Włocławek": {
+    "lat": 52.6655636,
+    "lon": 19.0961297,
+    "display_name": "Włocławek, województwo kujawsko-pomorskie, Polska",
+    "query": "Włocławek, Polska"
+  },
+  "Powiat inowrocławski": {
+    "lat": 52.7647241,
+    "lon": 18.3243671,
+    "display_name": "powiat inowrocławski, województwo kujawsko-pomorskie, Polska",
+    "query": "inowrocławski, Polska"
+  },
+  "Powiat strzeliński": {
+    "lat": 50.766799,
+    "lon": 17.0766156,
+    "display_name": "powiat strzeliński, województwo dolnośląskie, Polska",
+    "query": "strzeliński, Polska"
+  },
+  "Powiat jeleniogórski": {
+    "lat": 50.8744849,
+    "lon": 15.5556219,
+    "display_name": "powiat karkonoski, województwo dolnośląskie, Polska",
+    "query": "jeleniogórski, Polska"
+  },
+  "Powiat trzebnicki": {
+    "lat": 51.3719056,
+    "lon": 17.0498231,
+    "display_name": "powiat trzebnicki, województwo dolnośląskie, Polska",
+    "query": "trzebnicki, Polska"
+  },
+  "Powiat łódzki wschodni": {
+    "lat": 51.5638889,
+    "lon": 19.4941667,
+    "display_name": "Polska Wola, Górki Duże, gmina Tuszyn, powiat łódzki wschodni, województwo łódzkie, 95-080, Polska",
+    "query": "łódzki wschodni, Polska"
+  },
+  "Powiat pabianicki": {
+    "lat": 51.6775667,
+    "lon": 19.3209502,
+    "display_name": "powiat pabianicki, województwo łódzkie, Polska",
+    "query": "pabianicki, Polska"
+  },
+  "Powiat bełchatowski": {
+    "lat": 51.3686224,
+    "lon": 19.2761318,
+    "display_name": "powiat bełchatowski, województwo łódzkie, Polska",
+    "query": "bełchatowski, Polska"
+  },
+  "Powiat płoński": {
+    "lat": 52.6391118,
+    "lon": 20.4323053,
+    "display_name": "powiat płoński, województwo mazowieckie, Polska",
+    "query": "płoński, Polska"
+  },
+  "Powiat ostrowski": {
+    "lat": 52.4583333,
+    "lon": 18.5361111,
+    "display_name": "Ostrowo, gmina Wierzbinek, powiat koniński, województwo wielkopolskie, 62-618, Polska",
+    "query": "ostrowski, Polska"
+  },
+  "Powiat poznański": {
+    "lat": 52.4160308,
+    "lon": 17.2150306,
+    "display_name": "powiat poznański, województwo wielkopolskie, Polska",
+    "query": "poznański, Polska"
+  },
+  "Powiat wolsztyński": {
+    "lat": 52.0879324,
+    "lon": 16.1002873,
+    "display_name": "powiat wolsztyński, województwo wielkopolskie, Polska",
+    "query": "wolsztyński, Polska"
+  },
+  "Olsztyn": {
+    "lat": 53.776644,
+    "lon": 20.4777531,
+    "display_name": "Olsztyn, powiat olsztyński, województwo warmińsko-mazurskie, Polska",
+    "query": "Olsztyn, Polska"
+  },
+  "Powiat piski": {
+    "lat": 52.9922966,
+    "lon": 21.8652422,
+    "display_name": "Piski, gmina Czerwin, powiat ostrołęcki, województwo mazowieckie, 07-407, Polska",
+    "query": "piski, Polska"
+  },
+  "Powiat bartoszycki": {
+    "lat": 54.2124185,
+    "lon": 20.5684474,
+    "display_name": "powiat bartoszycki, województwo warmińsko-mazurskie, Polska",
+    "query": "bartoszycki, Polska"
+  },
+  "Powiat lidzbarski": {
+    "lat": 54.1057824,
+    "lon": 20.427428,
+    "display_name": "powiat lidzbarski, województwo warmińsko-mazurskie, Polska",
+    "query": "lidzbarski, Polska"
+  },
+  "Powiat olsztyński": {
+    "lat": 53.7787443,
+    "lon": 20.733027,
+    "display_name": "powiat olsztyński, województwo warmińsko-mazurskie, Polska",
+    "query": "olsztyński, Polska"
+  },
+  "Kielce": {
+    "lat": 50.8719903,
+    "lon": 20.6310488,
+    "display_name": "Kielce, województwo świętokrzyskie, Polska",
+    "query": "Kielce, Polska"
+  },
+  "Sopot": {
+    "lat": 54.4447922,
+    "lon": 18.5684902,
+    "display_name": "Sopot, województwo pomorskie, Polska",
+    "query": "Sopot, Polska"
+  },
+  "Powiat kwidzyński": {
+    "lat": 53.7469571,
+    "lon": 19.076787,
+    "display_name": "powiat kwidzyński, województwo pomorskie, Polska",
+    "query": "kwidzyński, Polska"
+  },
+  "Powiat sokólski": {
+    "lat": 53.4351319,
+    "lon": 23.3857343,
+    "display_name": "powiat sokólski, województwo podlaskie, Polska",
+    "query": "sokólski, Polska"
+  },
+  "Powiat białostocki": {
+    "lat": 53.1173294,
+    "lon": 23.5566377,
+    "display_name": "powiat białostocki, województwo podlaskie, Polska",
+    "query": "białostocki, Polska"
+  },
+  "Powiat rzeszowski": {
+    "lat": 50.0575395,
+    "lon": 21.860817,
+    "display_name": "powiat rzeszowski, województwo podkarpackie, Polska",
+    "query": "rzeszowski, Polska"
+  },
+  "Powiat mielecki": {
+    "lat": 50.3140805,
+    "lon": 21.3975049,
+    "display_name": "powiat mielecki, województwo podkarpackie, Polska",
+    "query": "mielecki, Polska"
+  },
+  "Powiat krapkowicki": {
+    "lat": 50.4536204,
+    "lon": 17.9550967,
+    "display_name": "powiat krapkowicki, województwo opolskie, Polska",
+    "query": "krapkowicki, Polska"
+  },
+  "Powiat strzelecki": {
+    "lat": 50.4751034,
+    "lon": 21.035151,
+    "display_name": "Strzelce, gmina Oleśnica, powiat staszowski, województwo świętokrzyskie, Polska",
+    "query": "strzelecki, Polska"
+  },
+  "Opole": {
+    "lat": 50.6787929,
+    "lon": 17.9298844,
+    "display_name": "Opole, województwo opolskie, Polska",
+    "query": "Opole, Polska"
+  },
+  "Powiat piotrkowski": {
+    "lat": 51.3783062,
+    "lon": 19.5772017,
+    "display_name": "powiat piotrkowski, województwo łódzkie, Polska",
+    "query": "piotrkowski, Polska"
+  },
+  "Katowice": {
+    "lat": 50.2137315,
+    "lon": 19.0058848,
+    "display_name": "Katowice, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Katowice, Polska"
+  },
+  "Powiat będziński": {
+    "lat": 50.4153519,
+    "lon": 19.1130399,
+    "display_name": "powiat będziński, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "będziński, Polska"
+  },
+  "Powiat myszkowski": {
+    "lat": 50.6055294,
+    "lon": 19.294746,
+    "display_name": "powiat myszkowski, województwo śląskie, Polska",
+    "query": "myszkowski, Polska"
+  },
+  "Częstochowa": {
+    "lat": 50.8089997,
+    "lon": 19.1244089,
+    "display_name": "Częstochowa, województwo śląskie, Polska",
+    "query": "Częstochowa, Polska"
+  },
+  "Bytom": {
+    "lat": 50.3652854,
+    "lon": 18.8722567,
+    "display_name": "Bytom, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Bytom, Polska"
+  },
+  "Powiat bocheński": {
+    "lat": 49.9604079,
+    "lon": 20.4316578,
+    "display_name": "powiat bocheński, województwo małopolskie, Polska",
+    "query": "bocheński, Polska"
+  },
+  "Powiat myślenicki": {
+    "lat": 49.7750834,
+    "lon": 19.976009,
+    "display_name": "powiat myślenicki, województwo małopolskie, Polska",
+    "query": "myślenicki, Polska"
+  },
+  "Powiat brzeski": {
+    "lat": 52.6843856,
+    "lon": 20.2295873,
+    "display_name": "Brzeście Nowe, gmina Baboszewo, powiat płoński, województwo mazowieckie, Polska",
+    "query": "brzeski, Polska"
+  },
+  "Powiat wielicki": {
+    "lat": 49.9818117,
+    "lon": 20.172838,
+    "display_name": "powiat wielicki, województwo małopolskie, Polska",
+    "query": "wielicki, Polska"
+  },
+  "Powiat olkuski": {
+    "lat": 50.3193522,
+    "lon": 19.6491597,
+    "display_name": "powiat olkuski, województwo małopolskie, Polska",
+    "query": "olkuski, Polska"
+  },
+  "Powiat limanowski": {
+    "lat": 49.6825837,
+    "lon": 20.295996,
+    "display_name": "powiat limanowski, województwo małopolskie, Polska",
+    "query": "limanowski, Polska"
+  },
+  "Powiat wadowicki": {
+    "lat": 49.8915948,
+    "lon": 19.4958252,
+    "display_name": "Wadowicki, Wadowice, gmina Wadowice, powiat wadowicki, województwo małopolskie, Polska",
+    "query": "wadowicki, Polska"
+  },
+  "Powiat tarnowski": {
+    "lat": 49.9855249,
+    "lon": 20.9576347,
+    "display_name": "powiat tarnowski, województwo małopolskie, Polska",
+    "query": "tarnowski, Polska"
+  },
+  "Powiat nowotarski": {
+    "lat": 49.4938988,
+    "lon": 19.9991674,
+    "display_name": "powiat nowotarski, województwo małopolskie, Polska",
+    "query": "nowotarski, Polska"
+  },
+  "Kraków": {
+    "lat": 50.0469432,
+    "lon": 19.9971534,
+    "display_name": "Kraków, województwo małopolskie, Polska",
+    "query": "Kraków, Polska"
+  },
+  "Powiat tatrzański": {
+    "lat": 49.2401648,
+    "lon": 19.93595,
+    "display_name": "Tatry, Zakopane, powiat tatrzański, województwo małopolskie, 34-501, Polska",
+    "query": "tatrzański, Polska"
+  },
+  "Powiat nowosądecki": {
+    "lat": 49.5513117,
+    "lon": 20.6964804,
+    "display_name": "powiat nowosądecki, województwo małopolskie, Polska",
+    "query": "nowosądecki, Polska"
+  },
+  "Tarnów": {
+    "lat": 50.0123784,
+    "lon": 20.9880739,
+    "display_name": "Tarnów, województwo małopolskie, Polska",
+    "query": "Tarnów, Polska"
+  },
+  "Powiat chrzanowski": {
+    "lat": 50.1205843,
+    "lon": 19.4081585,
+    "display_name": "powiat chrzanowski, województwo małopolskie, Polska",
+    "query": "chrzanowski, Polska"
+  },
+  "Powiat krakowski": {
+    "lat": 50.3369264,
+    "lon": 20.7345718,
+    "display_name": "Krakowski, Górki, gmina Wiślica, powiat buski, województwo świętokrzyskie, Polska",
+    "query": "krakowski, Polska"
+  },
+  "Powiat świecki": {
+    "lat": 53.3187319,
+    "lon": 15.0892531,
+    "display_name": "Święte, gmina Stargard, powiat stargardzki, województwo zachodniopomorskie, 73-110, Polska",
+    "query": "świecki, Polska"
+  },
+  "Powiat wąbrzeski": {
+    "lat": 53.2823443,
+    "lon": 18.9281439,
+    "display_name": "powiat wąbrzeski, województwo kujawsko-pomorskie, Polska",
+    "query": "wąbrzeski, Polska"
+  },
+  "Powiat rypiński": {
+    "lat": 53.0724108,
+    "lon": 19.4398567,
+    "display_name": "powiat rypiński, województwo kujawsko-pomorskie, Polska",
+    "query": "rypiński, Polska"
+  },
+  "Powiat zgorzelecki": {
+    "lat": 51.1630251,
+    "lon": 15.0767357,
+    "display_name": "powiat zgorzelecki, województwo dolnośląskie, Polska",
+    "query": "zgorzelecki, Polska"
+  },
+  "Wałbrzych": {
+    "lat": 50.7659054,
+    "lon": 16.2825424,
+    "display_name": "Wałbrzych, województwo dolnośląskie, Polska",
+    "query": "Wałbrzych, Polska"
+  },
+  "Wrocław": {
+    "lat": 51.1089776,
+    "lon": 17.0326689,
+    "display_name": "Wrocław, województwo dolnośląskie, Polska",
+    "query": "Wrocław, Polska"
+  },
+  "Legnica": {
+    "lat": 51.2047689,
+    "lon": 16.174675,
+    "display_name": "Legnica, województwo dolnośląskie, 59-220, Polska",
+    "query": "Legnica, Polska"
+  },
+  "Powiat zgierski": {
+    "lat": 51.9038913,
+    "lon": 19.439262,
+    "display_name": "powiat zgierski, województwo łódzkie, Polska",
+    "query": "zgierski, Polska"
+  },
+  "Powiat pszczyński": {
+    "lat": 49.9897524,
+    "lon": 18.8912467,
+    "display_name": "powiat pszczyński, województwo śląskie, Polska",
+    "query": "pszczyński, Polska"
+  },
+  "Powiat sztumski": {
+    "lat": 53.9012295,
+    "lon": 19.2613926,
+    "display_name": "powiat sztumski, województwo pomorskie, Polska",
+    "query": "sztumski, Polska"
+  },
+  "Powiat koszaliński": {
+    "lat": 54.109561,
+    "lon": 16.4398753,
+    "display_name": "powiat koszaliński, województwo zachodniopomorskie, Polska",
+    "query": "koszaliński, Polska"
+  },
+  "Powiat pucki": {
+    "lat": 54.6964962,
+    "lon": 18.4407788,
+    "display_name": "powiat pucki, województwo pomorskie, Polska",
+    "query": "pucki, Polska"
+  },
+  "Powiat cieszyński": {
+    "lat": 53.5899738,
+    "lon": 16.042816,
+    "display_name": "Cieszyno, gmina Złocieniec, powiat drawski, województwo zachodniopomorskie, 78-520, Polska",
+    "query": "cieszyński, Polska"
+  },
+  "Powiat radomski": {
+    "lat": 51.3357895,
+    "lon": 21.1921698,
+    "display_name": "powiat radomski, województwo mazowieckie, Polska",
+    "query": "radomski, Polska"
+  },
+  "Powiat średzki": {
+    "lat": 51.1261995,
+    "lon": 16.6299794,
+    "display_name": "powiat średzki, województwo dolnośląskie, Polska",
+    "query": "średzki, Polska"
+  },
+  "Powiat choszczeński": {
+    "lat": 53.1432988,
+    "lon": 15.6504201,
+    "display_name": "powiat choszczeński, województwo zachodniopomorskie, Polska",
+    "query": "choszczeński, Polska"
+  },
+  "Powiat kolski": {
+    "lat": 51.1908333,
+    "lon": 21.8455556,
+    "display_name": "Koło, gmina Łaziska, powiat opolski, województwo lubelskie, 24-334, Polska",
+    "query": "kolski, Polska"
+  },
+  "Powiat lubelski": {
+    "lat": 49.4116122,
+    "lon": 20.0284554,
+    "display_name": "Lubelski, Za Cmentarzem, Szaflary, gmina Szaflary, powiat nowotarski, województwo małopolskie, 34-424, Polska",
+    "query": "lubelski, Polska"
+  },
+  "Powiat suwalski": {
+    "lat": 54.1671091,
+    "lon": 22.8137676,
+    "display_name": "powiat suwalski, województwo podlaskie, Polska",
+    "query": "suwalski, Polska"
+  },
+  "Powiat bydgoski": {
+    "lat": 53.1921607,
+    "lon": 17.8254961,
+    "display_name": "powiat bydgoski, województwo kujawsko-pomorskie, Polska",
+    "query": "bydgoski, Polska"
+  },
+  "Powiat leski": {
+    "lat": 52.2961111,
+    "lon": 21.8830556,
+    "display_name": "Las Jaworski, gmina Wierzbno, powiat węgrowski, województwo mazowieckie, 07-111, Polska",
+    "query": "leski, Polska"
+  },
+  "Powiat zawierciański": {
+    "lat": 50.5442701,
+    "lon": 19.6196017,
+    "display_name": "powiat zawierciański, województwo śląskie, Polska",
+    "query": "zawierciański, Polska"
+  },
+  "Powiat pilski": {
+    "lat": 51.7494444,
+    "lon": 18.7991667,
+    "display_name": "Piła, gmina Zadzim, powiat poddębicki, województwo łódzkie, 99-232, Polska",
+    "query": "pilski, Polska"
+  },
+  "Powiat włoszczowski": {
+    "lat": 50.8321237,
+    "lon": 19.9747494,
+    "display_name": "powiat włoszczowski, województwo świętokrzyskie, Polska",
+    "query": "włoszczowski, Polska"
+  },
+  "Powiat konecki": {
+    "lat": 51.1515632,
+    "lon": 20.3460386,
+    "display_name": "powiat konecki, województwo świętokrzyskie, Polska",
+    "query": "konecki, Polska"
+  },
+  "Powiat milicki": {
+    "lat": 51.5080881,
+    "lon": 17.2968775,
+    "display_name": "powiat milicki, województwo dolnośląskie, Polska",
+    "query": "milicki, Polska"
+  },
+  "Powiat jasielski": {
+    "lat": 49.6427046,
+    "lon": 21.4657081,
+    "display_name": "powiat jasielski, województwo podkarpackie, Polska",
+    "query": "jasielski, Polska"
+  },
+  "Słupsk": {
+    "lat": 54.4649331,
+    "lon": 17.028073,
+    "display_name": "Słupsk, województwo pomorskie, Polska",
+    "query": "Słupsk, Polska"
+  },
+  "Powiat kielecki": {
+    "lat": 50.8018727,
+    "lon": 20.8817285,
+    "display_name": "powiat kielecki, województwo świętokrzyskie, Polska",
+    "query": "kielecki, Polska"
+  },
+  "Powiat międzychodzki": {
+    "lat": 52.6015122,
+    "lon": 16.0340051,
+    "display_name": "powiat międzychodzki, województwo wielkopolskie, Polska",
+    "query": "międzychodzki, Polska"
+  },
+  "Bydgoszcz": {
+    "lat": 53.1219648,
+    "lon": 18.0002529,
+    "display_name": "Bydgoszcz, województwo kujawsko-pomorskie, Polska",
+    "query": "Bydgoszcz, Polska"
+  },
+  "Powiat powiat siedlecki": {
+    "lat": 52.1918111,
+    "lon": 22.453206,
+    "display_name": "powiat siedlecki, województwo mazowieckie, Polska",
+    "query": "powiat siedlecki, Polska"
+  },
+  "Powiat miasto stołeczne warszawa": {
+    "lat": 52.2319581,
+    "lon": 21.0067249,
+    "display_name": "Warszawa, województwo mazowieckie, Polska",
+    "query": "miasto stołeczne warszawa, Polska"
+  },
+  "Powiat siematycki": {
+    "lat": 52.3448357,
+    "lon": 23.0756078,
+    "display_name": "17-307, Mielnik, gmina Mielnik, powiat siemiatycki, województwo podlaskie, Polska",
+    "query": "17-307          Mielnik, Polska"
+  },
+  "Poznań": {
+    "lat": 52.4006632,
+    "lon": 16.9197326,
+    "display_name": "Poznań, powiat poznański, województwo wielkopolskie, Polska",
+    "query": "Poznań, Polska"
+  },
+  "Powiat szczecinecki": {
+    "lat": 53.73764,
+    "lon": 16.5595958,
+    "display_name": "powiat szczecinecki, województwo zachodniopomorskie, Polska",
+    "query": "szczecinecki, Polska"
+  },
+  "Powiat makowski": {
+    "lat": 52.9467234,
+    "lon": 21.2521846,
+    "display_name": "powiat makowski, województwo mazowieckie, Polska",
+    "query": "makowski, Polska"
+  },
+  "Powiat lubański": {
+    "lat": 51.0450548,
+    "lon": 15.2759037,
+    "display_name": "powiat lubański, województwo dolnośląskie, Polska",
+    "query": "lubański, Polska"
+  },
+  "Powiat sępoleński": {
+    "lat": 53.4426462,
+    "lon": 17.5332745,
+    "display_name": "powiat sępoleński, województwo kujawsko-pomorskie, Polska",
+    "query": "sępoleński, Polska"
+  },
+  "Powiat sandomierski": {
+    "lat": 50.6951036,
+    "lon": 21.6798772,
+    "display_name": "powiat sandomierski, województwo świętokrzyskie, Polska",
+    "query": "sandomierski, Polska"
+  },
+  "Powiat człuchowski": {
+    "lat": 53.7511399,
+    "lon": 17.1669378,
+    "display_name": "powiat człuchowski, województwo pomorskie, Polska",
+    "query": "człuchowski, Polska"
+  },
+  "Powiat chojnicki": {
+    "lat": 53.801035,
+    "lon": 17.7277653,
+    "display_name": "powiat chojnicki, województwo pomorskie, Polska",
+    "query": "chojnicki, Polska"
+  },
+  "Powiat bytowski": {
+    "lat": 54.157823,
+    "lon": 17.3785549,
+    "display_name": "powiat bytowski, województwo pomorskie, Polska",
+    "query": "bytowski, Polska"
+  },
+  "Powiat złotoryjski": {
+    "lat": 51.0913251,
+    "lon": 15.8780054,
+    "display_name": "powiat złotoryjski, województwo dolnośląskie, Polska",
+    "query": "złotoryjski, Polska"
+  },
+  "m. Wrocław": {
+    "lat": 51.1089776,
+    "lon": 17.0326689,
+    "display_name": "Wrocław, województwo dolnośląskie, Polska",
+    "query": "m. Wrocław, Polska"
+  },
+  "Powiat polkowicki": {
+    "lat": 51.4996911,
+    "lon": 15.993915,
+    "display_name": "powiat polkowicki, województwo dolnośląskie, Polska",
+    "query": "polkowicki, Polska"
+  },
+  "Powiat oławski": {
+    "lat": 50.9605033,
+    "lon": 17.2852277,
+    "display_name": "powiat oławski, województwo dolnośląskie, Polska",
+    "query": "oławski, Polska"
+  },
+  "Powiat karkonoski": {
+    "lat": 50.8744849,
+    "lon": 15.5556219,
+    "display_name": "powiat karkonoski, województwo dolnośląskie, Polska",
+    "query": "karkonoski, Polska"
+  },
+  "Powiat głogowski": {
+    "lat": 53.0190597,
+    "lon": 18.8121928,
+    "display_name": "Głogowo, gmina Obrowo, powiat toruński, województwo kujawsko-pomorskie, 87-123, Polska",
+    "query": "głogowski, Polska"
+  },
+  "Powiat kłobucki": {
+    "lat": 50.9328202,
+    "lon": 18.8656593,
+    "display_name": "powiat kłobucki, województwo śląskie, Polska",
+    "query": "kłobucki, Polska"
+  },
+  "Powiat kaliski": {
+    "lat": 52.7841322,
+    "lon": 22.646858,
+    "display_name": "Kaliski, gmina Klukowo, powiat wysokomazowiecki, województwo podlaskie, Polska",
+    "query": "kaliski, Polska"
+  },
+  "Powiat wągrowiecki": {
+    "lat": 52.8254297,
+    "lon": 17.2915818,
+    "display_name": "powiat wągrowiecki, województwo wielkopolskie, Polska",
+    "query": "wągrowiecki, Polska"
+  },
+  "Powiat pajęczański": {
+    "lat": 51.1408981,
+    "lon": 19.0193632,
+    "display_name": "powiat pajęczański, województwo łódzkie, Polska",
+    "query": "pajęczański, Polska"
+  },
+  "Powiat rawski": {
+    "lat": 52.0832566,
+    "lon": 21.2440008,
+    "display_name": "Rawski, Bohaterów Westerplatte, Osiedle Ługi, Karczew, gmina Karczew, powiat otwocki, województwo mazowieckie, 05-480, Polska",
+    "query": "rawski, Polska"
+  },
+  "Powiat wieruszowski": {
+    "lat": 51.2945041,
+    "lon": 18.2567959,
+    "display_name": "powiat wieruszowski, województwo łódzkie, Polska",
+    "query": "wieruszowski, Polska"
+  },
+  "Powiat radomszczański": {
+    "lat": 51.0648365,
+    "lon": 19.6311529,
+    "display_name": "powiat radomszczański, województwo łódzkie, Polska",
+    "query": "radomszczański, Polska"
+  },
+  "Powiat szczecin, goleniowski": {
+    "lat": 53.5843896,
+    "lon": 14.905944,
+    "display_name": "Port Lotniczy Szczecin-Goleniów im. NSZZ \"Solidarność\", 113, Kolonia Żółwia Błoć, Glewice, gmina Goleniów, powiat goleniowski, województwo zachodniopomorskie, 72-100, Polska",
+    "query": "szczecin, goleniowski, Polska"
+  },
+  "Powiat policki": {
+    "lat": 52.1361111,
+    "lon": 18.6425,
+    "display_name": "Police Mostowe, gmina Kościelec, powiat kolski, województwo wielkopolskie, 62-604, Polska",
+    "query": "policki, Polska"
+  },
+  "Szczecin": {
+    "lat": 53.4301818,
+    "lon": 14.5509623,
+    "display_name": "Szczecin, województwo zachodniopomorskie, Polska",
+    "query": "Szczecin, Polska"
+  },
+  "Powiat kamieński": {
+    "lat": 52.2884074,
+    "lon": 18.0293306,
+    "display_name": "Kamień, gmina Słupca, powiat słupecki, województwo wielkopolskie, 62-400, Polska",
+    "query": "kamieński, Polska"
+  },
+  "Powiat gryfiński": {
+    "lat": 53.0228705,
+    "lon": 14.5057856,
+    "display_name": "powiat gryfiński, województwo zachodniopomorskie, Polska",
+    "query": "gryfiński, Polska"
+  },
+  "Koszalin": {
+    "lat": 54.19092,
+    "lon": 16.17707,
+    "display_name": "Koszalin, województwo zachodniopomorskie, Polska",
+    "query": "Koszalin, Polska"
+  },
+  "Powiat łobeski": {
+    "lat": 53.6729785,
+    "lon": 15.5163182,
+    "display_name": "powiat łobeski, województwo zachodniopomorskie, Polska",
+    "query": "łobeski, Polska"
+  },
+  "Powiat myśliborski": {
+    "lat": 52.2108333,
+    "lon": 18.1061111,
+    "display_name": "Myśliborskie Holendry, gmina Golina, powiat koniński, województwo wielkopolskie, 62-590, Polska",
+    "query": "myśliborski, Polska"
+  },
+  "Powiat świdwiński": {
+    "lat": 53.774596,
+    "lon": 15.7767962,
+    "display_name": "Świdwin, powiat świdwiński, województwo zachodniopomorskie, Polska",
+    "query": "świdwiński, Polska"
+  },
+  "Powiat wałecki": {
+    "lat": 53.2357076,
+    "lon": 16.3191645,
+    "display_name": "powiat wałecki, województwo zachodniopomorskie, Polska",
+    "query": "wałecki, Polska"
+  },
+  "Powiat gryficki": {
+    "lat": 53.9431401,
+    "lon": 15.2598805,
+    "display_name": "powiat gryficki, województwo zachodniopomorskie, Polska",
+    "query": "gryficki, Polska"
+  },
+  "Powiat białogardzki": {
+    "lat": 53.9765753,
+    "lon": 16.0545555,
+    "display_name": "powiat białogardzki, województwo zachodniopomorskie, Polska",
+    "query": "białogardzki, Polska"
+  },
+  "Powiat drawski": {
+    "lat": 53.447525,
+    "lon": 16.0404719,
+    "display_name": "powiat drawski, województwo zachodniopomorskie, Polska",
+    "query": "drawski, Polska"
+  },
+  "Powiat płocki": {
+    "lat": 53.8043384,
+    "lon": 15.2680368,
+    "display_name": "Płoty, gmina Płoty, powiat gryficki, województwo zachodniopomorskie, 72-310, Polska",
+    "query": "płocki, Polska"
+  },
+  "Powiat żyrardowski": {
+    "lat": 51.9997673,
+    "lon": 20.436351,
+    "display_name": "powiat żyrardowski, województwo mazowieckie, Polska",
+    "query": "żyrardowski, Polska"
+  },
+  "Powiat grodziski": {
+    "lat": 51.9156874,
+    "lon": 19.7906057,
+    "display_name": "Grodzisk, gmina Dmosin, powiat brzeziński, województwo łódzkie, Polska",
+    "query": "grodziski, Polska"
+  },
+  "Powiat mławski, ciechanowski": {
+    "lat": 52.9188357,
+    "lon": 20.3013542,
+    "display_name": "06-445, gmina Strzegowo, powiat mławski, województwo mazowieckie, Polska",
+    "query": "06-445          Strzegowo, Polska"
+  },
+  "Powiat miński": {
+    "lat": 52.1836653,
+    "lon": 21.6530457,
+    "display_name": "powiat miński, województwo mazowieckie, Polska",
+    "query": "miński, Polska"
+  },
+  "Powiat sokołowski": {
+    "lat": 49.4731937,
+    "lon": 19.8811077,
+    "display_name": "Sokołowski, Czarny Dunajec, gmina Czarny Dunajec, powiat nowotarski, województwo małopolskie, 34-408, Polska",
+    "query": "sokołowski, Polska"
+  },
+  "Powiat mławski": {
+    "lat": 53.0549485,
+    "lon": 20.3222202,
+    "display_name": "powiat mławski, województwo mazowieckie, Polska",
+    "query": "mławski, Polska"
+  },
+  "Powiat węgrowski": {
+    "lat": 52.4563856,
+    "lon": 21.9462183,
+    "display_name": "powiat węgrowski, województwo mazowieckie, Polska",
+    "query": "węgrowski, Polska"
+  },
+  "Powiat garwoliński": {
+    "lat": 51.8266832,
+    "lon": 21.6528704,
+    "display_name": "powiat garwoliński, województwo mazowieckie, Polska",
+    "query": "garwoliński, Polska"
+  },
+  "Powiat": {
+    "lat": 52.215933,
+    "lon": 19.134422,
+    "display_name": "Polska",
+    "query": ", Polska"
+  },
+  "Powiat przasnyski": {
+    "lat": 53.1135835,
+    "lon": 20.9128718,
+    "display_name": "powiat przasnyski, województwo mazowieckie, Polska",
+    "query": "przasnyski, Polska"
+  },
+  "Radom": {
+    "lat": 51.416727,
+    "lon": 21.1607392,
+    "display_name": "Radom, województwo mazowieckie, Polska",
+    "query": "Radom, Polska"
+  },
+  "Powiat zwoleński": {
+    "lat": 51.3607232,
+    "lon": 21.6422549,
+    "display_name": "powiat zwoleński, województwo mazowieckie, Polska",
+    "query": "zwoleński, Polska"
+  },
+  "Powiat pułtuski": {
+    "lat": 52.6718226,
+    "lon": 20.9917254,
+    "display_name": "powiat pułtuski, województwo mazowieckie, Polska",
+    "query": "pułtuski, Polska"
+  },
+  "Powiat lipski": {
+    "lat": 52.3975,
+    "lon": 19.4191667,
+    "display_name": "Lipa, gmina Gostynin, powiat gostyniński, województwo mazowieckie, 09-500, Polska",
+    "query": "lipski, Polska"
+  },
+  "Powiat ciechanowski": {
+    "lat": 52.9021821,
+    "lon": 20.6276155,
+    "display_name": "powiat ciechanowski, województwo mazowieckie, Polska",
+    "query": "ciechanowski, Polska"
+  },
+  "Powiat grójecki": {
+    "lat": 51.4448727,
+    "lon": 18.5578656,
+    "display_name": "Grójec Wielki, gmina Złoczew, powiat sieradzki, województwo łódzkie, Polska",
+    "query": "grójecki, Polska"
+  },
+  "Płock": {
+    "lat": 52.5353471,
+    "lon": 19.7136301,
+    "display_name": "Płock, województwo mazowieckie, Polska",
+    "query": "Płock, Polska"
+  },
+  "Siedlce": {
+    "lat": 52.1615938,
+    "lon": 22.2812533,
+    "display_name": "Siedlce, województwo mazowieckie, Polska",
+    "query": "Siedlce, Polska"
+  },
+  "Powiat sochaczewski": {
+    "lat": 52.2296562,
+    "lon": 20.2379379,
+    "display_name": "Sochaczew, powiat sochaczewski, województwo mazowieckie, Polska",
+    "query": "sochaczewski, Polska"
+  },
+  "Powiat przysuski": {
+    "lat": 51.4237407,
+    "lon": 20.6299267,
+    "display_name": "powiat przysuski, województwo mazowieckie, Polska",
+    "query": "przysuski, Polska"
+  },
+  "Powiat sierpecki": {
+    "lat": 52.8335996,
+    "lon": 19.6919437,
+    "display_name": "powiat sierpecki, województwo mazowieckie, Polska",
+    "query": "sierpecki, Polska"
+  },
+  "Powiat kozienicki": {
+    "lat": 51.6397453,
+    "lon": 21.4015317,
+    "display_name": "powiat kozienicki, województwo mazowieckie, Polska",
+    "query": "kozienicki, Polska"
+  },
+  "Powiat żuromiński": {
+    "lat": 53.016369,
+    "lon": 19.878079,
+    "display_name": "powiat żuromiński, województwo mazowieckie, Polska",
+    "query": "żuromiński, Polska"
+  },
+  "Powiat szydłowiecki": {
+    "lat": 51.2560582,
+    "lon": 20.8439205,
+    "display_name": "powiat szydłowiecki, województwo mazowieckie, Polska",
+    "query": "szydłowiecki, Polska"
+  },
+  "Powiat białobrzeski": {
+    "lat": 51.6281218,
+    "lon": 22.4146308,
+    "display_name": "Białobrzegi-Kolonia, gmina Kock, powiat lubartowski, województwo lubelskie, Polska",
+    "query": "białobrzeski, Polska"
+  },
+  "Powiat szamotulski": {
+    "lat": 52.5839015,
+    "lon": 16.4784888,
+    "display_name": "powiat szamotulski, województwo wielkopolskie, Polska",
+    "query": "szamotulski, Polska"
+  },
+  "Leszno": {
+    "lat": 51.8436498,
+    "lon": 16.5744141,
+    "display_name": "Leszno, województwo wielkopolskie, Polska",
+    "query": "Leszno, Polska"
+  },
+  "Powiat nowotomyski": {
+    "lat": 52.3483616,
+    "lon": 16.1785473,
+    "display_name": "powiat nowotomyski, województwo wielkopolskie, Polska",
+    "query": "nowotomyski, Polska"
+  },
+  "Powiat kościański": {
+    "lat": 52.0663511,
+    "lon": 16.6686031,
+    "display_name": "powiat kościański, województwo wielkopolskie, Polska",
+    "query": "kościański, Polska"
+  },
+  "Powiat leszczyński": {
+    "lat": 50.9054846,
+    "lon": 18.9247082,
+    "display_name": "Leszczyński, Kolejowa, Kłobuck, gmina Kłobuck, powiat kłobucki, województwo śląskie, 42-100, Polska",
+    "query": "leszczyński, Polska"
+  },
+  "Powiat koniński": {
+    "lat": 52.5238889,
+    "lon": 16.315,
+    "display_name": "Konin, gmina Pniewy, powiat szamotulski, województwo wielkopolskie, 62-045, Polska",
+    "query": "koniński, Polska"
+  },
+  "Powiat jarociński": {
+    "lat": 52.0099051,
+    "lon": 17.5133429,
+    "display_name": "powiat jarociński, województwo wielkopolskie, Polska",
+    "query": "jarociński, Polska"
+  },
+  "Kalisz": {
+    "lat": 51.7624752,
+    "lon": 18.0895358,
+    "display_name": "Kalisz, województwo wielkopolskie, 62-800, Polska",
+    "query": "Kalisz, Polska"
+  },
+  "Powiat ostrzeszowski": {
+    "lat": 51.4376243,
+    "lon": 17.9747816,
+    "display_name": "powiat ostrzeszowski, województwo wielkopolskie, Polska",
+    "query": "ostrzeszowski, Polska"
+  },
+  "Powiat czarnkowsko-trzcianecki": {
+    "lat": 53.1243961,
+    "lon": 16.688074,
+    "display_name": "Xella Polska Sp. z o.o. Zakład Ytong w Stobnie k/Trzcianki, gmina Trzcianka, powiat czarnkowsko-trzcianecki, województwo wielkopolskie, Polska",
+    "query": "czarnkowsko-trzcianecki, Polska"
+  },
+  "Powiat turecki": {
+    "lat": 51.9955584,
+    "lon": 18.4928954,
+    "display_name": "powiat turecki, województwo wielkopolskie, Polska",
+    "query": "turecki, Polska"
+  },
+  "Konin": {
+    "lat": 52.2559021,
+    "lon": 18.2678662,
+    "display_name": "Konin, województwo wielkopolskie, Polska",
+    "query": "Konin, Polska"
+  },
+  "Powiat kępiński": {
+    "lat": 51.2486103,
+    "lon": 17.9566866,
+    "display_name": "powiat kępiński, województwo wielkopolskie, Polska",
+    "query": "kępiński, Polska"
+  },
+  "Powiat słupecki": {
+    "lat": 52.5843361,
+    "lon": 20.0631058,
+    "display_name": "Słupca, gmina Bulkowo, powiat płocki, województwo mazowieckie, 09-452, Polska",
+    "query": "słupecki, Polska"
+  },
+  "Powiat pleszewski": {
+    "lat": 51.9254229,
+    "lon": 17.8248007,
+    "display_name": "powiat pleszewski, województwo wielkopolskie, Polska",
+    "query": "pleszewski, Polska"
+  },
+  "Powiat wrzesiński": {
+    "lat": 52.2409626,
+    "lon": 17.6143142,
+    "display_name": "powiat wrzesiński, województwo wielkopolskie, Polska",
+    "query": "wrzesiński, Polska"
+  },
+  "Powiat chodzieski": {
+    "lat": 52.9526027,
+    "lon": 16.9690664,
+    "display_name": "powiat chodzieski, województwo wielkopolskie, Polska",
+    "query": "chodzieski, Polska"
+  },
+  "Powiat krotoszyński": {
+    "lat": 51.7411767,
+    "lon": 17.4316568,
+    "display_name": "powiat krotoszyński, województwo wielkopolskie, Polska",
+    "query": "krotoszyński, Polska"
+  },
+  "Powiat proszowicki": {
+    "lat": 50.2169806,
+    "lon": 20.2665011,
+    "display_name": "powiat proszowicki, województwo małopolskie, Polska",
+    "query": "proszowicki, Polska"
+  },
+  "Powiat suski": {
+    "lat": 52.7918583,
+    "lon": 19.67333,
+    "display_name": "Susk Nowy, gmina Sierpc, powiat sierpecki, województwo mazowieckie, 09-212, Polska",
+    "query": "suski, Polska"
+  },
+  "Powiat miechowski": {
+    "lat": 50.3897027,
+    "lon": 20.077788,
+    "display_name": "powiat miechowski, województwo małopolskie, Polska",
+    "query": "miechowski, Polska"
+  },
+  "Nowy Sącz": {
+    "lat": 49.610304,
+    "lon": 20.7149366,
+    "display_name": "Nowy Sącz, województwo małopolskie, Polska",
+    "query": "Nowy Sącz, Polska"
+  },
+  "Powiat gorlicki": {
+    "lat": 49.5913385,
+    "lon": 21.1668102,
+    "display_name": "powiat gorlicki, województwo małopolskie, Polska",
+    "query": "gorlicki, Polska"
+  },
+  "Powiat dąbrowski": {
+    "lat": 51.8996309,
+    "lon": 21.1335375,
+    "display_name": "Dąbrowa Duża, gmina Chynów, powiat grójecki, województwo mazowieckie, Polska",
+    "query": "dąbrowski, Polska"
+  },
+  "Powiat węgorzewski": {
+    "lat": 54.2074389,
+    "lon": 21.7918454,
+    "display_name": "powiat węgorzewski, województwo warmińsko-mazurskie, Polska",
+    "query": "węgorzewski, Polska"
+  },
+  "Powiat iławski": {
+    "lat": 53.674791,
+    "lon": 19.491503,
+    "display_name": "powiat iławski, województwo warmińsko-mazurskie, Polska",
+    "query": "iławski, Polska"
+  },
+  "Powiat kętrzyński": {
+    "lat": 54.1361925,
+    "lon": 21.2893802,
+    "display_name": "powiat kętrzyński, województwo warmińsko-mazurskie, Polska",
+    "query": "kętrzyński, Polska"
+  },
+  "Powiat mrągowski": {
+    "lat": 53.8108457,
+    "lon": 21.4027809,
+    "display_name": "powiat mrągowski, województwo warmińsko-mazurskie, Polska",
+    "query": "mrągowski, Polska"
+  },
+  "Powiat nidzicki": {
+    "lat": 53.3734762,
+    "lon": 20.4883075,
+    "display_name": "powiat nidzicki, województwo warmińsko-mazurskie, Polska",
+    "query": "nidzicki, Polska"
+  },
+  "Powiat nowomiejski": {
+    "lat": 52.6552778,
+    "lon": 20.6377778,
+    "display_name": "Nowe Miasto-Folwark, gmina Nowe Miasto, powiat płoński, województwo mazowieckie, Polska",
+    "query": "nowomiejski, Polska"
+  },
+  "Powiat buski": {
+    "lat": 50.4558306,
+    "lon": 20.7989888,
+    "display_name": "powiat buski, województwo świętokrzyskie, Polska",
+    "query": "buski, Polska"
+  },
+  "Powiat ostródzki": {
+    "lat": 53.7291733,
+    "lon": 19.9341665,
+    "display_name": "powiat ostródzki, województwo warmińsko-mazurskie, Polska",
+    "query": "ostródzki, Polska"
+  },
+  "Powiat szczycieński": {
+    "lat": 52.5520217,
+    "lon": 19.878256,
+    "display_name": "Szczytno, gmina Radzanowo, powiat płocki, województwo mazowieckie, 09-451, Polska",
+    "query": "szczycieński, Polska"
+  },
+  "Powiat braniewski": {
+    "lat": 54.2777943,
+    "lon": 19.9554841,
+    "display_name": "powiat braniewski, województwo warmińsko-mazurskie, Polska",
+    "query": "braniewski, Polska"
+  },
+  "Powiat działdowski": {
+    "lat": 53.2892581,
+    "lon": 19.9806749,
+    "display_name": "powiat działdowski, województwo warmińsko-mazurskie, Polska",
+    "query": "działdowski, Polska"
+  },
+  "Elbląg": {
+    "lat": 54.1988997,
+    "lon": 19.4410857,
+    "display_name": "Elbląg, województwo warmińsko-mazurskie, Polska",
+    "query": "Elbląg, Polska"
+  },
+  "Powiat elbląski": {
+    "lat": 54.1592651,
+    "lon": 19.6383046,
+    "display_name": "powiat elbląski, województwo warmińsko-mazurskie, Polska",
+    "query": "elbląski, Polska"
+  },
+  "Powiat ełcki": {
+    "lat": 53.8165804,
+    "lon": 22.4318116,
+    "display_name": "powiat ełcki, województwo warmińsko-mazurskie, Polska",
+    "query": "ełcki, Polska"
+  },
+  "Powiat giżycki": {
+    "lat": 52.2913439,
+    "lon": 20.0828532,
+    "display_name": "Giżyce, gmina Iłów, powiat sochaczewski, województwo mazowieckie, Polska",
+    "query": "giżycki, Polska"
+  },
+  "Powiat opatowski": {
+    "lat": 50.8788919,
+    "lon": 21.6658585,
+    "display_name": "powiat opatowski, województwo świętokrzyskie, Polska",
+    "query": "opatowski, Polska"
+  },
+  "Powiat starachowicki": {
+    "lat": 51.0538357,
+    "lon": 21.1459511,
+    "display_name": "powiat starachowicki, województwo świętokrzyskie, Polska",
+    "query": "starachowicki, Polska"
+  },
+  "Powiat ostrowiecki": {
+    "lat": 51.8911732,
+    "lon": 20.9992523,
+    "display_name": "Ostrowiec, gmina Chynów, powiat grójecki, województwo mazowieckie, Polska",
+    "query": "ostrowiecki, Polska"
+  },
+  "Powiat staszowski": {
+    "lat": 50.5172498,
+    "lon": 21.3062164,
+    "display_name": "powiat staszowski, województwo świętokrzyskie, Polska",
+    "query": "staszowski, Polska"
+  },
+  "Powiat skarżyski": {
+    "lat": 51.0641886,
+    "lon": 20.7597383,
+    "display_name": "powiat skarżyski, województwo świętokrzyskie, Polska",
+    "query": "skarżyski, Polska"
+  },
+  "Powiat pińczowski": {
+    "lat": 50.4997216,
+    "lon": 20.4936362,
+    "display_name": "powiat pińczowski, województwo świętokrzyskie, Polska",
+    "query": "pińczowski, Polska"
+  },
+  "Powiat kazimierski": {
+    "lat": 50.2881436,
+    "lon": 20.525207,
+    "display_name": "powiat kazimierski, województwo świętokrzyskie, Polska",
+    "query": "kazimierski, Polska"
+  },
+  "Powiat jędrzejowski": {
+    "lat": 50.6571794,
+    "lon": 20.2965021,
+    "display_name": "powiat jędrzejowski, województwo świętokrzyskie, Polska",
+    "query": "jędrzejowski, Polska"
+  },
+  "Powiat kościerski": {
+    "lat": 54.0193388,
+    "lon": 17.9711155,
+    "display_name": "powiat kościerski, województwo pomorskie, Polska",
+    "query": "kościerski, Polska"
+  },
+  "Powiat tczewski": {
+    "lat": 53.9189384,
+    "lon": 18.7470011,
+    "display_name": "powiat tczewski, województwo pomorskie, Polska",
+    "query": "tczewski, Polska"
+  },
+  "Powiat malborski": {
+    "lat": 54.0631755,
+    "lon": 19.028032,
+    "display_name": "powiat malborski, województwo pomorskie, Polska",
+    "query": "malborski, Polska"
+  },
+  "Białystok": {
+    "lat": 53.127505,
+    "lon": 23.1470509,
+    "display_name": "Białystok, powiat białostocki, województwo podlaskie, Polska",
+    "query": "Białystok, Polska"
+  },
+  "Powiat augustowski": {
+    "lat": 52.7325,
+    "lon": 21.5797222,
+    "display_name": "Augustowo, gmina Długosiodło, powiat wyszkowski, województwo mazowieckie, 07-210, Polska",
+    "query": "augustowski, Polska"
+  },
+  "Łomża": {
+    "lat": 53.1824307,
+    "lon": 22.0521838,
+    "display_name": "Łomża, województwo podlaskie, Polska",
+    "query": "Łomża, Polska"
+  },
+  "Powiat wysokomazowiecki": {
+    "lat": 52.8651283,
+    "lon": 22.5208591,
+    "display_name": "powiat wysokomazowiecki, województwo podlaskie, Polska",
+    "query": "wysokomazowiecki, Polska"
+  },
+  "Powiat grajewski": {
+    "lat": 53.5550583,
+    "lon": 22.4188913,
+    "display_name": "powiat grajewski, województwo podlaskie, Polska",
+    "query": "grajewski, Polska"
+  },
+  "Powiat sejneński": {
+    "lat": 54.117818,
+    "lon": 23.3248154,
+    "display_name": "Kolonia Sejny, gmina Sejny, powiat sejneński, województwo podlaskie, Polska",
+    "query": "sejneński, Polska"
+  },
+  "Suwałki": {
+    "lat": 54.0990636,
+    "lon": 22.9279363,
+    "display_name": "Suwałki, województwo podlaskie, Polska",
+    "query": "Suwałki, Polska"
+  },
+  "Powiat moniecki": {
+    "lat": 53.445746,
+    "lon": 22.8170532,
+    "display_name": "powiat moniecki, województwo podlaskie, Polska",
+    "query": "moniecki, Polska"
+  },
+  "Powiat kolbuszowski": {
+    "lat": 50.3156011,
+    "lon": 21.7723481,
+    "display_name": "powiat kolbuszowski, województwo podkarpackie, Polska",
+    "query": "kolbuszowski, Polska"
+  },
+  "Powiat brzozowski": {
+    "lat": 52.2993566,
+    "lon": 20.0384431,
+    "display_name": "Brzozów Stary, gmina Iłów, powiat sochaczewski, województwo mazowieckie, Polska",
+    "query": "brzozowski, Polska"
+  },
+  "Powiat dębicki": {
+    "lat": 50.0457308,
+    "lon": 21.403085,
+    "display_name": "Dębicki, 74, Krakowska, Krakowska-Południe, Dębica, powiat dębicki, województwo podkarpackie, 39-200, Polska",
+    "query": "dębicki, Polska"
+  },
+  "Powiat sanocki": {
+    "lat": 49.4297832,
+    "lon": 22.101304,
+    "display_name": "powiat sanocki, województwo podkarpackie, Polska",
+    "query": "sanocki, Polska"
+  },
+  "Powiat stalowowolski": {
+    "lat": 50.5910262,
+    "lon": 22.0917761,
+    "display_name": "powiat stalowowolski, województwo podkarpackie, Polska",
+    "query": "stalowowolski, Polska"
+  },
+  "Powiat tarnobrzeski": {
+    "lat": 50.562674,
+    "lon": 21.8603153,
+    "display_name": "powiat tarnobrzeski, województwo podkarpackie, Polska",
+    "query": "tarnobrzeski, Polska"
+  },
+  "Krosno": {
+    "lat": 49.6889844,
+    "lon": 21.7534788,
+    "display_name": "Krosno, województwo podkarpackie, Polska",
+    "query": "Krosno, Polska"
+  },
+  "Przemyśl": {
+    "lat": 49.7845132,
+    "lon": 22.7698454,
+    "display_name": "Przemyśl, województwo podkarpackie, Polska",
+    "query": "Przemyśl, Polska"
+  },
+  "Powiat niżański": {
+    "lat": 50.4641343,
+    "lon": 22.2688393,
+    "display_name": "powiat niżański, województwo podkarpackie, Polska",
+    "query": "niżański, Polska"
+  },
+  "Powiat lubaczowski": {
+    "lat": 50.1956381,
+    "lon": 23.1454097,
+    "display_name": "powiat lubaczowski, województwo podkarpackie, Polska",
+    "query": "lubaczowski, Polska"
+  },
+  "Powiat łańcucki": {
+    "lat": 50.0865403,
+    "lon": 22.274647,
+    "display_name": "powiat łańcucki, województwo podkarpackie, Polska",
+    "query": "łańcucki, Polska"
+  },
+  "Powiat jarosławski": {
+    "lat": 52.2310373,
+    "lon": 20.9786579,
+    "display_name": "Jarosławski, 28A, Karolkowa, Czyste, Wola, Warszawa, województwo mazowieckie, 01-209, Polska",
+    "query": "jarosławski, Polska"
+  },
+  "Powiat ropczycko-sędziszowski": {
+    "lat": 49.9897222,
+    "lon": 21.4708333,
+    "display_name": "Polska, Niedźwiada, gmina Ropczyce, powiat ropczycko-sędziszowski, województwo podkarpackie, 39-107, Polska",
+    "query": "ropczycko-sędziszowski, Polska"
+  },
+  "Powiat strzyżowski": {
+    "lat": 49.8768956,
+    "lon": 21.7157229,
+    "display_name": "powiat strzyżowski, województwo podkarpackie, Polska",
+    "query": "strzyżowski, Polska"
+  },
+  "Powiat leżajski": {
+    "lat": 50.2614399,
+    "lon": 22.414046,
+    "display_name": "powiat leżajski, województwo podkarpackie, Polska",
+    "query": "leżajski, Polska"
+  },
+  "Tarnobrzeg": {
+    "lat": 50.5729327,
+    "lon": 21.6791667,
+    "display_name": "Tarnobrzeg, województwo podkarpackie, 39-400, Polska",
+    "query": "Tarnobrzeg, Polska"
+  },
+  "Powiat przeworski": {
+    "lat": 50.0891606,
+    "lon": 22.4868512,
+    "display_name": "powiat przeworski, województwo podkarpackie, Polska",
+    "query": "przeworski, Polska"
+  },
+  "Powiat bieszczadzki": {
+    "lat": 49.3363703,
+    "lon": 22.6304519,
+    "display_name": "powiat bieszczadzki, województwo podkarpackie, Polska",
+    "query": "bieszczadzki, Polska"
+  },
+  "Powiat przemyski": {
+    "lat": 49.7613471,
+    "lon": 22.5222473,
+    "display_name": "powiat przemyski, województwo podkarpackie, Polska",
+    "query": "przemyski, Polska"
+  },
+  "Powiat kędzierzyńsko-kozielski": {
+    "lat": 50.2941297,
+    "lon": 18.1609708,
+    "display_name": "powiat kędzierzyńsko-kozielski, województwo opolskie, Polska",
+    "query": "kędzierzyńsko-kozielski, Polska"
+  },
+  "Powiat kluczborski": {
+    "lat": 50.9861363,
+    "lon": 18.1454975,
+    "display_name": "powiat kluczborski, województwo opolskie, Polska",
+    "query": "kluczborski, Polska"
+  },
+  "Powiat prudnicki": {
+    "lat": 50.4098012,
+    "lon": 17.6634646,
+    "display_name": "powiat prudnicki, województwo opolskie, Polska",
+    "query": "prudnicki, Polska"
+  },
+  "Powiat głubczycki": {
+    "lat": 50.1483302,
+    "lon": 17.8324817,
+    "display_name": "powiat głubczycki, województwo opolskie, Polska",
+    "query": "głubczycki, Polska"
+  },
+  "Powiat żagański": {
+    "lat": 51.5942426,
+    "lon": 15.5279496,
+    "display_name": "powiat żagański, województwo lubuskie, Polska",
+    "query": "żagański, Polska"
+  },
+  "Powiat nowosolski": {
+    "lat": 51.8422184,
+    "lon": 15.7035308,
+    "display_name": "powiat nowosolski, województwo lubuskie, Polska",
+    "query": "nowosolski, Polska"
+  },
+  "Zielona Góra": {
+    "lat": 51.9275737,
+    "lon": 15.5490421,
+    "display_name": "Zielona Góra, województwo lubuskie, Polska",
+    "query": "Zielona Góra, Polska"
+  },
+  "Powiat świebodziński": {
+    "lat": 52.2378102,
+    "lon": 15.5069736,
+    "display_name": "powiat świebodziński, województwo lubuskie, Polska",
+    "query": "świebodziński, Polska"
+  },
+  "Powiat sulęciński": {
+    "lat": 52.8611111,
+    "lon": 21.8611111,
+    "display_name": "Sulęcin-Kolonia, gmina Ostrów Mazowiecka, powiat ostrowski, województwo mazowieckie, 07-302, Polska",
+    "query": "sulęciński, Polska"
+  },
+  "Gorzów Wielkopolski": {
+    "lat": 52.7305756,
+    "lon": 15.2107553,
+    "display_name": "Gorzów Wielkopolski, województwo lubuskie, Polska",
+    "query": "Gorzów Wielkopolski, Polska"
+  },
+  "Powiat żarski": {
+    "lat": 51.6287068,
+    "lon": 15.0076394,
+    "display_name": "powiat żarski, województwo lubuskie, Polska",
+    "query": "żarski, Polska"
+  },
+  "Powiat strzelecko-drezdenecki": {
+    "lat": 52.9123164,
+    "lon": 15.6481539,
+    "display_name": "powiat strzelecko-drezdenecki, województwo lubuskie, Polska",
+    "query": "strzelecko-drezdenecki, Polska"
+  },
+  "Powiat wschowski": {
+    "lat": 51.8302029,
+    "lon": 16.120001,
+    "display_name": "powiat wschowski, województwo lubuskie, Polska",
+    "query": "wschowski, Polska"
+  },
+  "Powiat łukowski": {
+    "lat": 51.853097,
+    "lon": 22.1152287,
+    "display_name": "powiat łukowski, województwo lubelskie, Polska",
+    "query": "łukowski, Polska"
+  },
+  "Powiat zamojski": {
+    "lat": 52.7255556,
+    "lon": 21.5369444,
+    "display_name": "Zamość, gmina Długosiodło, powiat wyszkowski, województwo mazowieckie, 07-211, Polska",
+    "query": "zamojski, Polska"
+  },
+  "Powiat bialski": {
+    "lat": 52.0755556,
+    "lon": 18.0205556,
+    "display_name": "Biała, gmina Grodziec, powiat koniński, województwo wielkopolskie, 62-580, Polska",
+    "query": "bialski, Polska"
+  },
+  "Lublin": {
+    "lat": 51.250559,
+    "lon": 22.5701022,
+    "display_name": "Lublin, województwo lubelskie, Polska",
+    "query": "Lublin, Polska"
+  },
+  "Powiat lubartowski": {
+    "lat": 51.5351673,
+    "lon": 22.5165381,
+    "display_name": "powiat lubartowski, województwo lubelskie, Polska",
+    "query": "lubartowski, Polska"
+  },
+  "Powiat kraśnicki": {
+    "lat": 50.4263181,
+    "lon": 21.2526323,
+    "display_name": "Kraśnik, gmina Połaniec, powiat staszowski, województwo świętokrzyskie, Polska",
+    "query": "kraśnicki, Polska"
+  },
+  "Powiat krasnostawski": {
+    "lat": 50.9634247,
+    "lon": 23.0995807,
+    "display_name": "powiat krasnostawski, województwo lubelskie, Polska",
+    "query": "krasnostawski, Polska"
+  },
+  "Powiat parczewski": {
+    "lat": 51.5984122,
+    "lon": 22.9306599,
+    "display_name": "powiat parczewski, województwo lubelskie, Polska",
+    "query": "parczewski, Polska"
+  },
+  "Powiat janowski": {
+    "lat": 52.3730556,
+    "lon": 17.8252778,
+    "display_name": "Janowo-Olędry, gmina Strzałkowo, powiat słupecki, województwo wielkopolskie, 62-420, Polska",
+    "query": "janowski, Polska"
+  },
+  "Powiat biała podlaska, bialski": {
+    "lat": 52.0290318,
+    "lon": 23.1494095,
+    "display_name": "Biała Podlaska, powiat bialski, województwo lubelskie, Polska",
+    "query": "biała podlaska, bialski, Polska"
+  },
+  "Powiat włodawski": {
+    "lat": 51.523087,
+    "lon": 23.4077411,
+    "display_name": "powiat włodawski, województwo lubelskie, Polska",
+    "query": "włodawski, Polska"
+  },
+  "Powiat chełmski": {
+    "lat": 51.1218841,
+    "lon": 23.2556601,
+    "display_name": "powiat chełmski, województwo lubelskie, Polska",
+    "query": "chełmski, Polska"
+  },
+  "Powiat rycki": {
+    "lat": 51.6620587,
+    "lon": 22.0064698,
+    "display_name": "powiat rycki, województwo lubelskie, Polska",
+    "query": "rycki, Polska"
+  },
+  "Zamość": {
+    "lat": 50.7170854,
+    "lon": 23.2525711,
+    "display_name": "Zamość, województwo lubelskie, Polska",
+    "query": "Zamość, Polska"
+  },
+  "Jelenia Góra": {
+    "lat": 50.9031028,
+    "lon": 15.7344306,
+    "display_name": "Jelenia Góra, województwo dolnośląskie, Polska",
+    "query": "Jelenia Góra, Polska"
+  },
+  "Powiat lwówecki": {
+    "lat": 51.0155289,
+    "lon": 15.5590271,
+    "display_name": "powiat lwówecki, województwo dolnośląskie, Polska",
+    "query": "lwówecki, Polska"
+  },
+  "Powiat górowski": {
+    "lat": 49.7897443,
+    "lon": 20.2542898,
+    "display_name": "Górowski, Sadkówki, Sadek, gmina Jodłownik, powiat limanowski, województwo małopolskie, Polska",
+    "query": "górowski, Polska"
+  },
+  "Powiat sieradzki": {
+    "lat": 49.8887115,
+    "lon": 20.3417579,
+    "display_name": "Sieradzka, Sobolów, gmina Łapanów, powiat bocheński, województwo małopolskie, 32-742, Polska",
+    "query": "sieradzki, Polska"
+  },
+  "Powiat skierniewicki": {
+    "lat": 51.9449382,
+    "lon": 20.0095639,
+    "display_name": "powiat skierniewicki, województwo łódzkie, Polska",
+    "query": "skierniewicki, Polska"
+  },
+  "Łaski": {
+    "lat": 49.7175953,
+    "lon": 21.5048724,
+    "display_name": "Łaski, gmina Jasło, powiat jasielski, województwo podkarpackie, Polska",
+    "query": "Łaski, Polska"
+  },
+  "Piotrków Trybunalski": {
+    "lat": 51.4082625,
+    "lon": 19.696167,
+    "display_name": "Piotrków Trybunalski, województwo łódzkie, 97-300, Polska",
+    "query": "Piotrków Trybunalski, Polska"
+  },
+  "Powiat poddębicki": {
+    "lat": 51.8983921,
+    "lon": 18.9639004,
+    "display_name": "powiat poddębicki, województwo łódzkie, Polska",
+    "query": "poddębicki, Polska"
+  },
+  "Skierniewice": {
+    "lat": 51.9580068,
+    "lon": 20.1448085,
+    "display_name": "Skierniewice, gmina Maków, województwo łódzkie, Polska",
+    "query": "Skierniewice, Polska"
+  },
+  "Powiat zduńskowolski": {
+    "lat": 51.6196977,
+    "lon": 18.9486031,
+    "display_name": "powiat zduńskowolski, województwo łódzkie, Polska",
+    "query": "zduńskowolski, Polska"
+  },
+  "Powiat łęczycki": {
+    "lat": 52.2871911,
+    "lon": 22.5144481,
+    "display_name": "Łęczycki, gmina Paprotnia, powiat siedlecki, województwo mazowieckie, 08-107, Polska",
+    "query": "łęczycki, Polska"
+  },
+  "Powiat opoczyński": {
+    "lat": 51.3926045,
+    "lon": 20.1504528,
+    "display_name": "powiat opoczyński, województwo łódzkie, Polska",
+    "query": "opoczyński, Polska"
+  },
+  "Jaworzno": {
+    "lat": 50.1894999,
+    "lon": 19.2725112,
+    "display_name": "Jaworzno, województwo śląskie, Polska",
+    "query": "Jaworzno, Polska"
+  },
+  "Mysłowice": {
+    "lat": 50.2096211,
+    "lon": 19.132166,
+    "display_name": "Mysłowice, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Mysłowice, Polska"
+  },
+  "Powiat żywiecki": {
+    "lat": 49.6113517,
+    "lon": 19.227577,
+    "display_name": "powiat żywiecki, województwo śląskie, Polska",
+    "query": "żywiecki, Polska"
+  },
+  "Powiat wodzisławski": {
+    "lat": 49.9934064,
+    "lon": 18.4438829,
+    "display_name": "powiat wodzisławski, województwo śląskie, Polska",
+    "query": "wodzisławski, Polska"
+  },
+  "Powiat gliwicki": {
+    "lat": 50.3626831,
+    "lon": 18.4855024,
+    "display_name": "powiat gliwicki, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "gliwicki, Polska"
+  },
+  "Ruda Śląska": {
+    "lat": 50.2698658,
+    "lon": 18.8642588,
+    "display_name": "Ruda Śląska, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Ruda Śląska, Polska"
+  },
+  "Bielsko-Biała": {
+    "lat": 49.822118,
+    "lon": 19.0448936,
+    "display_name": "Bielsko-Biała, województwo śląskie, Polska",
+    "query": "Bielsko-Biała, Polska"
+  },
+  "Powiat bieruńsko-lędziński": {
+    "lat": 50.1014061,
+    "lon": 19.0869065,
+    "display_name": "Voestalpine Steel Service Center Polska Sp. z o.o., 403, Oświęcimska, Osiedle Awaryjne, Bieruń Stary, Jaroszowice, Tychy, powiat bieruńsko-lędziński, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, 43-150, Polska",
+    "query": "bieruńsko-lędziński, Polska"
+  },
+  "Sosnowiec": {
+    "lat": 50.2712401,
+    "lon": 19.2155628,
+    "display_name": "Sosnowiec, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Sosnowiec, Polska"
+  },
+  "Tychy": {
+    "lat": 50.126498,
+    "lon": 19.0067846,
+    "display_name": "Tychy, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, 43-100, Polska",
+    "query": "Tychy, Polska"
+  },
+  "Siemianowice Śląskie": {
+    "lat": 50.3052029,
+    "lon": 19.0275635,
+    "display_name": "Siemianowice Śląskie, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Siemianowice Śląskie, Polska"
+  },
+  "Dąbrowa Górnicza": {
+    "lat": 50.369624,
+    "lon": 19.2890465,
+    "display_name": "Dąbrowa Górnicza, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Dąbrowa Górnicza, Polska"
+  },
+  "Powiat rybnicki": {
+    "lat": 51.4730556,
+    "lon": 18.5830556,
+    "display_name": "Rybnik, gmina Brzeźnio, powiat sieradzki, województwo łódzkie, 98-275, Polska",
+    "query": "rybnicki, Polska"
+  },
+  "Zabrze": {
+    "lat": 50.3142806,
+    "lon": 18.7815763,
+    "display_name": "Zabrze, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Zabrze, Polska"
+  },
+  "Chorzów": {
+    "lat": 50.2884726,
+    "lon": 18.9703798,
+    "display_name": "Chorzów, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Chorzów, Polska"
+  },
+  "Świętochłowice": {
+    "lat": 50.2979616,
+    "lon": 18.9061863,
+    "display_name": "Świętochłowice, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Świętochłowice, Polska"
+  },
+  "Jastrzębie-Zdrój": {
+    "lat": 49.9519085,
+    "lon": 18.6023614,
+    "display_name": "Jastrzębie-Zdrój, województwo śląskie, Polska",
+    "query": "Jastrzębie-Zdrój, Polska"
+  },
+  "Żory": {
+    "lat": 50.0454961,
+    "lon": 18.6943479,
+    "display_name": "Żory, województwo śląskie, Polska",
+    "query": "Żory, Polska"
+  },
+  "Powiat częstochowski": {
+    "lat": 50.8412062,
+    "lon": 19.5052594,
+    "display_name": "powiat częstochowski, województwo śląskie, Polska",
+    "query": "częstochowski, Polska"
+  },
+  "Piekary Śląskie": {
+    "lat": 50.3757791,
+    "lon": 18.9379389,
+    "display_name": "Piekary Śląskie, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Piekary Śląskie, Polska"
+  },
+  "Gliwice": {
+    "lat": 50.294113,
+    "lon": 18.6657306,
+    "display_name": "Gliwice, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Gliwice, Polska"
+  },
+  "Grudziądz": {
+    "lat": 53.472512,
+    "lon": 18.7618937,
+    "display_name": "Grudziądz, województwo kujawsko-pomorskie, Polska",
+    "query": "Grudziądz, Polska"
+  },
+  "Toruń": {
+    "lat": 53.0102721,
+    "lon": 18.6048094,
+    "display_name": "Toruń, województwo kujawsko-pomorskie, Polska",
+    "query": "Toruń, Polska"
+  },
+  "Powiat lipnowski": {
+    "lat": 52.8156762,
+    "lon": 19.1696989,
+    "display_name": "powiat lipnowski, województwo kujawsko-pomorskie, Polska",
+    "query": "lipnowski, Polska"
+  },
+  "Powiat mogileński": {
+    "lat": 52.6615953,
+    "lon": 18.0223476,
+    "display_name": "powiat mogileński, województwo kujawsko-pomorskie, Polska",
+    "query": "mogileński, Polska"
+  },
+  "Powiat brodnicki": {
+    "lat": 53.2696512,
+    "lon": 19.4129035,
+    "display_name": "powiat brodnicki, województwo kujawsko-pomorskie, Polska",
+    "query": "brodnicki, Polska"
+  },
+  "Powiat chełmiński": {
+    "lat": 53.3007873,
+    "lon": 18.5336851,
+    "display_name": "powiat chełmiński, województwo kujawsko-pomorskie, Polska",
+    "query": "chełmiński, Polska"
+  },
+  "Powiat golubsko-dobrzyński": {
+    "lat": 53.0995428,
+    "lon": 19.0253212,
+    "display_name": "powiat golubsko-dobrzyński, województwo kujawsko-pomorskie, Polska",
+    "query": "golubsko-dobrzyński, Polska"
+  },
+  "Powiat nakielski": {
+    "lat": 53.0948426,
+    "lon": 17.5974004,
+    "display_name": "powiat nakielski, województwo kujawsko-pomorskie, Polska",
+    "query": "nakielski, Polska"
+  },
+  "Powiat zielonogórski": {
+    "lat": 51.9757079,
+    "lon": 15.7634801,
+    "display_name": "powiat zielonogórski, województwo lubuskie, Polska",
+    "query": "zielonogórski, Polska"
+  },
+  "Powiat warszawski": {
+    "lat": 52.2689122,
+    "lon": 20.6084781,
+    "display_name": "powiat warszawski zachodni, województwo mazowieckie, Polska",
+    "query": "warszawski, Polska"
+  },
+  "Powiat jędrzejowskim": {
+    "lat": 50.5937178,
+    "lon": 19.9520581,
+    "display_name": "28-350, Słupia, gmina Słupia, powiat jędrzejowski, województwo świętokrzyskie, Polska",
+    "query": "28-350          Słupia, Polska"
+  },
+  "Powiat kaliskiego": {
+    "lat": 51.5444444,
+    "lon": 22.1891667,
+    "display_name": "Kaliskie, Kozioł, gmina Baranów, powiat puławski, województwo lubelskie, 24-105, Polska",
+    "query": "kaliskiego, Polska"
+  },
+  "Powiat złotowski": {
+    "lat": 53.4125573,
+    "lon": 16.8780796,
+    "display_name": "powiat złotowski, województwo wielkopolskie, Polska",
+    "query": "złotowski, Polska"
+  },
+  "Powiat gnieżdzieński": {
+    "lat": 52.5316989,
+    "lon": 17.6023443,
+    "display_name": "62-200, Gniezno, powiat gnieźnieński, województwo wielkopolskie, Polska",
+    "query": "62-200          Gniezno, Polska"
+  },
+  "Powiat sławieński": {
+    "lat": 54.3800906,
+    "lon": 16.5826394,
+    "display_name": "powiat sławieński, województwo zachodniopomorskie, Polska",
+    "query": "sławieński, Polska"
+  },
+  "Powiat katowicki": {
+    "lat": 50.2327277,
+    "lon": 19.0266464,
+    "display_name": "Zakład Zieleni Miejskiej Katowicki Park Leśny, Muchowiec, Osiedle Paderewskiego-Muchowiec, Katowice, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "katowicki, Polska"
+  },
+  "Powiat chorzowski": {
+    "lat": 50.296411,
+    "lon": 18.9504043,
+    "display_name": "Gościniec Chorzowski, 24, Wolności, Osiedle Irys, Centrum, Chorzów, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, 41-500, Polska",
+    "query": "chorzowski, Polska"
+  },
+  "Powiat wegorzewski": {
+    "lat": 54.2074389,
+    "lon": 21.7918454,
+    "display_name": "powiat węgorzewski, województwo warmińsko-mazurskie, Polska",
+    "query": "wegorzewski, Polska"
+  },
+  "Powiat łobezki": {
+    "lat": 53.7694582,
+    "lon": 15.420043,
+    "display_name": "72-315, Resko, gmina Resko, powiat łobeski, województwo zachodniopomorskie, Polska",
+    "query": "72-315          Resko, Polska"
+  },
+  "Powiat grudziądzki": {
+    "lat": 53.4715411,
+    "lon": 19.0123749,
+    "display_name": "powiat grudziądzki, województwo kujawsko-pomorskie, Polska",
+    "query": "grudziądzki, Polska"
+  },
+  "Powiat skarżyński": {
+    "lat": 52.38032,
+    "lon": 19.9002,
+    "display_name": "Pałac Skarżyński w Studzieńcu, 18, Studzieniec, gmina Słubice, powiat płocki, województwo mazowieckie, 09-533, Polska",
+    "query": "skarżyński, Polska"
+  },
+  "Powiat cieszynski": {
+    "lat": 53.5899738,
+    "lon": 16.042816,
+    "display_name": "Cieszyno, gmina Złocieniec, powiat drawski, województwo zachodniopomorskie, 78-520, Polska",
+    "query": "cieszynski, Polska"
+  },
+  "Powiat hrubieszowski": {
+    "lat": 50.7077705,
+    "lon": 23.8488223,
+    "display_name": "powiat hrubieszowski, województwo lubelskie, Polska",
+    "query": "hrubieszowski, Polska"
+  },
+  "Powiat gołdapski": {
+    "lat": 54.2605252,
+    "lon": 22.2813599,
+    "display_name": "powiat gołdapski, województwo warmińsko-mazurskie, Polska",
+    "query": "gołdapski, Polska"
+  },
+  "Powiat radzyński": {
+    "lat": 51.7826299,
+    "lon": 22.6695993,
+    "display_name": "powiat radzyński, województwo lubelskie, Polska",
+    "query": "radzyński, Polska"
+  },
+  "Świnoujście": {
+    "lat": 53.8270329,
+    "lon": 14.3356892,
+    "display_name": "Świnoujście, województwo zachodniopomorskie, Polska",
+    "query": "Świnoujście, Polska"
+  },
+  "Powiat stalowolski": {
+    "lat": 50.6143514,
+    "lon": 22.0495562,
+    "display_name": "37-464, Stalowa Wola, powiat stalowowolski, województwo podkarpackie, Polska",
+    "query": "37-464          Stalowa Wola, Polska"
+  },
+  "Powiat łęczyński": {
+    "lat": 51.3045581,
+    "lon": 22.9956542,
+    "display_name": "powiat łęczyński, województwo lubelskie, Polska",
+    "query": "łęczyński, Polska"
+  },
+  "Powiat strzelecko-drezdeński": {
+    "lat": 52.8192178,
+    "lon": 15.8167437,
+    "display_name": "66-530, Osów, gmina Drezdenko, powiat strzelecko-drezdenecki, województwo lubuskie, Polska",
+    "query": "66-530          Drezdenko, Polska"
+  },
+  "Powiat mogieliński": {
+    "lat": 52.6326102,
+    "lon": 18.1776486,
+    "display_name": "88-320, Strzelno, gmina Strzelno, powiat mogileński, województwo kujawsko-pomorskie, Polska",
+    "query": "88-320          Strzelno, Polska"
+  },
+  "Powiat łosicki": {
+    "lat": 52.2237698,
+    "lon": 22.8375298,
+    "display_name": "powiat łosicki, województwo mazowieckie, Polska",
+    "query": "łosicki, Polska"
+  },
+  "Piekary Sląskie": {
+    "lat": 50.3757791,
+    "lon": 18.9379389,
+    "display_name": "Piekary Śląskie, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "Piekary Sląskie, Polska"
+  },
+  "Powiat obornicki": {
+    "lat": 52.716616,
+    "lon": 16.8460258,
+    "display_name": "powiat obornicki, województwo wielkopolskie, Polska",
+    "query": "obornicki, Polska"
+  },
+  "Powiat chodzierski": {
+    "lat": 52.9928284,
+    "lon": 16.9181367,
+    "display_name": "64-800, Chodzież, powiat chodzieski, województwo wielkopolskie, Polska",
+    "query": "64-800          Chodzież, Polska"
+  },
+  "Powiat słubicki": {
+    "lat": 52.3231951,
+    "lon": 14.738732,
+    "display_name": "powiat słubicki, województwo lubuskie, Polska",
+    "query": "słubicki, Polska"
+  },
+  "Chełm": {
+    "lat": 51.1339221,
+    "lon": 23.4711548,
+    "display_name": "Chełm, województwo lubelskie, Polska",
+    "query": "Chełm, Polska"
+  },
+  "Powiat zambrowski": {
+    "lat": 53.0226589,
+    "lon": 22.2479656,
+    "display_name": "powiat zambrowski, województwo podlaskie, Polska",
+    "query": "zambrowski, Polska"
+  },
+  "Powiat nowosolakski": {
+    "lat": 51.799981,
+    "lon": 15.713964,
+    "display_name": "67-100, Nowa Sól, powiat nowosolski, województwo lubuskie, Polska",
+    "query": "67-100           Nowa Sól, Polska"
+  },
+  "Powiat szczeciński": {
+    "lat": 53.3089775,
+    "lon": 15.0316459,
+    "display_name": "Stargard, powiat stargardzki, województwo zachodniopomorskie, Polska",
+    "query": "szczeciński, Polska"
+  },
+  "łaski": {
+    "lat": 49.7175953,
+    "lon": 21.5048724,
+    "display_name": "Łaski, gmina Jasło, powiat jasielski, województwo podkarpackie, Polska",
+    "query": "łaski, Polska"
+  },
+  "Powiat bytomski": {
+    "lat": 50.5854513,
+    "lon": 18.8497058,
+    "display_name": "Subregion bytomski, województwo śląskie, Polska",
+    "query": "bytomski, Polska"
+  },
+  "Powiat gnieździeński": {
+    "lat": 52.4628902,
+    "lon": 17.6544835,
+    "display_name": "62-220, gmina Niechanowo, powiat gnieźnieński, województwo wielkopolskie, Polska",
+    "query": "62-220          Niechanowo, Polska"
+  },
+  "Powiat praga północ": {
+    "lat": 52.2648843,
+    "lon": 21.0273442,
+    "display_name": "Praga-Północ, Warszawa, województwo mazowieckie, Polska",
+    "query": "praga północ, Polska"
+  },
+  "Powiat świętłochowice": {
+    "lat": 50.3095809,
+    "lon": 18.9024896,
+    "display_name": "41-605, Lipiny, Świętochłowice, Górnośląsko-Zagłębiowska Metropolia, województwo śląskie, Polska",
+    "query": "41-605          Świętochłowice, Polska"
+  },
+  "gli": {
+    "lat": 52.2072429,
+    "lon": 21.0173929,
+    "display_name": "Gli Italiani, 17, Tadeusza Rejtana, Stary Mokotów, Mokotów, Warszawa, województwo mazowieckie, 02-516, Polska",
+    "query": "gli, Polska"
+  },
+  "Bielsko-Bi": {
+    "lat": 49.8619586,
+    "lon": 19.0331698,
+    "display_name": "ArcelorMittal Recykling Polska Sp. z o.o, Komorowice Śląskie, Bielsko-Biała, województwo śląskie, Polska",
+    "query": "Bielsko-Bi, Polska"
+  },
+  "opole": {
+    "lat": 50.6787929,
+    "lon": 17.9298844,
+    "display_name": "Opole, województwo opolskie, Polska",
+    "query": "opole, Polska"
+  },
+  "Powiat pułttuski": {
+    "lat": 52.6260177,
+    "lon": 21.0371633,
+    "display_name": "06-121, Obrębek, gmina Pokrzywnica, powiat pułtuski, województwo mazowieckie, Polska",
+    "query": "06-121           Pokrzywnica, Polska"
+  }
+}

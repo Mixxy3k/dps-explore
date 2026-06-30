@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Test files
+krdo_dps_poland_test.csv
+
+# OS
+Thumbs.db
+.DS_Store
