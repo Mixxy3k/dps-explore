@@ -11,6 +11,7 @@
 :root{--bg:#f8fafc;--card:#fff;--hover:#f1f5f9;--text:#1e293b;--muted:#94a3b8;--border:#e2e8f0;--brand:#059669;--brand-dark:#047857;--brand-light:#6ee7b7;--shadow:0 1px 3px rgba(0,0,0,.08)}
 .dark{--bg:#0f172a;--card:#1e293b;--hover:#334155;--text:#f1f5f9;--muted:#64748b;--border:#334155;--brand:#10b981;--brand-dark:#059669;--brand-light:#34d399;--shadow:0 1px 3px rgba(0,0,0,.3)}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;transition:background .2s,color .2s}
+@media(min-width:900px){body{height:100vh;overflow:hidden;display:flex;flex-direction:column}body>header{flex-shrink:0}body>main{flex:1;min-height:0}}
 .bg-c{background:var(--card)}.bg-h{background:var(--hover)}.b{border-color:var(--border)}.text-m{color:var(--muted)}.text-brand{color:var(--brand)}
 .shadow-c{box-shadow:var(--shadow)}
 .grad{background:linear-gradient(135deg,var(--brand),var(--brand-dark))}
@@ -20,6 +21,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .btn-outline{background:var(--card);border-color:var(--border);color:var(--text)}
 .btn-ghost{background:transparent;border-color:transparent;color:var(--muted)}
 .btn-ghost:hover{background:var(--hover);color:var(--text)}
+.fav-btn,.fav-btn-cell{width:1.4em;display:inline-flex;align-items:center;justify-content:center;text-align:center}
 .tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:.3px}
 .tag-pub{background:#d1fae5;color:#065f46}.tag-priv{background:#ede9fe;color:#5b21b6}.tag-zol{background:#e0e7ff;color:#3730a3}.tag-sds{background:#fce7f3;color:#9d174d}
 .badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase}
@@ -44,6 +46,7 @@ html{scroll-behavior:smooth}
 #stats::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
 #basketList::-webkit-scrollbar{width:5px}
 #basketList::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+@media(min-width:900px){.desktop-full{flex:1;overflow:hidden;display:flex;flex-direction:column}.desktop-full #tableWrap{flex:1;overflow:hidden;display:flex!important;flex-direction:column}.desktop-full #tableScroll{flex:1;overflow-y:auto;max-height:none!important}.desktop-full #pagination{flex-shrink:0}}
 </style>
 </head>
 <body>
@@ -59,9 +62,9 @@ html{scroll-behavior:smooth}
   </div>
 </header>
 
-<main class="max-w-7xl mx-auto px-4 py-4">
+<main class="max-w-7xl mx-auto px-4 py-4 desktop-full" style="display:flex;flex-direction:column">
 
-  <div id="stats" class="flex gap-2 overflow-x-auto pb-2 mb-4"></div>
+  <div id="stats" class="flex gap-2 overflow-x-auto pb-2 mb-4 shrink-0"></div>
 
   <div id="fileLoader" class="bg-c border b rounded-2xl shadow-c p-12 text-center mb-4">
     <div class="text-5xl mb-3">📂</div>
@@ -85,9 +88,8 @@ html{scroll-behavior:smooth}
   <div id="controls" class="hidden space-y-3 mb-4">
     <div class="flex flex-wrap gap-2">
       <input id="searchBox" type="text" class="flex-1 min-w-[160px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none focus:border-brand transition-all" style="background:var(--card);border-color:var(--border);color:var(--text)" placeholder="🔍 Szukaj...">
-      <select id="filterType" class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)"><option value="">Typ</option></select>
       <select id="filterPublic" class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)">
-        <option value="">Własność</option><option value="Publiczny">🏛️ Publiczny</option><option value="Prywatny">🏠 Prywatny</option>
+        <option value="">Typ</option><option value="Publiczny">🏢 Publiczny</option><option value="Prywatny">🏡 Prywatny</option>
       </select>
     </div>
     <div class="flex flex-wrap gap-2">
@@ -121,7 +123,6 @@ html{scroll-behavior:smooth}
             <th data-col="lokalizacja" class="p-3 text-left font-medium cursor-pointer hover:text-brand whitespace-nowrap">Lokalizacja <span class="ml-0.5 opacity-40">↕</span></th>
             <th data-col="ilosc_miejsc" class="p-3 text-center font-medium cursor-pointer hover:text-brand whitespace-nowrap">Miejsca <span class="ml-0.5 opacity-40">↕</span></th>
             <th class="p-3 text-left font-medium">Rodzaj</th>
-            <th class="p-3 text-left font-medium">Oznaczenia</th>
           </tr>
         </thead>
         <tbody id="tableBody" class="divide-y" style="border-color:var(--border)"></tbody>
@@ -147,7 +148,7 @@ html{scroll-behavior:smooth}
       <button id="closeDetail" class="btn btn-ghost shrink-0">✕</button>
     </div>
     <div id="detBody" class="p-5 pt-3 overflow-y-auto" style="max-height:calc(85vh - 130px)"></div>
-    <div id="detActions" class="p-5 pt-3 border-t b flex flex-wrap gap-2"></div>
+    <div id="detActions" class="p-4 pt-3 border-t b flex gap-1.5" style="flex-wrap:nowrap;overflow-x:auto"></div>
   </div>
 </div>
 
@@ -192,13 +193,13 @@ function show(id){document.getElementById(id).classList.remove('hidden')}
 
 function renderPresets(){
   const p=document.getElementById('presets');
-  p.innerHTML=[{l:'🏠 Wszystkie',k:'all'},{l:'🧠 Niepełnosprawni intelektualnie',k:'intel'},{l:'💊 Przewlekle psychicznie chorzy',k:'psych'},{l:'⭐ Rekomendowane KIDO',k:'recommended'},{l:'📍 Najbliżej (50 km)',k:'nearby'}].map(i=>`<button class="preset-btn px-4 py-1.5 text-sm font-medium rounded-full border" style="background:var(--card);border-color:var(--border);color:var(--text)" data-key="${i.k}">${i.l}</button>`).join('');
+  p.innerHTML=[{l:'📋 Wszystkie',k:'all'},{l:'🧠 Niepełnosprawni intelektualnie',k:'intel'},{l:'💊 Psychicznie chorzy',k:'psych'},{l:'⭐ Rekomendowane KIDO',k:'recommended'},{l:'📍 Blisko (50 km)',k:'nearby'}].map(i=>`<button class="preset-btn px-3 py-1 text-xs font-medium rounded-full border" style="background:var(--card);border-color:var(--border);color:var(--text)" data-key="${i.k}">${i.l}</button>`).join('');
   p.querySelectorAll('.preset-btn').forEach(b=>{b.addEventListener('click',function(){
     const k=this.dataset.key;
     p.querySelectorAll('.preset-btn').forEach(x=>{x.style.background='var(--card)';x.style.borderColor='var(--border)';x.style.color='var(--text)'});
     if(activePreset===k){activePreset=null;applyFilters();return}
     this.style.background='var(--brand)';this.style.borderColor='var(--brand)';this.style.color='#fff';activePreset=k;
-    ['searchBox','filterType','filterPublic','filterBadge','filterVoivodeship'].forEach(id=>document.getElementById(id).value='');
+    ['searchBox','filterPublic','filterBadge','filterVoivodeship'].forEach(id=>document.getElementById(id).value='');
     applyFilters()})});
 }
 
@@ -212,9 +213,6 @@ document.getElementById('csvFile').addEventListener('change',async function(e){c
 (async function init(){try{const r=await fetch('locations_geo.json');geoData=await r.json()}catch(e){}autoLoadCSV()})();
 
 function populateFilters(){
-  const ts=new Set();allData.forEach(r=>{if(r._t)ts.add(r._t)});
-  const tS=document.getElementById('filterType');tS.innerHTML='<option value="">Typ</option>';
-  [...ts].sort().forEach(t=>{let o=document.createElement('option');o.value=t;o.textContent=t;tS.appendChild(o)});
   const vS=document.getElementById('filterVoivodeship');vS.innerHTML='<option value="">Województwo</option>';
   ['dolnośląskie','kujawsko-pomorskie','lubelskie','lubuskie','łódzkie','małopolskie','mazowieckie','opolskie','podkarpackie','podlaskie','pomorskie','śląskie','świętokrzyskie','warmińsko-mazurskie','wielkopolskie','zachodniopomorskie'].forEach(v=>{let o=document.createElement('option');o.value=v;o.textContent=v.charAt(0).toUpperCase()+v.slice(1);vS.appendChild(o)});
 }
@@ -225,14 +223,14 @@ document.getElementById('updateCity').addEventListener('click',async function(){
 function resetPresets(){document.querySelectorAll('.preset-btn').forEach(x=>{x.style.background='var(--card)';x.style.borderColor='var(--border)';x.style.color='var(--text)'})}
 
 function applyFilters(){
-  const s=document.getElementById('searchBox').value.toLowerCase().trim(),tf=document.getElementById('filterType').value,pf=document.getElementById('filterPublic').value,bf=document.getElementById('filterBadge').value,vf=document.getElementById('filterVoivodeship').value;
+  const s=document.getElementById('searchBox').value.toLowerCase().trim(),pf=document.getElementById('filterPublic').value,bf=document.getElementById('filterBadge').value,vf=document.getElementById('filterVoivodeship').value;
   filteredData=allData.filter(r=>{
     if(activePreset==='intel'&&!r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie'))return false;
     if(activePreset==='psych'&&!r.rodzaj_dzialalnosci.toLowerCase().includes('psychicznie'))return false;
     if(activePreset==='recommended'&&!r._b.includes('REKOMENDACJA KIDO'))return false;
     if(activePreset==='nearby'&&r._d>50)return false;
     if(s){const h=(r._n+' '+r._l+' '+r._t+' '+r.rodzaj_dzialalnosci).toLowerCase();if(!h.includes(s))return false}
-    if(tf&&r._t!==tf)return false;if(pf&&r._c!==pf)return false;
+    if(pf&&r._c!==pf)return false;
     if(bf==='none'&&r._b)return false;if(bf&&bf!=='none'&&!r._b.includes(bf))return false;
     if(vf&&getVoiv(r.lokalizacja)!==vf)return false;return true;
   });
@@ -247,17 +245,18 @@ function render(){
   if(isMobile){
     document.getElementById('cardList').innerHTML=pd.map(r=>{
       const d=r._d;let dc='dist-u',dt=d>=99999?'?':`~${d} km`;if(d<50)dc='dist-n';else if(d<150)dc='dist-m';else if(d<99999)dc='dist-f';
-      const bgs=r._b?r._b.split(', ').filter(Boolean).map(b=>{const c=b.includes('REKOMENDACJA')?'badge-rec':'badge-reg';return`<span class="badge ${c}">${b}</span>`}).join(''):'';
+      const isRec=r._b.includes('REKOMENDACJA'),isReg=r._b.includes('ZAREJESTROWANO');
+      let recIcon='';if(isRec)recIcon='<span style="color:#f59e0b;font-size:13px" title="Rekomendowane KIDO">🥇</span>';else if(isReg)recIcon='<span style="color:#3b82f6;font-size:13px" title="Zarejestrowane w KIDO">✅</span>';
       let ct='';if(r._c==='Publiczny')ct='<span class="tag tag-pub">Publiczny</span>';else if(r._c==='Prywatny')ct='<span class="tag tag-priv">Prywatny</span>';else if(r._c==='ZOL')ct='<span class="tag tag-zol">ZOL</span>';else if(r._c==='ŚDS')ct='<span class="tag tag-sds">ŚDS</span>';
       const fid=getRowId(r),saved=isFav(r);
-      return`<div class="card bg-c border b rounded-xl shadow-c p-4 cursor-pointer hover:-translate-y-0.5 transition-all" style="background:var(--card);border-color:var(--border)" data-detail="${fid}"><button class="fav-btn float-right text-lg ${saved?'opacity-100':'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer p-1" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button><div class="font-semibold pr-8" style="color:var(--text)">${r._n}</div><span class="${dc}">📍 ${dt} od ${cn}</span><div class="text-xs text-m mt-2 flex flex-wrap gap-x-4 gap-y-1"><span>📍 ${r._l}</span><span>🛏️ ${r._p>0?r._p:'?'}</span><span>📋 ${r.wpis_krdo}</span></div><div class="text-xs text-m mt-1.5">${ct} ${r._t}</div>${bgs?`<div class="flex flex-wrap gap-1 mt-2">${bgs}</div>`:''}</div>`;
+      return`<div class="card bg-c border b rounded-xl shadow-c p-4 cursor-pointer hover:-translate-y-0.5 transition-all" style="background:var(--card);border-color:var(--border)" data-detail="${fid}"><button class="fav-btn text-lg absolute top-3 right-3 ${saved?'opacity-100':'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer" style="width:1.4em;height:1.4em;display:inline-flex;align-items:center;justify-content:center" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button><div class="font-semibold pr-8" style="color:var(--text)">${recIcon} ${r._n}</div><span class="${dc}">📍 ${dt} od ${cn}</span><div class="text-xs text-m mt-2 flex flex-wrap gap-x-4 gap-y-1"><span>📍 ${r._l}</span><span>🛏️ ${r._p>0?r._p:'?'}</span><span>📋 ${r.wpis_krdo}</span></div><div class="text-xs text-m mt-1.5">${ct} ${r._t}</div></div>`;
     }).join('');
     document.querySelectorAll('.fav-btn').forEach(b=>{b.addEventListener('click',function(e){e.stopPropagation();toggleFav(this)})});
     document.querySelectorAll('[data-detail]').forEach(c=>{c.addEventListener('click',function(){const id=this.dataset.detail;const r=filteredData.find(i=>getRowId(i)===id);if(r)showDetail(r)})});
   }else{
     document.getElementById('tableBody').innerHTML=pd.map(r=>{
-      const d=r._d,dt=d>=99999?'?':`${d} km`;const bgs=r._b?r._b.split(', ').filter(Boolean).map(b=>{const c=b.includes('REKOMENDACJA')?'badge-rec':'badge-reg';return`<span class="badge ${c}">${b}</span>`}).join(''):'';const fid=getRowId(r),saved=isFav(r);
-      return`<tr class="cursor-pointer hover:bg-h transition-colors" style="border-color:var(--border)" data-detail="${fid}"><td class="p-3 text-center" onclick="event.stopPropagation()"><button class="fav-btn-cell text-base ${saved?'opacity-100':'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button></td><td class="p-3 text-center font-semibold text-brand">${dt}</td><td class="p-3 font-semibold" style="color:var(--text)">${r._n}</td><td class="p-3 text-m">${r._l}</td><td class="p-3 text-center font-semibold" style="color:var(--text)">${r._p>0?r._p:'-'}</td><td class="p-3 text-xs text-m">${r._t}</td><td class="p-3">${bgs}</td></tr>`;
+      const d=r._d,dt=d>=99999?'?':`${d} km`;const isRec=r._b.includes('REKOMENDACJA'),isReg=r._b.includes('ZAREJESTROWANO');let recIcon='';if(isRec)recIcon='<span style="color:#f59e0b;font-size:13px" title="Rekomendowane KIDO">🥇 </span>';else if(isReg)recIcon='<span style="color:#3b82f6;font-size:13px" title="Zarejestrowane w KIDO">✅ </span>';const fid=getRowId(r),saved=isFav(r);
+      return`<tr class="cursor-pointer hover:bg-h transition-colors" style="border-color:var(--border)" data-detail="${fid}"><td class="p-3 text-center" onclick="event.stopPropagation()"><button class="fav-btn-cell text-base ${saved?'opacity-100':'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button></td><td class="p-3 text-center font-semibold text-brand">${dt}</td><td class="p-3 font-semibold" style="color:var(--text)">${recIcon}${r._n}</td><td class="p-3 text-m">${r._l}</td><td class="p-3 text-center font-semibold" style="color:var(--text)">${r._p>0?r._p:'-'}</td><td class="p-3 text-xs text-m">${r._t}</td></tr>`;
     }).join('');
     document.querySelectorAll('.fav-btn-cell').forEach(b=>{b.addEventListener('click',function(e){e.stopPropagation();toggleFav(this)})});
     document.querySelectorAll('tr[data-detail]').forEach(r=>{r.addEventListener('click',function(){const id=this.dataset.detail;const ri=filteredData.find(i=>getRowId(i)===id);if(ri)showDetail(ri)})});
@@ -273,8 +272,8 @@ function showDetail(r){
   const addr=clean(r.adres),gq=encodeURIComponent(r._n+' '+addr),mq=encodeURIComponent(r._n+', '+r._l+', '+addr),fid=getRowId(r),saved=isFav(r);
   const bgs=r._b?r._b.split(', ').filter(Boolean).map(b=>{const c=b.includes('REKOMENDACJA')?'badge-rec':'badge-reg';return`<span class="badge ${c}">${b}</span>`}).join(''):'';
   document.getElementById('detName').textContent=r._n;document.getElementById('detBadges').innerHTML=bgs||'';
-  document.getElementById('detBody').innerHTML=`<div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Adres</span><span style="color:var(--text)">${addr}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejscowość</span><span style="color:var(--text)">${r._l}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Rodzaj</span><span style="color:var(--text)">${r._t}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Własność</span><span style="color:var(--text)">${r._c}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejsca</span><span style="color:var(--text)">${r._p>0?r._p+' miejsc':'Nie podano'}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Wpis</span><span style="color:var(--text)">${r.wpis_krdo}</span></div>${r._d<99999?`<div class="flex py-3"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Odległość</span><span style="color:var(--text)">~${r._d} km od ${currentCity}</span></div>`:''}`;
-  document.getElementById('detActions').innerHTML=`<a class="btn" href="${krdoUrl(r)}" target="_blank" style="background:#eef2ff;color:#4338ca;border-color:#c7d2fe">🌐 Strona KRDO</a><a class="btn" href="https://www.google.com/search?q=${gq}" target="_blank" style="background:#fef2f2;color:#dc2626;border-color:#fecaca">🔍 Google</a><a class="btn" href="https://www.google.com/maps/search/${mq}" target="_blank" style="background:#f0fdf4;color:#16a34a;border-color:#bbf7b7">📍 Maps</a><button class="btn" id="detFavBtn" style="background:#fffbeb;color:#d97706;border-color:#fde68a">${saved?'⭐ Zapamiętane':'☆ Zapamiętaj'}</button>`;
+  document.getElementById('detBody').innerHTML=`<div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Adres</span><span style="color:var(--text)">${addr}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejscowość</span><span style="color:var(--text)">${r._l}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Rodzaj</span><span style="color:var(--text)">${r._t}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Typ</span><span style="color:var(--text)">${r._c}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejsca</span><span style="color:var(--text)">${r._p>0?r._p+' miejsc':'Nie podano'}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Wpis</span><span style="color:var(--text)">${r.wpis_krdo}</span></div>${r._d<99999?`<div class="flex py-3"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Odległość</span><span style="color:var(--text)">~${r._d} km od ${currentCity}</span></div>`:''}`;
+  document.getElementById('detActions').innerHTML=`<a class="btn" href="${krdoUrl(r)}" target="_blank" style="background:#eef2ff;color:#4338ca;border-color:#c7d2fe;padding:6px 12px;font-size:12px;white-space:nowrap">🌐 KRDO</a><a class="btn" href="https://www.google.com/search?q=${gq}" target="_blank" style="background:#fef2f2;color:#dc2626;border-color:#fecaca;padding:6px 12px;font-size:12px;white-space:nowrap">🔍 Google</a><a class="btn" href="https://www.google.com/maps/search/${mq}" target="_blank" style="background:#f0fdf4;color:#16a34a;border-color:#bbf7b7;padding:6px 12px;font-size:12px;white-space:nowrap">📍 Maps</a><button class="btn" id="detFavBtn" style="background:#fffbeb;color:#d97706;border-color:#fde68a;padding:6px 12px;font-size:12px;white-space:nowrap">${saved?'⭐ Zapamiętane':'☆ Zapamiętaj'}</button>`;
   show('detailModal');document.getElementById('detailModal').style.display='flex';show('detailOverlay');
   document.getElementById('detFavBtn').addEventListener('click',function(){const star=document.querySelector(`.fav-btn-cell[data-favid="${fid}"],.fav-btn[data-favid="${fid}"]`);if(star)toggleFav(star);this.textContent=isFav(r)?'⭐ Zapamiętane':'☆ Zapamiętaj'});
 }
@@ -297,7 +296,6 @@ document.getElementById('overlay').addEventListener('click',()=>{hide('basketPan
 
 document.querySelectorAll('th[data-col]').forEach(th=>{th.addEventListener('click',function(){const c=this.dataset.col;if(sortCol===c)sortDir*=-1;else{sortCol=c;sortDir=1}this.querySelector('.opacity-40').textContent=sortDir===1?'↑':'↓';applyFilters()})});
 document.getElementById('searchBox').addEventListener('input',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
-document.getElementById('filterType').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
 document.getElementById('filterPublic').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
 document.getElementById('filterBadge').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
 document.getElementById('filterVoivodeship').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
