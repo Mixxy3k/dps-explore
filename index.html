@@ -852,6 +852,16 @@
         </div>
     </div>
 
+    <div class="dm" id="detailModal">
+        <div class="box">
+            <div class="dh">
+                <h3 id="detailName"></h3>
+                <button id="closeDetail">✕</button>
+            </div>
+            <div class="db" id="detailBody"></div>
+        </div>
+    </div>
+
     <button class="bt" id="basketToggle">⭐<span class="bc" id="basketCount">0</span></button>
 
     <script>
@@ -1109,7 +1119,7 @@
                     else if (r._c === 'ŚDS') ct = '<span class="tg ts">ŚDS</span>';
                     const fid = getRowId(r);
                     const saved = isFav(r);
-                    return `<div class="pc"><button class="fav-btn ${saved ? 'saved' : ''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved ? '⭐' : '☆'}</button>
+                    return `<div class="pc" data-detail="${fid}" style="cursor:pointer"><button class="fav-btn ${saved ? 'saved' : ''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved ? '⭐' : '☆'}</button>
         <div class="nm">${r._n}</div>
         <span class="dist ${dc}">📍 ${dt} od ${cityName}</span>
         <div class="mt"><span>📍 ${r._l}</span><span>🛏️ ${r._p > 0 ? r._p : '?'}</span><span>📋 ${r.wpis_krdo}</span></div>
@@ -1120,6 +1130,13 @@
                 document.querySelectorAll('.pc .fav-btn').forEach(btn => {
                     btn.addEventListener('click', function (e) { e.stopPropagation(); toggleFav(this); });
                 });
+                document.querySelectorAll('.pc').forEach(card => {
+                    card.addEventListener('click', function (e) {
+                        const id = this.dataset.detail;
+                        const r = filteredData.find(item => getRowId(item) === id);
+                        if (r) showDetail(r);
+                    });
+                });
             } else {
                 document.getElementById('tableBody').innerHTML = pd.map(r => {
                     const d = r._d;
@@ -1127,8 +1144,8 @@
                     const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd'; return `<span class="bg ${c}">${b}</span>`; }).join('') : '';
                     const fid = getRowId(r);
                     const saved = isFav(r);
-                    return `<tr>
-        <td style="text-align:center;"><button class="fav-btn-cell ${saved ? 'saved' : ''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved ? '⭐' : '☆'}</button></td>
+                    return `<tr style="cursor:pointer" data-detail="${fid}">
+        <td style="text-align:center;" onclick="event.stopPropagation()"><button class="fav-btn-cell ${saved ? 'saved' : ''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved ? '⭐' : '☆'}</button></td>
         <td class="cn">${dt}</td>
         <td style="font-weight:600;">${r._n}</td>
         <td>${r._l}</td>
@@ -1139,6 +1156,13 @@
                 }).join('');
                 document.querySelectorAll('.fav-btn-cell').forEach(btn => {
                     btn.addEventListener('click', function (e) { e.stopPropagation(); toggleFav(this); });
+                });
+                document.querySelectorAll('tr[data-detail]').forEach(row => {
+                    row.addEventListener('click', function () {
+                        const id = this.dataset.detail;
+                        const r = filteredData.find(item => getRowId(item) === id);
+                        if (r) showDetail(r);
+                    });
                 });
             }
         }
@@ -1154,6 +1178,40 @@
     <div class="sc"><div class="n">${d.filter(r => r._b.includes('REKOMENDACJA KIDO')).length}</div><div class="l">Rekomend.</div></div>
     <div class="sc"><div class="n">${d.filter(r => r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')).length}</div><div class="l">Niep. intel.</div></div>
   `;
+        }
+
+        // ─── Detail Modal ──────────────────────────────
+        function showDetail(r) {
+            const addr = clean(r.adres);
+            const googleQ = encodeURIComponent(`${r._n} ${addr}`);
+            const mapsQ = encodeURIComponent(`${r._n}, ${r._l}, ${addr}`);
+
+            document.getElementById('detailName').textContent = r._n;
+            document.getElementById('detailBody').innerHTML = `
+                <div class="dr"><div class="dl">Adres</div><div class="dv">${addr}</div></div>
+                <div class="dr"><div class="dl">Lokalizacja</div><div class="dv">${r._l}</div></div>
+                <div class="dr"><div class="dl">Rodzaj</div><div class="dv">${r._t}</div></div>
+                <div class="dr"><div class="dl">Kategoria</div><div class="dv">${r._c}</div></div>
+                <div class="dr"><div class="dl">Miejsca</div><div class="dv">${r._p > 0 ? r._p : 'Nie podano'}</div></div>
+                <div class="dr"><div class="dl">Wpis KRDO</div><div class="dv">${r.wpis_krdo}</div></div>
+                ${r._b ? `<div class="dr"><div class="dl">Oznaczenia</div><div class="dv">${r._b}</div></div>` : ''}
+                ${r._d < 99999 ? `<div class="dr"><div class="dl">Odległość</div><div class="dv">~${r._d} km od ${currentCity}</div></div>` : ''}
+                <div style="display:flex;flex-wrap:wrap;margin-top:12px;gap:4px">
+                    <a class="dla dla-google" href="https://www.google.com/search?q=${googleQ}" target="_blank" rel="noopener">🔍 Szukaj w Google</a>
+                    <a class="dla dla-maps" href="https://www.google.com/maps/search/${mapsQ}" target="_blank" rel="noopener">📍 Zobacz na Mapach</a>
+                </div>
+            `;
+            document.getElementById('detailModal').classList.add('active');
+            document.getElementById('detailOverlay').classList.add('active');
+        }
+
+        document.getElementById('closeDetail').addEventListener('click', closeDetail);
+        document.getElementById('detailOverlay').addEventListener('click', closeDetail);
+        function closeDetail() {
+            const m = document.getElementById('detailModal');
+            const o = document.getElementById('detailOverlay');
+            if (m) m.classList.remove('active');
+            if (o) o.classList.remove('active');
         }
 
         // ─── Favorites / Basket ────────────────────────
