@@ -712,6 +712,158 @@
             display: block
         }
 
+        /* Detail modal */
+        .det-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 201;
+            width: 92%;
+            max-width: 480px;
+            max-height: 88vh;
+            border-radius: 16px;
+            background: var(--card);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+            overflow: hidden;
+            animation: detIn .25s ease
+        }
+        @keyframes detIn {
+            from {
+                transform: translate(-50%, -50%) scale(.92);
+                opacity: 0
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1
+            }
+        }
+        .det-modal.active {
+            display: block
+        }
+        .det-head {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: #fff;
+            padding: 20px 20px 16px;
+            position: relative
+        }
+        .det-head h3 {
+            font-size: 18px;
+            font-weight: 700;
+            padding-right: 32px;
+            line-height: 1.3
+        }
+        .det-head .det-x {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .2);
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+        .det-head .det-x:hover {
+            background: rgba(255, 255, 255, .35)
+        }
+        .det-head .det-badges {
+            margin-top: 8px;
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+        .det-body {
+            padding: 4px 0;
+            overflow-y: auto;
+            max-height: calc(88vh - 120px)
+        }
+        .det-row {
+            display: flex;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            line-height: 1.4
+        }
+        .det-row:last-child {
+            border-bottom: none
+        }
+        .det-lbl {
+            color: var(--muted);
+            min-width: 85px;
+            font-weight: 600;
+            font-size: 12px;
+            flex-shrink: 0;
+            padding-top: 1px
+        }
+        .det-val {
+            color: var(--text);
+            flex: 1
+        }
+        .det-addr {
+            font-size: 13px;
+            line-height: 1.5
+        }
+        .det-actions {
+            padding: 12px 20px 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+        .det-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all .15s;
+            border: none;
+            cursor: pointer
+        }
+        .det-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .15)
+        }
+        .det-btn-google {
+            background: #ea4335;
+            color: #fff
+        }
+        .det-btn-maps {
+            background: #34a853;
+            color: #fff
+        }
+        .det-btn-fav {
+            background: #f59e0b;
+            color: #fff
+        }
+        .det-btn-krdo {
+            background: #1e40af;
+            color: #fff
+        }
+        .det-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .4);
+            z-index: 200;
+            backdrop-filter: blur(2px)
+        }
+        .det-overlay.active {
+            display: block
+        }
+
         .lo {
             display: none;
             text-align: center;
@@ -785,7 +937,7 @@
                     <option value="">Typ</option>
                 </select>
                 <select class="fs" id="filterPublic">
-                    <option value="">Status</option>
+                    <option value="">Własność</option>
                     <option value="Publiczny">🏛️ Publiczny</option>
                     <option value="Prywatny">🏠 Prywatny</option>
                 </select>
@@ -852,14 +1004,15 @@
         </div>
     </div>
 
-    <div class="dm" id="detailModal">
-        <div class="box">
-            <div class="dh">
-                <h3 id="detailName"></h3>
-                <button id="closeDetail">✕</button>
-            </div>
-            <div class="db" id="detailBody"></div>
+    <div class="det-overlay" id="detailOverlay"></div>
+    <div class="det-modal" id="detailModal">
+        <div class="det-head">
+            <h3 id="detName"></h3>
+            <div class="det-badges" id="detBadges"></div>
+            <button class="det-x" id="closeDetail">✕</button>
         </div>
+        <div class="det-body" id="detBody"></div>
+        <div class="det-actions" id="detActions"></div>
     </div>
 
     <button class="bt" id="basketToggle">⭐<span class="bc" id="basketCount">0</span></button>
@@ -909,6 +1062,15 @@
 
         function getRowId(r) { return r.wpis_krdo || r._n + r._l; }
         function isFav(r) { const id = getRowId(r); return favorites.some(f => f.id === id); }
+
+        function krdoSlug(name) {
+            let s = name.toLowerCase().trim();
+            const reps = { 'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z','ä':'a','ö':'o','ü':'u','ß':'ss','ñ':'n' };
+            for (const [k,v] of Object.entries(reps)) s = s.replaceAll(k, v);
+            s = s.replace(/[^a-z0-9\s-]/g, '').replace(/[\s-]+/g, '-').replace(/^-+|-+$/g, '');
+            return s;
+        }
+        function krdoUrl(r) { return `https://krdo.pl/dom-opieki/${krdoSlug(r._n)}/`; }
 
         async function geocode(city) {
             if (geocache[city]) return geocache[city];
@@ -1185,24 +1347,51 @@
             const addr = clean(r.adres);
             const googleQ = encodeURIComponent(`${r._n} ${addr}`);
             const mapsQ = encodeURIComponent(`${r._n}, ${r._l}, ${addr}`);
+            const fid = getRowId(r);
+            const saved = isFav(r);
 
-            document.getElementById('detailName').textContent = r._n;
-            document.getElementById('detailBody').innerHTML = `
-                <div class="dr"><div class="dl">Adres</div><div class="dv">${addr}</div></div>
-                <div class="dr"><div class="dl">Lokalizacja</div><div class="dv">${r._l}</div></div>
-                <div class="dr"><div class="dl">Rodzaj</div><div class="dv">${r._t}</div></div>
-                <div class="dr"><div class="dl">Kategoria</div><div class="dv">${r._c}</div></div>
-                <div class="dr"><div class="dl">Miejsca</div><div class="dv">${r._p > 0 ? r._p : 'Nie podano'}</div></div>
-                <div class="dr"><div class="dl">Wpis KRDO</div><div class="dv">${r.wpis_krdo}</div></div>
-                ${r._b ? `<div class="dr"><div class="dl">Oznaczenia</div><div class="dv">${r._b}</div></div>` : ''}
-                ${r._d < 99999 ? `<div class="dr"><div class="dl">Odległość</div><div class="dv">~${r._d} km od ${currentCity}</div></div>` : ''}
-                <div style="display:flex;flex-wrap:wrap;margin-top:12px;gap:4px">
-                    <a class="dla dla-google" href="https://www.google.com/search?q=${googleQ}" target="_blank" rel="noopener">🔍 Szukaj w Google</a>
-                    <a class="dla dla-maps" href="https://www.google.com/maps/search/${mapsQ}" target="_blank" rel="noopener">📍 Zobacz na Mapach</a>
-                </div>
+            let catClass = '';
+            if (r._c === 'Publiczny') catClass = 'det-cat-pub';
+            else if (r._c === 'Prywatny') catClass = 'det-cat-priv';
+            else if (r._c === 'ZOL') catClass = 'det-cat-zol';
+            else if (r._c === 'ŚDS') catClass = 'det-cat-sds';
+
+            const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => {
+                const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd';
+                return `<span class="bg ${c}">${b}</span>`;
+            }).join('') : '';
+
+            document.getElementById('detName').textContent = r._n;
+            document.getElementById('detBadges').innerHTML = bgs ? bgs : '';
+
+            document.getElementById('detBody').innerHTML = `
+                <div class="det-row"><div class="det-lbl">Adres</div><div class="det-val det-addr">${addr}</div></div>
+                <div class="det-row"><div class="det-lbl">Miejscowość</div><div class="det-val">${r._l}</div></div>
+                <div class="det-row"><div class="det-lbl">Rodzaj</div><div class="det-val">${r._t}</div></div>
+                <div class="det-row"><div class="det-lbl">Własność</div><div class="det-val"><span class="det-cat ${catClass}">${r._c}</span></div></div>
+                <div class="det-row"><div class="det-lbl">Miejsca</div><div class="det-val">${r._p > 0 ? r._p + ' miejsc' : 'Nie podano'}</div></div>
+                <div class="det-row"><div class="det-lbl">Wpis KRDO</div><div class="det-val">${r.wpis_krdo}</div></div>
+                ${r._d < 99999 ? `<div class="det-row"><div class="det-lbl">Odległość</div><div class="det-val">~${r._d} km od ${currentCity}</div></div>` : ''}
             `;
+
+            document.getElementById('detActions').innerHTML = `
+                <a class="det-btn det-btn-krdo" href="${krdoUrl(r)}" target="_blank" rel="noopener">🌐 Strona KRDO</a>
+                <a class="det-btn det-btn-google" href="https://www.google.com/search?q=${googleQ}" target="_blank" rel="noopener">🔍 Szukaj w Google</a>
+                <a class="det-btn det-btn-maps" href="https://www.google.com/maps/search/${mapsQ}" target="_blank" rel="noopener">📍 Zobacz na Mapach</a>
+                <button class="det-btn det-btn-fav" id="detFavBtn">${saved ? '⭐ Zapamiętane' : '☆ Zapamiętaj'}</button>
+            `;
+
             document.getElementById('detailModal').classList.add('active');
             document.getElementById('detailOverlay').classList.add('active');
+
+            document.getElementById('detFavBtn').addEventListener('click', function() {
+                // Find and click the corresponding star button
+                const star = document.querySelector(`.fav-btn-cell[data-favid="${fid}"], .fav-btn[data-favid="${fid}"]`);
+                if (star) { toggleFav(star); }
+                // Update button text
+                const newSaved = isFav(r);
+                this.textContent = newSaved ? '⭐ Zapamiętane' : '☆ Zapamiętaj';
+            });
         }
 
         document.getElementById('closeDetail').addEventListener('click', closeDetail);
