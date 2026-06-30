@@ -4,646 +4,311 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>KRDO - Eksplorator</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <style>
-:root{--primary:#6366f1;--primary-dark:#4338ca;--primary-light:#818cf8;--bg:#0f0f1a;--card:#1a1a2e;--card-hover:#1f1f36;--border:#2d2d4a;--text:#e8e8f0;--muted:#9494b8;--shadow:0 4px 20px rgba(0,0,0,.3);--glow:0 0 30px rgba(99,102,241,.15);--r:14px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);background-image:radial-gradient(ellipse at 10% 20%,rgba(99,102,241,.08) 0%,transparent 50%),radial-gradient(ellipse at 90% 80%,rgba(139,92,246,.06) 0%,transparent 50%);color:var(--text);-webkit-text-size-adjust:100%;min-height:100vh}
+:root{--bg:#f8fafc;--card:#fff;--hover:#f1f5f9;--text:#1e293b;--muted:#94a3b8;--border:#e2e8f0;--brand:#059669;--brand-dark:#047857;--brand-light:#6ee7b7;--shadow:0 1px 3px rgba(0,0,0,.08)}
+.dark{--bg:#0f172a;--card:#1e293b;--hover:#334155;--text:#f1f5f9;--muted:#64748b;--border:#334155;--brand:#10b981;--brand-dark:#059669;--brand-light:#34d399;--shadow:0 1px 3px rgba(0,0,0,.3)}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;transition:background .2s,color .2s}
+.bg-c{background:var(--card)}.bg-h{background:var(--hover)}.b{border-color:var(--border)}.text-m{color:var(--muted)}.text-brand{color:var(--brand)}
+.shadow-c{box-shadow:var(--shadow)}
+.grad{background:linear-gradient(135deg,var(--brand),var(--brand-dark))}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;transition:all .2s;border:1px solid transparent;cursor:pointer}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border:none}
+.btn-outline{background:var(--card);border-color:var(--border);color:var(--text)}
+.btn-ghost{background:transparent;border-color:transparent;color:var(--muted)}
+.btn-ghost:hover{background:var(--hover);color:var(--text)}
+.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:.3px}
+.tag-pub{background:#d1fae5;color:#065f46}.tag-priv{background:#ede9fe;color:#5b21b6}.tag-zol{background:#e0e7ff;color:#3730a3}.tag-sds{background:#fce7f3;color:#9d174d}
+.badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase}
+.badge-rec{background:#fef3c7;color:#92400e}.badge-reg{background:#dbeafe;color:#1e40af}
+.dist{font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;display:inline-block}
+.dist-n{background:#d1fae5;color:#065f46}.dist-m{background:#fef3c7;color:#92400e}.dist-f{background:#fee2e2;color:#991b1b}.dist-u{background:var(--hover);color:var(--muted)}
+.pc input,.pc select,.pc textarea{background:var(--bg);border-color:var(--border);color:var(--text);border-radius:10px;padding:8px 14px;font-size:13px;outline:none;width:100%}
+.pc input:focus,.pc select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(5,150,105,.15)}
+@keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.animate-fade{animation:fadeIn .2s ease}
 
-header{background:linear-gradient(135deg,#1a1a2e,#2d2d4a);border-bottom:1px solid var(--border);color:#fff;padding:18px 20px;position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-header h1{font-size:22px;font-weight:800;letter-spacing:-.3px;background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-header p{font-size:12px;color:var(--muted);margin-top:2px}
-
-.container{max-width:1400px;margin:0 auto;padding:12px}
-
-.stats{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px;-webkit-overflow-scrolling:touch}
-.stats::-webkit-scrollbar{height:3px}
-.stats::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
-.sc{flex:0 0 auto;min-width:90px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow)}
-.sc .n{font-size:20px;font-weight:800;background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.sc .l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-
-.fl{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px 20px;text-align:center;box-shadow:var(--shadow);margin-bottom:12px}
-.fl.hidden{display:none}
-.fl .ic{font-size:48px;margin-bottom:8px}
-.fl h2{font-size:18px;font-weight:700;margin-bottom:4px}
-.fl p{color:var(--muted);font-size:13px;margin-bottom:14px}
-.fl label{display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:12px 28px;border-radius:10px;cursor:pointer;font-size:15px;font-weight:600;transition:transform .15s,box-shadow .15s}
-.fl label:hover{transform:translateY(-1px);box-shadow:var(--glow)}
-.fl input[type=file]{display:none}
-.fl .note{margin-top:12px;font-size:11px;color:var(--muted)}
-
-.presets{display:none;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.presets.active{display:flex}
-.preset{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:600;white-space:nowrap;transition:all .2s;color:var(--muted)}
-.preset:hover{border-color:var(--primary);color:var(--text);background:var(--card-hover);box-shadow:var(--glow)}
-.preset.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-color:transparent;box-shadow:var(--glow)}
-
-.controls{display:none;flex-direction:column;gap:10px;margin-bottom:12px}
-.controls.active{display:flex}
-.cr{display:flex;gap:8px;flex-wrap:wrap}
-.sb{flex:1;min-width:140px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;outline:none;-webkit-appearance:none;background:var(--card);color:var(--text);transition:border-color .2s,box-shadow .2s}
-.sb:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.2)}
-.sb::placeholder{color:var(--muted)}
-.fs{flex:1;min-width:120px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:12px;background:var(--card);color:var(--text);-webkit-appearance:none;appearance:none;outline:none;cursor:pointer;transition:border-color .2s}
-.fs:focus{border-color:var(--primary)}
-.fs option{background:var(--bg);color:var(--text)}
-.cy{display:flex;gap:8px;align-items:center}
-.cy label{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap}
-.cy input{flex:1;padding:8px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;outline:none;background:var(--card);color:var(--text);transition:border-color .2s}
-.cy input:focus{border-color:var(--primary)}
-.cy input::placeholder{color:var(--muted)}
-.ub{padding:8px 16px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;transition:transform .15s,box-shadow .15s}
-.ub:hover{transform:translateY(-1px);box-shadow:var(--glow)}
-.cb{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;font-size:18px;color:var(--muted);transition:all .15s}
-.cb:hover{background:var(--card-hover);color:var(--text)}
-
-.ri{display:none;font-size:13px;color:var(--muted);margin-bottom:10px;padding:0 2px}
-.ri.active{display:block}
-.ri strong{color:var(--text)}
-
-.cl{display:none;flex-direction:column;gap:8px}
-.cl.active{display:flex}
-
-.pc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;border-left:3px solid var(--primary);position:relative;cursor:pointer;transition:all .2s}
-.pc:hover{background:var(--card-hover);border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--glow)}
-.pc .nm{font-size:16px;font-weight:700;padding-right:36px}
-.pc .fav-btn{position:absolute;top:10px;right:12px;background:none;border:none;font-size:20px;cursor:pointer;padding:4px;opacity:.5;transition:all .2s}
-.pc .fav-btn:hover,.pc .fav-btn.saved{opacity:1;transform:scale(1.1)}
-.pc .dist{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-top:6px}
-.dn{background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.2)}
-.dm{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
-.df{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.2)}
-.dq{background:rgba(148,148,184,.1);color:var(--muted);border:1px solid rgba(148,148,184,.15)}
-.pc .mt{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
-.pc .tl{margin-top:6px;font-size:12px;line-height:1.4;color:var(--muted)}
-.bgs{margin-top:8px;display:flex;gap:4px;flex-wrap:wrap}
-.bg{font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.3px}
-.bgr{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
-.bgd{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
-.tg{font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600;letter-spacing:.3px}
-.tp{background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.2)}
-.tv{background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.2)}
-.tz{background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.2)}
-.ts{background:rgba(236,72,153,.15);color:#f472b6;border:1px solid rgba(236,72,153,.2)}
-
-@media(min-width:900px){.cl.active{display:none}.tw.active{display:block}}
-.tw{display:none;background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
-.tsc{overflow-x:auto;max-height:70vh;overflow-y:auto}
-.tsc::-webkit-scrollbar{width:6px;height:6px}
-.tsc::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-thead{position:sticky;top:0;z-index:10}
-th{background:var(--card);text-align:left;padding:12px 14px;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap}
-th:hover{color:var(--primary-light)}
-th .sa{margin-left:4px;opacity:.4}
-th.sorted .sa{opacity:1;color:var(--primary-light)}
-td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;transition:background .15s}
-tr:hover td{background:var(--card-hover)}
-.cn{text-align:center;font-weight:600;white-space:nowrap;color:var(--primary-light)}
-td .fav-btn-cell{background:none;border:none;font-size:16px;cursor:pointer;opacity:.5;transition:all .15s}
-td .fav-btn-cell:hover,td .fav-btn-cell.saved{opacity:1;transform:scale(1.15)}
-
-.pg{display:none;align-items:center;justify-content:center;gap:8px;padding:14px;border-top:1px solid var(--border)}
-.pg.active{display:flex}
-.pb{padding:8px 16px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s}
-.pb:hover:not(:disabled){border-color:var(--primary);box-shadow:var(--glow)}
-.pb:disabled{opacity:.3;cursor:default}
-.pi{color:var(--muted);font-size:12px}
-
-.bp{display:none;position:fixed;top:0;right:0;width:380px;max-width:90vw;height:100vh;background:var(--card);border-left:1px solid var(--border);box-shadow:-8px 0 30px rgba(0,0,0,.4);z-index:100;flex-direction:column;transition:transform .3s}
-.bp.active{display:flex}
-.bp.closed{transform:translateX(100%)}
-.bph{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.bph h3{font-size:16px;font-weight:700;color:var(--text)}
-.bph button{background:none;border:none;font-size:22px;cursor:pointer;padding:4px;color:var(--muted)}
-.bpl{flex:1;overflow-y:auto;padding:12px}
-.bpl .empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px}
-.bitem{padding:12px;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;background:var(--card-hover)}
-.bitem .bn{font-weight:700;font-size:13px;color:var(--text)}
-.bitem .bm{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
-.bitem .brm{background:none;border:none;color:#f87171;cursor:pointer;font-size:12px;margin-top:6px;padding:4px 0}
-
-.bt{display:none;position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 20px rgba(99,102,241,.5);z-index:99;transition:transform .2s}
-.bt.active{display:flex;align-items:center;justify-content:center}
-.bt:hover{transform:scale(1.1)}
-.bt:active{transform:scale(.9)}
-.bt .bc{position:absolute;top:-2px;right:-2px;background:#ef4444;color:#fff;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(239,68,68,.4)}
-
-.ov{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:99}
-.ov.active{display:block}
-
-/* Detail modal */
-.det-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:200;backdrop-filter:blur(4px)}
-.det-overlay.active{display:block}
-.det-modal{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:201;width:92%;max-width:480px;max-height:88vh;border-radius:16px;background:var(--card);border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5);overflow:hidden;animation:detIn .25s ease}
-@keyframes detIn{from{transform:translate(-50%,-50%) scale(.92);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
-.det-modal.active{display:block}
-.det-head{background:linear-gradient(135deg,#1a1a2e,#2d2d4a);border-bottom:1px solid var(--border);color:#fff;padding:20px 20px 16px;position:relative}
-.det-head h3{font-size:18px;font-weight:700;padding-right:32px;line-height:1.3;color:var(--text)}
-.det-head .det-x{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--card-hover);border:1px solid var(--border);color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.det-head .det-x:hover{background:var(--border);color:var(--text)}
-.det-head .det-badges{margin-top:8px;display:flex;gap:4px;flex-wrap:wrap}
-.det-body{padding:4px 0;overflow-y:auto;max-height:calc(88vh - 120px)}
-.det-row{display:flex;padding:14px 20px;border-bottom:1px solid var(--border);font-size:14px;line-height:1.4}
-.det-row:last-child{border-bottom:none}
-.det-lbl{color:var(--muted);min-width:90px;font-weight:600;font-size:12px;flex-shrink:0;padding-top:1px;text-transform:uppercase;letter-spacing:.3px}
-.det-val{color:var(--text);flex:1}
-.det-addr{font-size:13px;line-height:1.5;color:var(--muted)}
-.det-actions{padding:14px 20px 18px;display:flex;gap:8px;flex-wrap:wrap}
-.det-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;font-weight:600;font-size:13px;text-decoration:none;transition:all .2s;border:1px solid transparent;cursor:pointer}
-.det-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
-.det-btn-krdo{background:rgba(99,102,241,.15);color:#818cf8;border-color:rgba(99,102,241,.2)}
-.det-btn-google{background:rgba(234,67,53,.15);color:#fca5a5;border-color:rgba(234,67,53,.2)}
-.det-btn-maps{background:rgba(52,168,83,.15);color:#86efac;border-color:rgba(52,168,83,.2)}
-.det-btn-fav{background:rgba(245,158,11,.15);color:#fde68a;border-color:rgba(245,158,11,.2)}
-
-.lo{display:none;text-align:center;padding:40px;color:var(--muted)}
-.lo.active{display:block}
-.sp{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--primary-light);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* Scrollbar */
+html{scroll-behavior:smooth}
+::-webkit-scrollbar{width:7px;height:7px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;border:1px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:var(--muted);background-clip:content-box}
+*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+#tableScroll::-webkit-scrollbar{width:7px;height:7px}
+#tableScroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+#stats::-webkit-scrollbar{height:4px}
+#stats::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+#basketList::-webkit-scrollbar{width:5px}
+#basketList::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>KRDO · Explorer</h1>
-  <p>Krajowy Rejestr Domów Opieki &bull; 3,475+ placówek</p>
+<header class="sticky top-0 z-50 bg-c border-b b shadow-sm" style="background:var(--card);backdrop-filter:blur(12px)">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+    <div class="w-9 h-9 rounded-xl grad flex items-center justify-center text-white text-sm font-bold shrink-0" style="box-shadow:0 2px 8px rgba(5,150,105,.25)">K</div>
+    <div class="flex-1">
+      <h1 class="text-lg font-bold" style="color:var(--text)">KRDO Explorer</h1>
+      <p class="text-xs text-m">Krajowy Rejestr Domów Opieki · 3 475+ placówek</p>
+    </div>
+    <button id="themeToggle" class="btn btn-ghost text-lg" title="Motyw">🌙</button>
+  </div>
 </header>
 
-<div class="container">
+<main class="max-w-7xl mx-auto px-4 py-4">
 
-  <div class="stats" id="stats"></div>
+  <div id="stats" class="flex gap-2 overflow-x-auto pb-2 mb-4"></div>
 
-  <div class="fl" id="fileLoader">
-    <div class="ic">📂</div>
-    <h2>Ładowanie danych...</h2>
-    <p>Automatycznie pobieram dane z repozytorium</p>
-    <div class="sp"></div>
-    <label for="csvFile">📄 Wybierz plik ręcznie</label>
-    <input type="file" id="csvFile" accept=".csv">
-    <div class="note" id="loadStatus"></div>
+  <div id="fileLoader" class="bg-c border b rounded-2xl shadow-c p-12 text-center mb-4">
+    <div class="text-5xl mb-3">📂</div>
+    <h2 class="text-lg font-bold mb-1" style="color:var(--text)">Ładowanie danych</h2>
+    <p class="text-sm text-m mb-4">Automatycznie pobieram dane z repozytorium</p>
+    <div class="inline-block w-8 h-8 border-[3px] rounded-full animate-spin mb-4" style="border-color:var(--border);border-top-color:var(--brand)"></div>
+    <div class="mt-2">
+      <label for="csvFile" class="btn btn-primary">📄 Wybierz plik ręcznie</label>
+      <input type="file" id="csvFile" accept=".csv" class="hidden">
+    </div>
+    <p class="text-xs text-m mt-3" id="loadStatus"></p>
   </div>
 
-  <div class="lo" id="loading">
-    <div class="sp"></div>
-    <div>Przetwarzanie danych...</div>
+  <div id="loading" class="hidden text-center py-16">
+    <div class="inline-block w-8 h-8 border-[3px] rounded-full animate-spin mb-4" style="border-color:var(--border);border-top-color:var(--brand)"></div>
+    <p class="text-sm text-m">Przetwarzanie danych...</p>
   </div>
 
-  <div class="presets" id="presets">
-    <button class="preset" data-preset="all"><span class="ico">🏠</span>Wszystkie</button>
-    <button class="preset" data-preset="intel"><span class="ico">🧠</span>Niepełnosprawni intelektualnie</button>
-    <button class="preset" data-preset="psych"><span class="ico">💊</span>Przewlekle psychicznie chorzy</button>
-    <button class="preset" data-preset="recommended"><span class="ico">⭐</span>Rekomendowane KIDO</button>
-    <button class="preset" data-preset="nearby"><span class="ico">📍</span>Najbliżej (50 km)</button>
-  </div>
+  <div id="presets" class="hidden flex-wrap gap-2 mb-4"></div>
 
-  <div class="controls" id="controls">
-    <div class="cr">
-      <input class="sb" id="searchBox" placeholder="🔍 Szukaj...">
-      <select class="fs" id="filterType"><option value="">Typ</option></select>
-      <select class="fs" id="filterPublic">
-        <option value="">Własność</option>
-        <option value="Publiczny">🏛️ Publiczny</option>
-        <option value="Prywatny">🏠 Prywatny</option>
+  <div id="controls" class="hidden space-y-3 mb-4">
+    <div class="flex flex-wrap gap-2">
+      <input id="searchBox" type="text" class="flex-1 min-w-[160px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none focus:border-brand transition-all" style="background:var(--card);border-color:var(--border);color:var(--text)" placeholder="🔍 Szukaj...">
+      <select id="filterType" class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)"><option value="">Typ</option></select>
+      <select id="filterPublic" class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)">
+        <option value="">Własność</option><option value="Publiczny">🏛️ Publiczny</option><option value="Prywatny">🏠 Prywatny</option>
       </select>
     </div>
-    <div class="cr">
-      <select class="fs" id="filterBadge">
-        <option value="">Oznaczenia</option>
-        <option value="REKOMENDACJA KIDO">⭐ Rekomendowane</option>
-        <option value="ZAREJESTROWANO W KIDO">✅ Zarejestrowane</option>
-        <option value="none">Brak</option>
+    <div class="flex flex-wrap gap-2">
+      <select id="filterBadge" class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)">
+        <option value="">Oznaczenia</option><option value="REKOMENDACJA KIDO">⭐ Rekomendowane</option><option value="ZAREJESTROWANO W KIDO">✅ Zarejestrowane</option><option value="none">Brak</option>
       </select>
-      <select class="fs" id="filterVoivodeship"><option value="">Województwo</option></select>
-      <button class="cb" id="clearBtn">✕</button>
+      <select id="filterVoivodeship" class="flex-1 min-w-[130px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)"><option value="">Województwo</option></select>
+      <button id="clearBtn" class="btn btn-ghost text-lg">✕</button>
     </div>
-    <div class="cy">
-      <label>📍 Odległość od:</label>
-      <input type="text" id="cityInput" value="Elbląg" placeholder="np. Gdańsk">
-      <button class="ub" id="updateCity">Oblicz</button>
+    <div class="flex gap-2 items-center">
+      <span class="text-sm text-m font-medium">📍 Odległość od:</span>
+      <input id="cityInput" type="text" value="Elbląg" class="flex-1 max-w-[200px] px-4 py-2.5 bg-c border b rounded-xl text-sm outline-none" style="background:var(--card);border-color:var(--border);color:var(--text)">
+      <button id="updateCity" class="btn btn-primary">Oblicz</button>
     </div>
   </div>
 
-  <div class="ri" id="resultsInfo">
-    Znaleziono <strong id="resultCount">0</strong> placówek <span id="resultDetail"></span>
+  <div id="resultsInfo" class="hidden text-sm text-m mb-3">
+    Znaleziono <strong id="resultCount" style="color:var(--text)">0</strong> placówek <span id="resultDetail"></span>
   </div>
 
-  <div class="cl" id="cardList"></div>
+  <div id="cardList" class="hidden space-y-3"></div>
 
-  <div class="tw" id="tableWrap">
-    <div class="tsc">
-      <table>
-        <thead>
-          <tr>
-            <th style="text-align:center;width:40px;">★</th>
-            <th data-col="distance" style="text-align:center;">📏 km <span class="sa">↕</span></th>
-            <th data-col="nazwa_instytucji">Nazwa <span class="sa">↕</span></th>
-            <th data-col="lokalizacja">Lokalizacja <span class="sa">↕</span></th>
-            <th data-col="ilosc_miejsc" style="text-align:center;">Miejsca <span class="sa">↕</span></th>
-            <th>Rodzaj</th>
-            <th>Oznaczenia</th>
+  <div id="tableWrap" class="hidden bg-c border b rounded-2xl shadow-c overflow-hidden">
+    <div id="tableScroll" class="overflow-x-auto max-h-[70vh] overflow-y-auto">
+      <table class="w-full text-sm">
+        <thead class="sticky top-0 z-10 bg-h">
+          <tr class="text-xs uppercase tracking-wider text-m">
+            <th class="p-3 text-center w-10 font-medium">★</th>
+            <th data-col="distance" class="p-3 text-center font-medium cursor-pointer hover:text-brand whitespace-nowrap">📏 km <span class="ml-0.5 opacity-40">↕</span></th>
+            <th data-col="nazwa_instytucji" class="p-3 text-left font-medium cursor-pointer hover:text-brand whitespace-nowrap">Nazwa <span class="ml-0.5 opacity-40">↕</span></th>
+            <th data-col="lokalizacja" class="p-3 text-left font-medium cursor-pointer hover:text-brand whitespace-nowrap">Lokalizacja <span class="ml-0.5 opacity-40">↕</span></th>
+            <th data-col="ilosc_miejsc" class="p-3 text-center font-medium cursor-pointer hover:text-brand whitespace-nowrap">Miejsca <span class="ml-0.5 opacity-40">↕</span></th>
+            <th class="p-3 text-left font-medium">Rodzaj</th>
+            <th class="p-3 text-left font-medium">Oznaczenia</th>
           </tr>
         </thead>
-        <tbody id="tableBody"></tbody>
+        <tbody id="tableBody" class="divide-y" style="border-color:var(--border)"></tbody>
       </table>
     </div>
-    <div class="pg" id="pagination">
-      <button class="pb" id="prevBtn">←</button>
-      <span class="pi" id="pageInfo"></span>
-      <button class="pb" id="nextBtn">→</button>
+    <div id="pagination" class="hidden flex items-center justify-center gap-3 p-4 border-t b">
+      <button id="prevBtn" class="btn btn-outline text-sm">←</button>
+      <span id="pageInfo" class="text-sm text-m"></span>
+      <button id="nextBtn" class="btn btn-outline text-sm">→</button>
     </div>
   </div>
-</div>
+</main>
 
-<div class="ov" id="overlay"></div>
-
-<div class="det-overlay" id="detailOverlay"></div>
-<div class="det-modal" id="detailModal">
-  <div class="det-head">
-    <h3 id="detName"></h3>
-    <div class="det-badges" id="detBadges"></div>
-    <button class="det-x" id="closeDetail">✕</button>
+<!-- Detail modal -->
+<div id="detailOverlay" class="hidden fixed inset-0 z-[200]" style="background:rgba(0,0,0,.35)"></div>
+<div id="detailModal" class="hidden fixed inset-0 z-[201] items-center justify-center p-4">
+  <div class="bg-c border b rounded-2xl shadow-c max-w-lg w-full max-h-[85vh] overflow-hidden animate-fade" style="box-shadow:0 20px 60px rgba(0,0,0,.2)">
+    <div class="p-5 pb-3 border-b b flex items-start justify-between gap-4">
+      <div>
+        <h3 id="detName" class="text-lg font-bold" style="color:var(--text)"></h3>
+        <div id="detBadges" class="flex flex-wrap gap-1.5 mt-2"></div>
+      </div>
+      <button id="closeDetail" class="btn btn-ghost shrink-0">✕</button>
+    </div>
+    <div id="detBody" class="p-5 pt-3 overflow-y-auto" style="max-height:calc(85vh - 130px)"></div>
+    <div id="detActions" class="p-5 pt-3 border-t b flex flex-wrap gap-2"></div>
   </div>
-  <div class="det-body" id="detBody"></div>
-  <div class="det-actions" id="detActions"></div>
 </div>
 
-<div class="bp" id="basketPanel">
-  <div class="bph">
-    <h3>⭐ Zapamiętane</h3>
-    <button id="closeBasket">✕</button>
+<!-- Basket -->
+<div id="overlay" class="hidden fixed inset-0 z-[99]" style="background:rgba(0,0,0,.35)"></div>
+<div id="basketPanel" class="hidden fixed top-0 right-0 h-full w-[380px] max-w-[90vw] bg-c shadow-c z-[100] flex flex-col" style="box-shadow:-8px 0 30px rgba(0,0,0,.15)">
+  <div class="flex items-center justify-between p-4 border-b b">
+    <h3 class="font-bold" style="color:var(--text)">⭐ Zapamiętane</h3>
+    <button id="closeBasket" class="btn btn-ghost">✕</button>
   </div>
-  <div class="bpl" id="basketList"><div class="empty">Kliknij ★ przy placówce, aby ją zapamiętać</div></div>
+  <div id="basketList" class="flex-1 overflow-y-auto p-3"><div class="text-center py-12 text-sm text-m">Kliknij ★ przy placówce, aby zapamiętać</div></div>
 </div>
 
-<button class="bt" id="basketToggle">⭐<span class="bc" id="basketCount">0</span></button>
+<button id="basketToggle" class="hidden fixed bottom-6 right-6 w-14 h-14 rounded-full grad text-white text-2xl shadow-c z-[90] items-center justify-center hover:scale-110 active:scale-95 transition-transform" style="box-shadow:0 4px 16px rgba(5,150,105,.35)">
+  ⭐<span id="basketCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+</button>
 
 <script>
-const ROWS_PER_PAGE = 50;
-const ELBLAG = { lat: 54.1989, lon: 19.4411 };
+const ROWS_PER_PAGE=50,ELBLAG={lat:54.1989,lon:19.4411};
+let allData=[],filteredData=[],currentPage=1,sortCol="distance",sortDir=1,geoData={},cityCoords=ELBLAG,currentCity="Elbląg",isMobile=innerWidth<900,geocache={},favorites=JSON.parse(localStorage.getItem('krdo_favs')||'[]'),activePreset=null;
 
-let allData = [], filteredData = [], currentPage = 1;
-let sortCol = "distance", sortDir = 1;
-let geoData = {}, cityCoords = ELBLAG, currentCity = "Elbląg";
-let isMobile = window.innerWidth < 900;
-let geocache = {};
-let favorites = JSON.parse(localStorage.getItem('krdo_favs') || '[]');
-let activePreset = null;
+function clean(t){return t?t.replace(/[\n\t]+/g,' ').replace(/\s+/g,' ').trim():''}
+function distKm(l1,o1,l2,o2){const R=6371,dL=(l2-l1)*Math.PI/180,dO=(o2-o1)*Math.PI/180;return Math.round(R*2*Math.atan2(Math.sqrt(Math.sin(dL/2)**2+Math.cos(l1*Math.PI/180)*Math.cos(l2*Math.PI/180)*Math.sin(dO/2)**2),Math.sqrt(1-Math.sin(dL/2)**2-Math.cos(l1*Math.PI/180)*Math.cos(l2*Math.PI/180)*Math.sin(dO/2)**2)))}
+function parseType(r){const t=clean(r.rodzaj_dzialalnosci);let cat='Inny';if(t.includes('(Publiczny)'))cat='Publiczny';else if(t.includes('(Prywatny)'))cat='Prywatny';else if(t.includes('Zakład Opiekuńczo')||t.includes('Zakład Pielęgnacyjno'))cat='ZOL';else if(t.includes('Środowiskowy Dom Samopomocy'))cat='ŚDS';let ct=t.replace(/\((Publiczny|Prywatny|Zakład Opiekuńczo - Leczniczy|Zakład Pielęgnacyjno-Opiekuńczy|Środowiskowy Dom Samopomocy|Mieszkanie serwisowane|Dzienny Dom Seniora)\)/g,'').trim().replace(/[,\s-]+$/,'').trim();return{clean:ct||t,cat}}
+function getVoiv(l){const o=l.toLowerCase();const m={'dolnośląskie':'dolnośląskie','kujawsko-pomorskie':'kujawsko-pomorskie','lubelskie':'lubelskie','lubuskie':'lubuskie','łódzkie':'łódzkie','małopolskie':'małopolskie','mazowieckie':'mazowieckie','opolskie':'opolskie','podkarpackie':'podkarpackie','podlaskie':'podlaskie','pomorskie':'pomorskie','śląskie':'śląskie','świętokrzyskie':'świętokrzyskie','warmińsko-mazurskie':'warmińsko-mazurskie','wielkopolskie':'wielkopolskie','zachodniopomorskie':'zachodniopomorskie'};for(const[k,v]of Object.entries(m)){if(o.includes(k))return v}
+const c={'warszawa':'mazowieckie','kraków':'małopolskie','poznań':'wielkopolskie','wrocław':'dolnośląskie','łódź':'łódzkie','gdańsk':'pomorskie','katowice':'śląskie','lublin':'lubelskie','rzeszów':'podkarpackie','szczecin':'zachodniopomorskie','bydgoszcz':'kujawsko-pomorskie','toruń':'kujawsko-pomorskie','olsztyn':'warmińsko-mazurskie','opole':'opolskie','kielce':'świętokrzyskie','białystok':'podlaskie','elbląg':'warmińsko-mazurskie'};for(const[k,v]of Object.entries(c)){if(o.includes(k))return v}return'inne'}
+function getRowId(r){return r.wpis_krdo||r._n+r._l}
+function isFav(r){return favorites.some(f=>f.id===getRowId(r))}
+function krdoSlug(s){s=s.toLowerCase().trim();const reps={'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z'};for(const[k,v]of Object.entries(reps))s=s.replaceAll(k,v);return s.replace(/[^a-z0-9\s-]/g,'').replace(/[\s-]+/g,'-').replace(/^-+|-+$/g,'')}
+function krdoUrl(r){return`https://krdo.pl/dom-opieki/${krdoSlug(r._n)}/`}
+async function geocode(c){if(geocache[c])return geocache[c];try{const r=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(c+', Polska')}&format=json&limit=1&accept-language=pl`,{headers:{'User-Agent':'KRDO-Explorer/1.0'}});const d=await r.json();if(d&&d[0]){const res={lat:parseFloat(d[0].lat),lon:parseFloat(d[0].lon)};geocache[c]=res;return res}}catch(e){}return null}
 
-function clean(t) { return t ? t.replace(/[\n\t]+/g,' ').replace(/\s+/g,' ').trim() : ''; }
+function processData(data){
+  allData=data.filter(r=>r.nazwa_instytucji&&r.nazwa_instytucji.trim());
+  allData.forEach(r=>{r._n=clean(r.nazwa_instytucji);r._l=clean(r.lokalizacja);const p=parseType(r);r._t=p.clean;r._c=p.cat;r._p=parseInt(r.ilosc_miejsc)||0;r._b=clean(r.badges);const g=geoData[r.lokalizacja];r._lat=g?.lat||null;r._lon=g?.lon||null;r._d=0});
+  hide('loading');hide('fileLoader');show('presets');show('controls');show('resultsInfo');show('pagination');document.getElementById('basketToggle').style.display='flex';
+  if(isMobile)show('cardList');else show('tableWrap');
+  renderPresets();populateFilters();calcDists();applyFilters();renderBasket();
+}
+function hide(id){document.getElementById(id).classList.add('hidden')}
+function show(id){document.getElementById(id).classList.remove('hidden')}
 
-function distKm(l1, o1, l2, o2) {
-  const R = 6371;
-  const dL = (l2 - l1) * Math.PI / 180;
-  const dO = (o2 - o1) * Math.PI / 180;
-  const a = Math.sin(dL/2)**2 + Math.cos(l1*Math.PI/180) * Math.cos(l2*Math.PI/180) * Math.sin(dO/2)**2;
-  return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+function renderPresets(){
+  const p=document.getElementById('presets');
+  p.innerHTML=[{l:'🏠 Wszystkie',k:'all'},{l:'🧠 Niepełnosprawni intelektualnie',k:'intel'},{l:'💊 Przewlekle psychicznie chorzy',k:'psych'},{l:'⭐ Rekomendowane KIDO',k:'recommended'},{l:'📍 Najbliżej (50 km)',k:'nearby'}].map(i=>`<button class="preset-btn px-4 py-1.5 text-sm font-medium rounded-full border" style="background:var(--card);border-color:var(--border);color:var(--text)" data-key="${i.k}">${i.l}</button>`).join('');
+  p.querySelectorAll('.preset-btn').forEach(b=>{b.addEventListener('click',function(){
+    const k=this.dataset.key;
+    p.querySelectorAll('.preset-btn').forEach(x=>{x.style.background='var(--card)';x.style.borderColor='var(--border)';x.style.color='var(--text)'});
+    if(activePreset===k){activePreset=null;applyFilters();return}
+    this.style.background='var(--brand)';this.style.borderColor='var(--brand)';this.style.color='#fff';activePreset=k;
+    ['searchBox','filterType','filterPublic','filterBadge','filterVoivodeship'].forEach(id=>document.getElementById(id).value='');
+    applyFilters()})});
 }
 
-function parseType(r) {
-  const t = clean(r.rodzaj_dzialalnosci);
-  let cat = 'Inny';
-  if (t.includes('(Publiczny)')) cat = 'Publiczny';
-  else if (t.includes('(Prywatny)')) cat = 'Prywatny';
-  else if (t.includes('Zakład Opiekuńczo') || t.includes('Zakład Pielęgnacyjno')) cat = 'ZOL';
-  else if (t.includes('Środowiskowy Dom Samopomocy')) cat = 'ŚDS';
-  let ct = t.replace(/\((Publiczny|Prywatny|Zakład Opiekuńczo - Leczniczy|Zakład Pielęgnacyjno-Opiekuńczy|Środowiskowy Dom Samopomocy|Mieszkanie serwisowane|Dzienny Dom Seniora)\)/g,'').trim().replace(/[,\s-]+$/,'').trim();
-  if (!ct) ct = t;
-  return { clean: ct, cat };
+async function autoLoadCSV(){
+  document.getElementById('loadStatus').textContent='Pobieranie danych...';
+  try{const r=await fetch('krdo_dps_poland.csv');if(!r.ok)throw Error('HTTP '+r.status);const t=await r.text();document.getElementById('loadStatus').textContent='Parsowanie...';Papa.parse(t,{header:true,complete:function(r){processData(r.data)}})}
+  catch(e){document.getElementById('loadStatus').textContent='Nie udało się pobrać — wybierz plik';document.querySelector('#fileLoader h2').textContent='Załaduj dane';document.querySelector('#fileLoader p').textContent='Wybierz plik krdo_dps_poland.csv';document.querySelector('#fileLoader .animate-spin').style.display='none'}
 }
 
-function getVoiv(l) {
-  const o = l.toLowerCase();
-  const m = { 'dolnośląskie':'dolnośląskie','kujawsko-pomorskie':'kujawsko-pomorskie','lubelskie':'lubelskie','lubuskie':'lubuskie','łódzkie':'łódzkie','małopolskie':'małopolskie','mazowieckie':'mazowieckie','opolskie':'opolskie','podkarpackie':'podkarpackie','podlaskie':'podlaskie','pomorskie':'pomorskie','śląskie':'śląskie','świętokrzyskie':'świętokrzyskie','warmińsko-mazurskie':'warmińsko-mazurskie','wielkopolskie':'wielkopolskie','zachodniopomorskie':'zachodniopomorskie' };
-  for (const [k,v] of Object.entries(m)) { if (o.includes(k)) return v; }
-  const c = { 'warszawa':'mazowieckie','kraków':'małopolskie','poznań':'wielkopolskie','wrocław':'dolnośląskie','łódź':'łódzkie','gdańsk':'pomorskie','katowice':'śląskie','lublin':'lubelskie','rzeszów':'podkarpackie','szczecin':'zachodniopomorskie','bydgoszcz':'kujawsko-pomorskie','toruń':'kujawsko-pomorskie','olsztyn':'warmińsko-mazurskie','opole':'opolskie','kielce':'świętokrzyskie','białystok':'podlaskie','elbląg':'warmińsko-mazurskie' };
-  for (const [k,v] of Object.entries(c)) { if (o.includes(k)) return v; }
-  return 'inne';
+document.getElementById('csvFile').addEventListener('change',async function(e){const f=e.target.files[0];if(!f)return;show('loading');hide('fileLoader');Papa.parse(f,{header:true,encoding:'UTF-8',complete:function(r){processData(r.data)}})});
+(async function init(){try{const r=await fetch('locations_geo.json');geoData=await r.json()}catch(e){}autoLoadCSV()})();
+
+function populateFilters(){
+  const ts=new Set();allData.forEach(r=>{if(r._t)ts.add(r._t)});
+  const tS=document.getElementById('filterType');tS.innerHTML='<option value="">Typ</option>';
+  [...ts].sort().forEach(t=>{let o=document.createElement('option');o.value=t;o.textContent=t;tS.appendChild(o)});
+  const vS=document.getElementById('filterVoivodeship');vS.innerHTML='<option value="">Województwo</option>';
+  ['dolnośląskie','kujawsko-pomorskie','lubelskie','lubuskie','łódzkie','małopolskie','mazowieckie','opolskie','podkarpackie','podlaskie','pomorskie','śląskie','świętokrzyskie','warmińsko-mazurskie','wielkopolskie','zachodniopomorskie'].forEach(v=>{let o=document.createElement('option');o.value=v;o.textContent=v.charAt(0).toUpperCase()+v.slice(1);vS.appendChild(o)});
 }
 
-function getRowId(r) { return r.wpis_krdo || r._n + r._l; }
-function isFav(r) { const id = getRowId(r); return favorites.some(f => f.id === id); }
+async function calcDists(){if(currentCity.toLowerCase()!=='elbląg'){const c=await geocode(currentCity);if(c)cityCoords=c}else cityCoords=ELBLAG;allData.forEach(r=>{r._d=(r._lat&&r._lon)?distKm(cityCoords.lat,cityCoords.lon,r._lat,r._lon):99999})}
 
-function krdoSlug(name) {
-  let s = name.toLowerCase().trim();
-  const reps = { 'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z','ä':'a','ö':'o','ü':'u','ß':'ss','ñ':'n' };
-  for (const [k,v] of Object.entries(reps)) s = s.replaceAll(k, v);
-  s = s.replace(/[^a-z0-9\s-]/g, '').replace(/[\s-]+/g, '-').replace(/^-+|-+$/g, '');
-  return s;
-}
-function krdoUrl(r) { return `https://krdo.pl/dom-opieki/${krdoSlug(r._n)}/`; }
+document.getElementById('updateCity').addEventListener('click',async function(){const c=document.getElementById('cityInput').value.trim();if(!c)return;currentCity=c;show('loading');await calcDists();hide('loading');if(activePreset==='nearby')activePreset=null;resetPresets();applyFilters()});
+function resetPresets(){document.querySelectorAll('.preset-btn').forEach(x=>{x.style.background='var(--card)';x.style.borderColor='var(--border)';x.style.color='var(--text)'})}
 
-async function geocode(city) {
-  if (geocache[city]) return geocache[city];
-  try {
-    const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city+', Polska')}&format=json&limit=1&accept-language=pl`, { headers: { 'User-Agent':'KRDO-Explorer/1.0' } });
-    const d = await r.json();
-    if (d && d[0]) { const res = { lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon) }; geocache[city] = res; return res; }
-  } catch(e) {}
-  return null;
-}
-
-function processData(csvData) {
-  allData = csvData.filter(r => r.nazwa_instytucji && r.nazwa_instytucji.trim());
-  allData.forEach(r => {
-    r._n = clean(r.nazwa_instytucji);
-    r._l = clean(r.lokalizacja);
-    const p = parseType(r);
-    r._t = p.clean;
-    r._c = p.cat;
-    r._p = parseInt(r.ilosc_miejsc) || 0;
-    r._b = clean(r.badges);
-    const g = geoData[r.lokalizacja];
-    r._lat = g ? g.lat : null;
-    r._lon = g ? g.lon : null;
-    r._d = 0;
+function applyFilters(){
+  const s=document.getElementById('searchBox').value.toLowerCase().trim(),tf=document.getElementById('filterType').value,pf=document.getElementById('filterPublic').value,bf=document.getElementById('filterBadge').value,vf=document.getElementById('filterVoivodeship').value;
+  filteredData=allData.filter(r=>{
+    if(activePreset==='intel'&&!r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie'))return false;
+    if(activePreset==='psych'&&!r.rodzaj_dzialalnosci.toLowerCase().includes('psychicznie'))return false;
+    if(activePreset==='recommended'&&!r._b.includes('REKOMENDACJA KIDO'))return false;
+    if(activePreset==='nearby'&&r._d>50)return false;
+    if(s){const h=(r._n+' '+r._l+' '+r._t+' '+r.rodzaj_dzialalnosci).toLowerCase();if(!h.includes(s))return false}
+    if(tf&&r._t!==tf)return false;if(pf&&r._c!==pf)return false;
+    if(bf==='none'&&r._b)return false;if(bf&&bf!=='none'&&!r._b.includes(bf))return false;
+    if(vf&&getVoiv(r.lokalizacja)!==vf)return false;return true;
   });
-  document.getElementById('loading').classList.remove('active');
-  document.getElementById('fileLoader').classList.add('hidden');
-  document.getElementById('presets').classList.add('active');
-  document.getElementById('controls').classList.add('active');
-  document.getElementById('resultsInfo').classList.add('active');
-  document.getElementById('pagination').classList.add('active');
-  document.getElementById('basketToggle').classList.add('active');
-  if (isMobile) document.getElementById('cardList').classList.add('active');
-  else document.getElementById('tableWrap').classList.add('active');
-  populateFilters();
-  calcDists();
-  applyFilters();
-  renderBasket();
+  if(sortCol)filteredData.sort((a,b)=>{let va,vb;if(sortCol==='distance'){va=a._d;vb=b._d}else if(sortCol==='ilosc_miejsc'){va=a._p;vb=b._p}else if(sortCol==='nazwa_instytucji'){va=a._n;vb=b._n}else if(sortCol==='lokalizacja'){va=a._l;vb=b._l}else{va='';vb=''};return typeof va==='string'?sortDir*va.localeCompare(vb,'pl'):sortDir*(va-vb)});
+  currentPage=1;render();updateStats();
 }
 
-async function autoLoadCSV() {
-  document.getElementById('loadStatus').textContent = 'Pobieranie danych...';
-  try {
-    const resp = await fetch('krdo_dps_poland.csv');
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const csvText = await resp.text();
-    document.getElementById('loadStatus').textContent = 'Parsowanie danych...';
-    Papa.parse(csvText, {
-      header: true,
-      complete: function(results) { processData(results.data); }
-    });
-  } catch(e) {
-    console.warn('Auto-load failed:', e);
-    document.getElementById('loadStatus').textContent = 'Nie udało się pobrać — wybierz plik ręcznie';
-    document.querySelector('.fl h2').textContent = 'Załaduj dane';
-    document.querySelector('.fl p').textContent = 'Wybierz plik krdo_dps_poland.csv';
-    document.querySelector('.fl .sp').style.display = 'none';
-  }
-}
-
-document.getElementById('csvFile').addEventListener('change', async function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  document.getElementById('loading').classList.add('active');
-  document.getElementById('fileLoader').classList.add('hidden');
-  Papa.parse(file, { header: true, encoding: 'UTF-8', complete: function(res) { processData(res.data); } });
-});
-
-(async function init() {
-  try { const r = await fetch('locations_geo.json'); geoData = await r.json(); } catch(e) {}
-  autoLoadCSV();
-})();
-
-function populateFilters() {
-  const ts = new Set();
-  allData.forEach(r => { if (r._t) ts.add(r._t); });
-  const tS = document.getElementById('filterType');
-  tS.innerHTML = '<option value="">Typ</option>';
-  [...ts].sort().forEach(t => { let o = document.createElement('option'); o.value = t; o.textContent = t; tS.appendChild(o); });
-  const voivs = ['dolnośląskie','kujawsko-pomorskie','lubelskie','lubuskie','łódzkie','małopolskie','mazowieckie','opolskie','podkarpackie','podlaskie','pomorskie','śląskie','świętokrzyskie','warmińsko-mazurskie','wielkopolskie','zachodniopomorskie'];
-  const vS = document.getElementById('filterVoivodeship');
-  vS.innerHTML = '<option value="">Województwo</option>';
-  voivs.forEach(v => { let o = document.createElement('option'); o.value = v; o.textContent = v.charAt(0).toUpperCase() + v.slice(1); vS.appendChild(o); });
-}
-
-async function calcDists() {
-  if (currentCity.toLowerCase() !== 'elbląg') { const c = await geocode(currentCity); if (c) cityCoords = c; }
-  else { cityCoords = ELBLAG; }
-  allData.forEach(r => { r._d = (r._lat && r._lon) ? distKm(cityCoords.lat, cityCoords.lon, r._lat, r._lon) : 99999; });
-}
-
-document.getElementById('updateCity').addEventListener('click', async function() {
-  const c = document.getElementById('cityInput').value.trim();
-  if (!c) return;
-  currentCity = c;
-  document.getElementById('loading').classList.add('active');
-  await calcDists();
-  document.getElementById('loading').classList.remove('active');
-  if (activePreset === 'nearby') activePreset = null;
-  document.querySelectorAll('.preset').forEach(p => p.classList.remove('active'));
-  applyFilters();
-});
-
-document.querySelectorAll('.preset').forEach(btn => {
-  btn.addEventListener('click', function() {
-    const p = this.dataset.preset;
-    document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
-    if (activePreset === p) { activePreset = null; applyFilters(); return; }
-    this.classList.add('active');
-    activePreset = p;
-    document.getElementById('searchBox').value = '';
-    document.getElementById('filterType').value = '';
-    document.getElementById('filterPublic').value = '';
-    document.getElementById('filterBadge').value = '';
-    document.getElementById('filterVoivodeship').value = '';
-    applyFilters();
-  });
-});
-
-function applyFilters() {
-  const s = document.getElementById('searchBox').value.toLowerCase().trim();
-  const tf = document.getElementById('filterType').value;
-  const pf = document.getElementById('filterPublic').value;
-  const bf = document.getElementById('filterBadge').value;
-  const vf = document.getElementById('filterVoivodeship').value;
-
-  filteredData = allData.filter(r => {
-    if (activePreset === 'intel' && !r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')) return false;
-    if (activePreset === 'psych' && !r.rodzaj_dzialalnosci.toLowerCase().includes('psychicznie')) return false;
-    if (activePreset === 'recommended' && !r._b.includes('REKOMENDACJA KIDO')) return false;
-    if (activePreset === 'nearby' && r._d > 50) return false;
-    if (s) { const h = (r._n + ' ' + r._l + ' ' + r._t + ' ' + r.rodzaj_dzialalnosci).toLowerCase(); if (!h.includes(s)) return false; }
-    if (tf && r._t !== tf) return false;
-    if (pf && r._c !== pf) return false;
-    if (bf === 'none' && r._b) return false;
-    if (bf && bf !== 'none' && !r._b.includes(bf)) return false;
-    if (vf && getVoiv(r.lokalizacja) !== vf) return false;
-    return true;
-  });
-
-  if (sortCol) {
-    filteredData.sort((a, b) => {
-      let va, vb;
-      if (sortCol === 'distance') { va = a._d; vb = b._d; }
-      else if (sortCol === 'ilosc_miejsc') { va = a._p; vb = b._p; }
-      else if (sortCol === 'nazwa_instytucji') { va = a._n; vb = b._n; }
-      else if (sortCol === 'lokalizacja') { va = a._l; vb = b._l; }
-      else { va = ''; vb = ''; }
-      return typeof va === 'string' ? sortDir * va.localeCompare(vb, 'pl') : sortDir * (va - vb);
-    });
-  }
-  currentPage = 1;
-  render();
-  updateStats();
-}
-
-function render() {
-  const total = filteredData.length, tp = Math.ceil(total / ROWS_PER_PAGE);
-  const s = (currentPage - 1) * ROWS_PER_PAGE, e = Math.min(s + ROWS_PER_PAGE, total);
-  const pd = filteredData.slice(s, e);
-  document.getElementById('resultCount').textContent = total;
-  document.getElementById('resultDetail').textContent = total < allData.length ? `(str. ${currentPage}/${tp})` : '';
-  document.getElementById('pageInfo').textContent = `${currentPage}/${tp || 1}`;
-  document.getElementById('prevBtn').disabled = currentPage <= 1;
-  document.getElementById('nextBtn').disabled = currentPage >= tp || tp === 0;
-
-  const cityName = currentCity;
-
-  if (isMobile) {
-    document.getElementById('cardList').innerHTML = pd.map(r => {
-      const d = r._d;
-      let dc = 'dq', dt = d >= 99999 ? '?' : `~${d} km`;
-      if (d < 50) dc = 'dn'; else if (d < 150) dc = 'dm'; else if (d < 99999) dc = 'df';
-      const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd'; return `<span class="bg ${c}">${b}</span>`; }).join('') : '';
-      let ct = '';
-      if (r._c === 'Publiczny') ct = '<span class="tg tp">Publiczny</span>';
-      else if (r._c === 'Prywatny') ct = '<span class="tg tv">Prywatny</span>';
-      else if (r._c === 'ZOL') ct = '<span class="tg tz">ZOL</span>';
-      else if (r._c === 'ŚDS') ct = '<span class="tg ts">ŚDS</span>';
-      const fid = getRowId(r);
-      const saved = isFav(r);
-      return `<div class="pc"><button class="fav-btn ${saved?'saved':''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button>
-        <div class="nm">${r._n}</div>
-        <span class="dist ${dc}">📍 ${dt} od ${cityName}</span>
-        <div class="mt"><span>📍 ${r._l}</span><span>🛏️ ${r._p>0?r._p:'?'}</span><span>📋 ${r.wpis_krdo}</span></div>
-        <div class="tl">${ct} ${r._t}</div>
-        ${bgs ? `<div class="bgs">${bgs}</div>` : ''}
-      </div>`;
+function render(){
+  const total=filteredData.length,tp=Math.ceil(total/ROWS_PER_PAGE),s=(currentPage-1)*ROWS_PER_PAGE,e=Math.min(s+ROWS_PER_PAGE,total),pd=filteredData.slice(s,e);
+  document.getElementById('resultCount').textContent=total;document.getElementById('resultDetail').textContent=total<allData.length?`(str. ${currentPage}/${tp})`:'';document.getElementById('pageInfo').textContent=`${currentPage}/${tp||1}`;document.getElementById('prevBtn').disabled=currentPage<=1;document.getElementById('nextBtn').disabled=currentPage>=tp||tp===0;
+  const cn=currentCity;
+  if(isMobile){
+    document.getElementById('cardList').innerHTML=pd.map(r=>{
+      const d=r._d;let dc='dist-u',dt=d>=99999?'?':`~${d} km`;if(d<50)dc='dist-n';else if(d<150)dc='dist-m';else if(d<99999)dc='dist-f';
+      const bgs=r._b?r._b.split(', ').filter(Boolean).map(b=>{const c=b.includes('REKOMENDACJA')?'badge-rec':'badge-reg';return`<span class="badge ${c}">${b}</span>`}).join(''):'';
+      let ct='';if(r._c==='Publiczny')ct='<span class="tag tag-pub">Publiczny</span>';else if(r._c==='Prywatny')ct='<span class="tag tag-priv">Prywatny</span>';else if(r._c==='ZOL')ct='<span class="tag tag-zol">ZOL</span>';else if(r._c==='ŚDS')ct='<span class="tag tag-sds">ŚDS</span>';
+      const fid=getRowId(r),saved=isFav(r);
+      return`<div class="card bg-c border b rounded-xl shadow-c p-4 cursor-pointer hover:-translate-y-0.5 transition-all" style="background:var(--card);border-color:var(--border)" data-detail="${fid}"><button class="fav-btn float-right text-lg ${saved?'opacity-100':'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer p-1" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button><div class="font-semibold pr-8" style="color:var(--text)">${r._n}</div><span class="${dc}">📍 ${dt} od ${cn}</span><div class="text-xs text-m mt-2 flex flex-wrap gap-x-4 gap-y-1"><span>📍 ${r._l}</span><span>🛏️ ${r._p>0?r._p:'?'}</span><span>📋 ${r.wpis_krdo}</span></div><div class="text-xs text-m mt-1.5">${ct} ${r._t}</div>${bgs?`<div class="flex flex-wrap gap-1 mt-2">${bgs}</div>`:''}</div>`;
     }).join('');
-    document.querySelectorAll('.pc .fav-btn').forEach(btn => { btn.addEventListener('click', function(e) { e.stopPropagation(); toggleFav(this); }); });
-    document.querySelectorAll('.pc').forEach(card => { card.addEventListener('click', function() { const id = this.dataset.detail; const r = filteredData.find(item => getRowId(item) === id); if (r) showDetail(r); }); });
-  } else {
-    document.getElementById('tableBody').innerHTML = pd.map(r => {
-      const d = r._d;
-      const dt = d >= 99999 ? '?' : `${d} km`;
-      const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd'; return `<span class="bg ${c}">${b}</span>`; }).join('') : '';
-      const fid = getRowId(r);
-      const saved = isFav(r);
-      return `<tr style="cursor:pointer" data-detail="${fid}">
-        <td style="text-align:center;" onclick="event.stopPropagation()"><button class="fav-btn-cell ${saved?'saved':''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button></td>
-        <td class="cn">${dt}</td>
-        <td style="font-weight:600;">${r._n}</td>
-        <td>${r._l}</td>
-        <td class="cn">${r._p > 0 ? r._p : '-'}</td>
-        <td style="font-size:12px;color:var(--muted)">${r._t}</td>
-        <td>${bgs}</td>
-      </tr>`;
+    document.querySelectorAll('.fav-btn').forEach(b=>{b.addEventListener('click',function(e){e.stopPropagation();toggleFav(this)})});
+    document.querySelectorAll('[data-detail]').forEach(c=>{c.addEventListener('click',function(){const id=this.dataset.detail;const r=filteredData.find(i=>getRowId(i)===id);if(r)showDetail(r)})});
+  }else{
+    document.getElementById('tableBody').innerHTML=pd.map(r=>{
+      const d=r._d,dt=d>=99999?'?':`${d} km`;const bgs=r._b?r._b.split(', ').filter(Boolean).map(b=>{const c=b.includes('REKOMENDACJA')?'badge-rec':'badge-reg';return`<span class="badge ${c}">${b}</span>`}).join(''):'';const fid=getRowId(r),saved=isFav(r);
+      return`<tr class="cursor-pointer hover:bg-h transition-colors" style="border-color:var(--border)" data-detail="${fid}"><td class="p-3 text-center" onclick="event.stopPropagation()"><button class="fav-btn-cell text-base ${saved?'opacity-100':'opacity-40'} hover:opacity-100 transition-all bg-transparent border-none cursor-pointer" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button></td><td class="p-3 text-center font-semibold text-brand">${dt}</td><td class="p-3 font-semibold" style="color:var(--text)">${r._n}</td><td class="p-3 text-m">${r._l}</td><td class="p-3 text-center font-semibold" style="color:var(--text)">${r._p>0?r._p:'-'}</td><td class="p-3 text-xs text-m">${r._t}</td><td class="p-3">${bgs}</td></tr>`;
     }).join('');
-    document.querySelectorAll('.fav-btn-cell').forEach(btn => { btn.addEventListener('click', function(e) { e.stopPropagation(); toggleFav(this); }); });
-    document.querySelectorAll('tr[data-detail]').forEach(row => { row.addEventListener('click', function() { const id = this.dataset.detail; const r = filteredData.find(item => getRowId(item) === id); if (r) showDetail(r); }); });
+    document.querySelectorAll('.fav-btn-cell').forEach(b=>{b.addEventListener('click',function(e){e.stopPropagation();toggleFav(this)})});
+    document.querySelectorAll('tr[data-detail]').forEach(r=>{r.addEventListener('click',function(){const id=this.dataset.detail;const ri=filteredData.find(i=>getRowId(i)===id);if(ri)showDetail(ri)})});
   }
 }
 
-function updateStats() {
-  const d = filteredData;
-  const tp = d.reduce((s,r) => s + r._p, 0);
-  document.getElementById('stats').innerHTML = `
-    <div class="sc"><div class="n">${d.length.toLocaleString()}</div><div class="l">Placówek</div></div>
-    <div class="sc"><div class="n">${tp.toLocaleString()}</div><div class="l">Miejsc</div></div>
-    <div class="sc"><div class="n">${d.filter(r=>r._c==='Publiczny').length}</div><div class="l">Publiczne</div></div>
-    <div class="sc"><div class="n">${d.filter(r=>r._c==='Prywatny').length}</div><div class="l">Prywatne</div></div>
-    <div class="sc"><div class="n">${d.filter(r=>r._b.includes('REKOMENDACJA KIDO')).length}</div><div class="l">Rekomend.</div></div>
-    <div class="sc"><div class="n">${d.filter(r=>r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')).length}</div><div class="l">Niep. intel.</div></div>
-  `;
+function updateStats(){
+  const d=filteredData,tp=d.reduce((s,r)=>s+r._p,0);
+  document.getElementById('stats').innerHTML=[{n:d.length.toLocaleString(),l:'Placówek'},{n:tp.toLocaleString(),l:'Miejsc'},{n:d.filter(r=>r._c==='Publiczny').length,l:'Publiczne'},{n:d.filter(r=>r._c==='Prywatny').length,l:'Prywatne'},{n:d.filter(r=>r._b.includes('REKOMENDACJA KIDO')).length,l:'Rekomend.'},{n:d.filter(r=>r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')).length,l:'Niep. intel.'}].map(i=>`<div class="flex-none min-w-[90px] bg-c border b rounded-xl shadow-c p-2.5 px-3.5"><div class="text-lg font-extrabold" style="color:var(--brand)">${i.n}</div><div class="text-[9px] text-m uppercase tracking-wider font-semibold">${i.l}</div></div>`).join('');
 }
 
-function showDetail(r) {
-  const addr = clean(r.adres);
-  const googleQ = encodeURIComponent(`${r._n} ${addr}`);
-  const mapsQ = encodeURIComponent(`${r._n}, ${r._l}, ${addr}`);
-  const fid = getRowId(r);
-  const saved = isFav(r);
-  const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd'; return `<span class="bg ${c}">${b}</span>`; }).join('') : '';
-  document.getElementById('detName').textContent = r._n;
-  document.getElementById('detBadges').innerHTML = bgs || '';
-  document.getElementById('detBody').innerHTML = `
-    <div class="det-row"><div class="det-lbl">Adres</div><div class="det-val det-addr">${addr}</div></div>
-    <div class="det-row"><div class="det-lbl">Miejscowość</div><div class="det-val">${r._l}</div></div>
-    <div class="det-row"><div class="det-lbl">Rodzaj</div><div class="det-val">${r._t}</div></div>
-    <div class="det-row"><div class="det-lbl">Własność</div><div class="det-val">${r._c}</div></div>
-    <div class="det-row"><div class="det-lbl">Miejsca</div><div class="det-val">${r._p > 0 ? r._p + ' miejsc' : 'Nie podano'}</div></div>
-    <div class="det-row"><div class="det-lbl">Wpis</div><div class="det-val">${r.wpis_krdo}</div></div>
-    ${r._d < 99999 ? `<div class="det-row"><div class="det-lbl">Odległość</div><div class="det-val">~${r._d} km od ${currentCity}</div></div>` : ''}
-  `;
-  document.getElementById('detActions').innerHTML = `
-    <a class="det-btn det-btn-krdo" href="${krdoUrl(r)}" target="_blank" rel="noopener">🌐 Strona KRDO</a>
-    <a class="det-btn det-btn-google" href="https://www.google.com/search?q=${googleQ}" target="_blank" rel="noopener">🔍 Szukaj w Google</a>
-    <a class="det-btn det-btn-maps" href="https://www.google.com/maps/search/${mapsQ}" target="_blank" rel="noopener">📍 Zobacz na Mapach</a>
-    <button class="det-btn det-btn-fav" id="detFavBtn">${saved ? '⭐ Zapamiętane' : '☆ Zapamiętaj'}</button>
-  `;
-  document.getElementById('detailModal').classList.add('active');
-  document.getElementById('detailOverlay').classList.add('active');
-  document.getElementById('detFavBtn').addEventListener('click', function() {
-    const star = document.querySelector(`.fav-btn-cell[data-favid="${fid}"], .fav-btn[data-favid="${fid}"]`);
-    if (star) toggleFav(star);
-    this.textContent = isFav(r) ? '⭐ Zapamiętane' : '☆ Zapamiętaj';
-  });
+function showDetail(r){
+  const addr=clean(r.adres),gq=encodeURIComponent(r._n+' '+addr),mq=encodeURIComponent(r._n+', '+r._l+', '+addr),fid=getRowId(r),saved=isFav(r);
+  const bgs=r._b?r._b.split(', ').filter(Boolean).map(b=>{const c=b.includes('REKOMENDACJA')?'badge-rec':'badge-reg';return`<span class="badge ${c}">${b}</span>`}).join(''):'';
+  document.getElementById('detName').textContent=r._n;document.getElementById('detBadges').innerHTML=bgs||'';
+  document.getElementById('detBody').innerHTML=`<div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Adres</span><span style="color:var(--text)">${addr}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejscowość</span><span style="color:var(--text)">${r._l}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Rodzaj</span><span style="color:var(--text)">${r._t}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Własność</span><span style="color:var(--text)">${r._c}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Miejsca</span><span style="color:var(--text)">${r._p>0?r._p+' miejsc':'Nie podano'}</span></div><div class="flex py-3 border-b" style="border-color:var(--border)"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Wpis</span><span style="color:var(--text)">${r.wpis_krdo}</span></div>${r._d<99999?`<div class="flex py-3"><span class="text-m font-medium w-24 shrink-0 text-xs uppercase tracking-wider">Odległość</span><span style="color:var(--text)">~${r._d} km od ${currentCity}</span></div>`:''}`;
+  document.getElementById('detActions').innerHTML=`<a class="btn" href="${krdoUrl(r)}" target="_blank" style="background:#eef2ff;color:#4338ca;border-color:#c7d2fe">🌐 Strona KRDO</a><a class="btn" href="https://www.google.com/search?q=${gq}" target="_blank" style="background:#fef2f2;color:#dc2626;border-color:#fecaca">🔍 Google</a><a class="btn" href="https://www.google.com/maps/search/${mq}" target="_blank" style="background:#f0fdf4;color:#16a34a;border-color:#bbf7b7">📍 Maps</a><button class="btn" id="detFavBtn" style="background:#fffbeb;color:#d97706;border-color:#fde68a">${saved?'⭐ Zapamiętane':'☆ Zapamiętaj'}</button>`;
+  show('detailModal');document.getElementById('detailModal').style.display='flex';show('detailOverlay');
+  document.getElementById('detFavBtn').addEventListener('click',function(){const star=document.querySelector(`.fav-btn-cell[data-favid="${fid}"],.fav-btn[data-favid="${fid}"]`);if(star)toggleFav(star);this.textContent=isFav(r)?'⭐ Zapamiętane':'☆ Zapamiętaj'});
 }
 
-document.getElementById('closeDetail').addEventListener('click', closeDetail);
-document.getElementById('detailOverlay').addEventListener('click', closeDetail);
-function closeDetail() {
-  const m = document.getElementById('detailModal');
-  const o = document.getElementById('detailOverlay');
-  if (m) m.classList.remove('active');
-  if (o) o.classList.remove('active');
+document.getElementById('closeDetail').addEventListener('click',()=>{hide('detailModal');document.getElementById('detailModal').style.display='none';hide('detailOverlay')});
+document.getElementById('detailOverlay').addEventListener('click',()=>{hide('detailModal');document.getElementById('detailModal').style.display='none';hide('detailOverlay')});
+
+function toggleFav(btn){const id=btn.dataset.favid,idx=favorites.findIndex(f=>f.id===id);if(idx>=0){favorites.splice(idx,1);btn.textContent='☆';btn.classList.remove('opacity-100');btn.classList.add('opacity-40')}else{favorites.push({id,nazwa:btn.dataset.favname,lokalizacja:btn.dataset.favloc,dystans:parseInt(btn.dataset.favdist)||0,wpis:btn.dataset.favkrdo,typ:btn.dataset.favtype,kategoria:btn.dataset.favcat,badges:btn.dataset.favbadges});btn.textContent='⭐';btn.classList.remove('opacity-40');btn.classList.add('opacity-100')}localStorage.setItem('krdo_favs',JSON.stringify(favorites));renderBasket()}
+
+function renderBasket(){
+  document.getElementById('basketCount').textContent=favorites.length;const l=document.getElementById('basketList');
+  if(!favorites.length){l.innerHTML='<div class="text-center py-12 text-sm text-m">Kliknij ★ przy placówce, aby zapamiętać</div>';return}
+  l.innerHTML=favorites.map((f,i)=>`<div class="p-3 border b rounded-xl mb-2 bg-h"><div class="font-semibold text-sm" style="color:var(--text)">${f.nazwa}</div><div class="text-xs text-m mt-1">📍 ${f.lokalizacja}${f.dystans<99999?' • ~'+f.dystans+' km':''} • 📋 ${f.wpis}</div><div class="text-xs text-m">${f.typ}${f.badges?' • '+f.badges:''}</div><button class="text-xs bg-transparent border-none cursor-pointer mt-2" style="color:#f87171" data-idx="${i}">🗑️ Usuń</button></div>`).join('');
+  l.querySelectorAll('[data-idx]').forEach(b=>{b.addEventListener('click',function(){const i=parseInt(this.dataset.idx);favorites.splice(i,1);localStorage.setItem('krdo_favs',JSON.stringify(favorites));renderBasket();render()})});
 }
 
-function toggleFav(btn) {
-  const id = btn.dataset.favid;
-  const idx = favorites.findIndex(f => f.id === id);
-  if (idx >= 0) { favorites.splice(idx, 1); btn.textContent = '☆'; btn.classList.remove('saved'); }
-  else {
-    favorites.push({ id, nazwa: btn.dataset.favname, lokalizacja: btn.dataset.favloc, dystans: parseInt(btn.dataset.favdist) || 0, wpis: btn.dataset.favkrdo, typ: btn.dataset.favtype, kategoria: btn.dataset.favcat, badges: btn.dataset.favbadges });
-    btn.textContent = '⭐'; btn.classList.add('saved');
-  }
-  localStorage.setItem('krdo_favs', JSON.stringify(favorites));
-  renderBasket();
-}
+document.getElementById('basketToggle').addEventListener('click',function(){show('basketPanel');document.getElementById('basketPanel').style.display='flex';show('overlay')});
+document.getElementById('closeBasket').addEventListener('click',()=>{hide('basketPanel');document.getElementById('basketPanel').style.display='none';hide('overlay')});
+document.getElementById('overlay').addEventListener('click',()=>{hide('basketPanel');document.getElementById('basketPanel').style.display='none';hide('overlay')});
 
-function renderBasket() {
-  document.getElementById('basketCount').textContent = favorites.length;
-  const list = document.getElementById('basketList');
-  if (!favorites.length) { list.innerHTML = '<div class="empty">Kliknij ★ przy placówce, aby ją zapamiętać</div>'; return; }
-  list.innerHTML = favorites.map(f => `<div class="bitem">
-    <div class="bn">${f.nazwa}</div>
-    <div class="bm">📍 ${f.lokalizacja} ${f.dystans < 99999 ? '• ~' + f.dystans + ' km' : ''} • 📋 ${f.wpis}</div>
-    <div class="bm">${f.typ}${f.badges ? ' • ' + f.badges : ''}</div>
-    <button class="brm" data-favindex="${favorites.indexOf(f)}">🗑️ Usuń</button>
-  </div>`).join('');
-  list.querySelectorAll('.brm').forEach(btn => { btn.addEventListener('click', function() { const i = parseInt(this.dataset.favindex); favorites.splice(i, 1); localStorage.setItem('krdo_favs', JSON.stringify(favorites)); renderBasket(); render(); }); });
-}
+document.querySelectorAll('th[data-col]').forEach(th=>{th.addEventListener('click',function(){const c=this.dataset.col;if(sortCol===c)sortDir*=-1;else{sortCol=c;sortDir=1}this.querySelector('.opacity-40').textContent=sortDir===1?'↑':'↓';applyFilters()})});
+document.getElementById('searchBox').addEventListener('input',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
+document.getElementById('filterType').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
+document.getElementById('filterPublic').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
+document.getElementById('filterBadge').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
+document.getElementById('filterVoivodeship').addEventListener('change',()=>{if(activePreset){activePreset=null;resetPresets()}applyFilters()});
+document.getElementById('prevBtn').addEventListener('click',()=>{if(currentPage>1){currentPage--;render()}});
+document.getElementById('nextBtn').addEventListener('click',()=>{const tp=Math.ceil(filteredData.length/ROWS_PER_PAGE);if(currentPage<tp){currentPage++;render()}});
+document.getElementById('clearBtn').addEventListener('click',()=>{['searchBox','filterType','filterPublic','filterBadge','filterVoivodeship'].forEach(id=>document.getElementById(id).value='');activePreset=null;resetPresets();sortCol='distance';sortDir=1;applyFilters()});
+window.addEventListener('resize',()=>{const m=innerWidth<900;if(m!==isMobile){isMobile=m;if(m){show('cardList');hide('tableWrap')}else{hide('cardList');show('tableWrap')}render()}});
 
-document.getElementById('basketToggle').addEventListener('click', function() { document.getElementById('basketPanel').classList.remove('closed'); document.getElementById('basketPanel').classList.add('active'); document.getElementById('overlay').classList.add('active'); });
-document.getElementById('closeBasket').addEventListener('click', closeBasket);
-document.getElementById('overlay').addEventListener('click', closeBasket);
-function closeBasket() { document.getElementById('basketPanel').classList.add('closed'); setTimeout(() => { document.getElementById('basketPanel').classList.remove('active', 'closed'); document.getElementById('overlay').classList.remove('active'); }, 250); }
-
-document.querySelectorAll('th[data-col]').forEach(th => { th.addEventListener('click', function() { const c = this.dataset.col; if (sortCol === c) sortDir *= -1; else { sortCol = c; sortDir = 1; } document.querySelectorAll('th[data-col]').forEach(t => t.classList.remove('sorted')); this.classList.add('sorted'); this.querySelector('.sa').textContent = sortDir === 1 ? '↑' : '↓'; applyFilters(); }); });
-
-document.getElementById('searchBox').addEventListener('input', () => { if (activePreset) { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); } applyFilters(); });
-document.getElementById('filterType').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
-document.getElementById('filterPublic').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
-document.getElementById('filterBadge').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
-document.getElementById('filterVoivodeship').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
-document.getElementById('prevBtn').addEventListener('click', () => { if (currentPage > 1) { currentPage--; render(); } });
-document.getElementById('nextBtn').addEventListener('click', () => { const tp = Math.ceil(filteredData.length / ROWS_PER_PAGE); if (currentPage < tp) { currentPage++; render(); } });
-document.getElementById('clearBtn').addEventListener('click', () => { ['searchBox','filterType','filterPublic','filterBadge','filterVoivodeship'].forEach(id => document.getElementById(id).value = ''); activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); sortCol = 'distance'; sortDir = 1; document.querySelectorAll('th[data-col]').forEach(t => { t.classList.remove('sorted'); t.querySelector('.sa').textContent = '↕'; }); applyFilters(); });
-
-window.addEventListener('resize', () => { const m = window.innerWidth < 900; if (m !== isMobile) { isMobile = m; if (m) { document.getElementById('cardList').classList.add('active'); document.getElementById('tableWrap').classList.remove('active'); } else { document.getElementById('cardList').classList.remove('active'); document.getElementById('tableWrap').classList.add('active'); } render(); } });
+// Theme
+(function initTheme(){const s=localStorage.getItem('krdo_theme');if(s==='dark'){document.documentElement.classList.add('dark');document.getElementById('themeToggle').textContent='☀️'}})();
+document.getElementById('themeToggle').addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');document.getElementById('themeToggle').textContent=d?'☀️':'🌙';localStorage.setItem('krdo_theme',d?'dark':'light')});
 </script>
 </body>
 </html>
