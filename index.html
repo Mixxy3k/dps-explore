@@ -1,1505 +1,649 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KRDO - Eksplorator Danych</title>
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <style>
-        :root {
-            --primary: #2563eb;
-            --bg: #f1f5f9;
-            --card: #fff;
-            --border: #e2e8f0;
-            --text: #1e293b;
-            --muted: #64748b;
-            --shadow: 0 1px 3px rgba(0, 0, 0, .1);
-            --r: 12px
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            -webkit-text-size-adjust: 100%
-        }
-
-        header {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
-            color: #fff;
-            padding: 14px 16px
-        }
-
-        header h1 {
-            font-size: 20px;
-            font-weight: 700
-        }
-
-        header p {
-            font-size: 12px;
-            opacity: .85;
-            margin-top: 2px
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 10px
-        }
-
-        .stats {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-            margin-bottom: 10px;
-            -webkit-overflow-scrolling: touch
-        }
-
-        .stats::-webkit-scrollbar {
-            height: 2px
-        }
-
-        .sc {
-            flex: 0 0 auto;
-            min-width: 90px;
-            background: var(--card);
-            border-radius: 10px;
-            padding: 8px 12px;
-            box-shadow: var(--shadow)
-        }
-
-        .sc .n {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            white-space: nowrap
-        }
-
-        .sc .l {
-            font-size: 9px;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: .3px;
-            white-space: nowrap
-        }
-
-        .fl {
-            background: var(--card);
-            border-radius: var(--r);
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            margin-bottom: 10px
-        }
-
-        .fl.hidden {
-            display: none
-        }
-
-        .fl .ic {
-            font-size: 48px;
-            margin-bottom: 8px
-        }
-
-        .fl h2 {
-            font-size: 18px;
-            margin-bottom: 4px
-        }
-
-        .fl p {
-            color: var(--muted);
-            font-size: 13px;
-            margin-bottom: 14px
-        }
-
-        .fl label {
-            display: inline-block;
-            background: var(--primary);
-            color: #fff;
-            padding: 12px 28px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 600
-        }
-
-        .fl input[type=file] {
-            display: none
-        }
-
-        .fl .note {
-            margin-top: 12px;
-            font-size: 11px;
-            color: var(--muted)
-        }
-
-        .presets {
-            display: none;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 8px
-        }
-
-        .presets.active {
-            display: flex
-        }
-
-        .preset {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 6px 14px;
-            font-size: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            white-space: nowrap;
-            transition: all .15s;
-            color: var(--text)
-        }
-
-        .preset:hover,
-        .preset.active {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary)
-        }
-
-        .controls {
-            display: none;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 10px
-        }
-
-        .controls.active {
-            display: flex
-        }
-
-        .cr {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap
-        }
-
-        .sb {
-            flex: 1;
-            min-width: 140px;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 14px;
-            outline: none;
-            -webkit-appearance: none
-        }
-
-        .sb:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, .15)
-        }
-
-        .fs {
-            flex: 1;
-            min-width: 120px;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 12px;
-            background: #fff;
-            -webkit-appearance: none;
-            appearance: none;
-            outline: none
-        }
-
-        .fs:focus {
-            border-color: var(--primary)
-        }
-
-        .cy {
-            display: flex;
-            gap: 8px;
-            align-items: center
-        }
-
-        .cy label {
-            font-size: 12px;
-            color: var(--muted);
-            font-weight: 600;
-            white-space: nowrap
-        }
-
-        .cy input {
-            flex: 1;
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 14px;
-            outline: none
-        }
-
-        .cy input:focus {
-            border-color: var(--primary)
-        }
-
-        .ub {
-            padding: 8px 14px;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap
-        }
-
-        .cb {
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: #fff;
-            cursor: pointer;
-            font-size: 18px;
-            color: var(--muted)
-        }
-
-        .ri {
-            display: none;
-            font-size: 12px;
-            color: var(--muted);
-            margin-bottom: 8px
-        }
-
-        .ri.active {
-            display: block
-        }
-
-        .ri strong {
-            color: var(--text)
-        }
-
-        .cl {
-            display: none;
-            flex-direction: column;
-            gap: 8px
-        }
-
-        .cl.active {
-            display: flex
-        }
-
-        .pc {
-            background: var(--card);
-            border-radius: var(--r);
-            box-shadow: var(--shadow);
-            padding: 12px 14px;
-            border-left: 4px solid var(--primary);
-            position: relative
-        }
-
-        .pc .nm {
-            font-size: 17px;
-            font-weight: 700;
-            padding-right: 36px
-        }
-
-        .pc .fav-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 4px;
-            opacity: .5;
-            transition: opacity .15s
-        }
-
-        .pc .fav-btn:hover,
-        .pc .fav-btn.saved {
-            opacity: 1
-        }
-
-        .pc .fav-btn.saved {
-            animation: pop .3s
-        }
-
-        @keyframes pop {
-            0% {
-                transform: scale(1)
-            }
-
-            50% {
-                transform: scale(1.3)
-            }
-
-            100% {
-                transform: scale(1)
-            }
-        }
-
-        .pc .dist {
-            display: inline-block;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 20px;
-            margin-top: 4px
-        }
-
-        .dn {
-            background: #d1fae5;
-            color: #065f46
-        }
-
-        .dm {
-            background: #fef3c7;
-            color: #92400e
-        }
-
-        .df {
-            background: #fee2e2;
-            color: #991b1b
-        }
-
-        .dq {
-            background: #f1f5f9;
-            color: var(--muted)
-        }
-
-        .pc .mt {
-            margin-top: 6px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px 10px;
-            font-size: 12px;
-            color: var(--muted)
-        }
-
-        .pc .tl {
-            margin-top: 4px;
-            font-size: 12px;
-            line-height: 1.4
-        }
-
-        .bgs {
-            margin-top: 6px;
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .bg {
-            font-size: 9px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            text-transform: uppercase
-        }
-
-        .bgr {
-            background: #fef3c7;
-            color: #92400e
-        }
-
-        .bgd {
-            background: #dbeafe;
-            color: #1e40af
-        }
-
-        .tg {
-            font-size: 9px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600
-        }
-
-        .tp {
-            background: #d1fae5;
-            color: #065f46
-        }
-
-        .tv {
-            background: #ede9fe;
-            color: #5b21b6
-        }
-
-        .tz {
-            background: #e0e7ff;
-            color: #3730a3
-        }
-
-        .ts {
-            background: #fce7f3;
-            color: #9d174d
-        }
-
-        @media(min-width:900px) {
-            .cl.active {
-                display: none
-            }
-
-            .tw.active {
-                display: block
-            }
-        }
-
-        .tw {
-            display: none;
-            background: var(--card);
-            border-radius: var(--r);
-            box-shadow: var(--shadow);
-            overflow: hidden
-        }
-
-        .tsc {
-            overflow-x: auto;
-            max-height: 70vh;
-            overflow-y: auto
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px
-        }
-
-        thead {
-            position: sticky;
-            top: 0;
-            z-index: 10
-        }
-
-        th {
-            background: #f8fafc;
-            text-align: left;
-            padding: 10px 12px;
-            font-weight: 600;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-            color: var(--muted);
-            border-bottom: 2px solid var(--border);
-            cursor: pointer;
-            user-select: none;
-            white-space: nowrap
-        }
-
-        th:hover {
-            color: var(--primary)
-        }
-
-        th .sa {
-            margin-left: 4px;
-            opacity: .4
-        }
-
-        th.sorted .sa {
-            opacity: 1;
-            color: var(--primary)
-        }
-
-        td {
-            padding: 8px 12px;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top
-        }
-
-        tr:hover td {
-            background: #f8fafc
-        }
-
-        .cn {
-            text-align: center;
-            font-weight: 600;
-            white-space: nowrap
-        }
-
-        td .fav-btn-cell {
-            background: none;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            opacity: .5
-        }
-
-        td .fav-btn-cell:hover,
-        td .fav-btn-cell.saved {
-            opacity: 1
-        }
-
-        .pg {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px;
-            border-top: 1px solid var(--border)
-        }
-
-        .pg.active {
-            display: flex
-        }
-
-        .pb {
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: #fff;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600
-        }
-
-        .pb:disabled {
-            opacity: .4;
-            cursor: default
-        }
-
-        .pi {
-            color: var(--muted);
-            font-size: 12px
-        }
-
-        .bp {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 380px;
-            max-width: 90vw;
-            height: 100vh;
-            background: var(--card);
-            box-shadow: -4px 0 20px rgba(0, 0, 0, .15);
-            z-index: 100;
-            flex-direction: column;
-            transition: transform .25s
-        }
-
-        .bp.active {
-            display: flex
-        }
-
-        .bp.closed {
-            transform: translateX(100%)
-        }
-
-        .bph {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center
-        }
-
-        .bph h3 {
-            font-size: 16px
-        }
-
-        .bph button {
-            background: none;
-            border: none;
-            font-size: 22px;
-            cursor: pointer;
-            padding: 4px
-        }
-
-        .bpl {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px
-        }
-
-        .bpl .empty {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--muted);
-            font-size: 13px
-        }
-
-        .bitem {
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            margin-bottom: 8px
-        }
-
-        .bitem .bn {
-            font-weight: 700;
-            font-size: 13px
-        }
-
-        .bitem .bm {
-            font-size: 11px;
-            color: var(--muted);
-            margin-top: 2px
-        }
-
-        .bitem .brm {
-            background: none;
-            border: none;
-            color: #ef4444;
-            cursor: pointer;
-            font-size: 13px;
-            margin-top: 4px;
-            padding: 2px 0
-        }
-
-        .bt {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, .4);
-            z-index: 99;
-            transition: transform .15s
-        }
-
-        .bt.active {
-            display: flex;
-            align-items: center;
-            justify-content: center
-        }
-
-        .bt:active {
-            transform: scale(.9)
-        }
-
-        .bt .bc {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: #ef4444;
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center
-        }
-
-        .ov {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, .3);
-            z-index: 99
-        }
-
-        .ov.active {
-            display: block
-        }
-
-        /* Detail modal */
-        .det-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 201;
-            width: 92%;
-            max-width: 480px;
-            max-height: 88vh;
-            border-radius: 16px;
-            background: var(--card);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
-            overflow: hidden;
-            animation: detIn .25s ease
-        }
-        @keyframes detIn {
-            from {
-                transform: translate(-50%, -50%) scale(.92);
-                opacity: 0
-            }
-            to {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1
-            }
-        }
-        .det-modal.active {
-            display: block
-        }
-        .det-head {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
-            color: #fff;
-            padding: 20px 20px 16px;
-            position: relative
-        }
-        .det-head h3 {
-            font-size: 18px;
-            font-weight: 700;
-            padding-right: 32px;
-            line-height: 1.3
-        }
-        .det-head .det-x {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .2);
-            border: none;
-            color: #fff;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center
-        }
-        .det-head .det-x:hover {
-            background: rgba(255, 255, 255, .35)
-        }
-        .det-head .det-badges {
-            margin-top: 8px;
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-        .det-body {
-            padding: 4px 0;
-            overflow-y: auto;
-            max-height: calc(88vh - 120px)
-        }
-        .det-row {
-            display: flex;
-            padding: 12px 20px;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 14px;
-            line-height: 1.4
-        }
-        .det-row:last-child {
-            border-bottom: none
-        }
-        .det-lbl {
-            color: var(--muted);
-            min-width: 85px;
-            font-weight: 600;
-            font-size: 12px;
-            flex-shrink: 0;
-            padding-top: 1px
-        }
-        .det-val {
-            color: var(--text);
-            flex: 1
-        }
-        .det-addr {
-            font-size: 13px;
-            line-height: 1.5
-        }
-        .det-actions {
-            padding: 12px 20px 16px;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap
-        }
-        .det-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 13px;
-            text-decoration: none;
-            transition: all .15s;
-            border: none;
-            cursor: pointer
-        }
-        .det-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, .15)
-        }
-        .det-btn-google {
-            background: #ea4335;
-            color: #fff
-        }
-        .det-btn-maps {
-            background: #34a853;
-            color: #fff
-        }
-        .det-btn-fav {
-            background: #f59e0b;
-            color: #fff
-        }
-        .det-btn-krdo {
-            background: #1e40af;
-            color: #fff
-        }
-        .det-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, .4);
-            z-index: 200;
-            backdrop-filter: blur(2px)
-        }
-        .det-overlay.active {
-            display: block
-        }
-
-        .lo {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            color: var(--muted)
-        }
-
-        .lo.active {
-            display: block
-        }
-
-        .sp {
-            width: 32px;
-            height: 32px;
-            border: 3px solid var(--border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin .8s linear infinite;
-            margin: 0 auto 12px
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg)
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>KRDO - Eksplorator</title>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<style>
+:root{--primary:#6366f1;--primary-dark:#4338ca;--primary-light:#818cf8;--bg:#0f0f1a;--card:#1a1a2e;--card-hover:#1f1f36;--border:#2d2d4a;--text:#e8e8f0;--muted:#9494b8;--shadow:0 4px 20px rgba(0,0,0,.3);--glow:0 0 30px rgba(99,102,241,.15);--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);background-image:radial-gradient(ellipse at 10% 20%,rgba(99,102,241,.08) 0%,transparent 50%),radial-gradient(ellipse at 90% 80%,rgba(139,92,246,.06) 0%,transparent 50%);color:var(--text);-webkit-text-size-adjust:100%;min-height:100vh}
+
+header{background:linear-gradient(135deg,#1a1a2e,#2d2d4a);border-bottom:1px solid var(--border);color:#fff;padding:18px 20px;position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+header h1{font-size:22px;font-weight:800;letter-spacing:-.3px;background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+header p{font-size:12px;color:var(--muted);margin-top:2px}
+
+.container{max-width:1400px;margin:0 auto;padding:12px}
+
+.stats{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px;-webkit-overflow-scrolling:touch}
+.stats::-webkit-scrollbar{height:3px}
+.stats::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+.sc{flex:0 0 auto;min-width:90px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow)}
+.sc .n{font-size:20px;font-weight:800;background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sc .l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+
+.fl{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px 20px;text-align:center;box-shadow:var(--shadow);margin-bottom:12px}
+.fl.hidden{display:none}
+.fl .ic{font-size:48px;margin-bottom:8px}
+.fl h2{font-size:18px;font-weight:700;margin-bottom:4px}
+.fl p{color:var(--muted);font-size:13px;margin-bottom:14px}
+.fl label{display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:12px 28px;border-radius:10px;cursor:pointer;font-size:15px;font-weight:600;transition:transform .15s,box-shadow .15s}
+.fl label:hover{transform:translateY(-1px);box-shadow:var(--glow)}
+.fl input[type=file]{display:none}
+.fl .note{margin-top:12px;font-size:11px;color:var(--muted)}
+
+.presets{display:none;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.presets.active{display:flex}
+.preset{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:600;white-space:nowrap;transition:all .2s;color:var(--muted)}
+.preset:hover{border-color:var(--primary);color:var(--text);background:var(--card-hover);box-shadow:var(--glow)}
+.preset.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-color:transparent;box-shadow:var(--glow)}
+
+.controls{display:none;flex-direction:column;gap:10px;margin-bottom:12px}
+.controls.active{display:flex}
+.cr{display:flex;gap:8px;flex-wrap:wrap}
+.sb{flex:1;min-width:140px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;outline:none;-webkit-appearance:none;background:var(--card);color:var(--text);transition:border-color .2s,box-shadow .2s}
+.sb:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.2)}
+.sb::placeholder{color:var(--muted)}
+.fs{flex:1;min-width:120px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:12px;background:var(--card);color:var(--text);-webkit-appearance:none;appearance:none;outline:none;cursor:pointer;transition:border-color .2s}
+.fs:focus{border-color:var(--primary)}
+.fs option{background:var(--bg);color:var(--text)}
+.cy{display:flex;gap:8px;align-items:center}
+.cy label{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap}
+.cy input{flex:1;padding:8px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;outline:none;background:var(--card);color:var(--text);transition:border-color .2s}
+.cy input:focus{border-color:var(--primary)}
+.cy input::placeholder{color:var(--muted)}
+.ub{padding:8px 16px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.ub:hover{transform:translateY(-1px);box-shadow:var(--glow)}
+.cb{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;font-size:18px;color:var(--muted);transition:all .15s}
+.cb:hover{background:var(--card-hover);color:var(--text)}
+
+.ri{display:none;font-size:13px;color:var(--muted);margin-bottom:10px;padding:0 2px}
+.ri.active{display:block}
+.ri strong{color:var(--text)}
+
+.cl{display:none;flex-direction:column;gap:8px}
+.cl.active{display:flex}
+
+.pc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;border-left:3px solid var(--primary);position:relative;cursor:pointer;transition:all .2s}
+.pc:hover{background:var(--card-hover);border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--glow)}
+.pc .nm{font-size:16px;font-weight:700;padding-right:36px}
+.pc .fav-btn{position:absolute;top:10px;right:12px;background:none;border:none;font-size:20px;cursor:pointer;padding:4px;opacity:.5;transition:all .2s}
+.pc .fav-btn:hover,.pc .fav-btn.saved{opacity:1;transform:scale(1.1)}
+.pc .dist{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-top:6px}
+.dn{background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.dm{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.df{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.dq{background:rgba(148,148,184,.1);color:var(--muted);border:1px solid rgba(148,148,184,.15)}
+.pc .mt{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.pc .tl{margin-top:6px;font-size:12px;line-height:1.4;color:var(--muted)}
+.bgs{margin-top:8px;display:flex;gap:4px;flex-wrap:wrap}
+.bg{font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.3px}
+.bgr{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.bgd{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
+.tg{font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600;letter-spacing:.3px}
+.tp{background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.tv{background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.2)}
+.tz{background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.2)}
+.ts{background:rgba(236,72,153,.15);color:#f472b6;border:1px solid rgba(236,72,153,.2)}
+
+@media(min-width:900px){.cl.active{display:none}.tw.active{display:block}}
+.tw{display:none;background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.tsc{overflow-x:auto;max-height:70vh;overflow-y:auto}
+.tsc::-webkit-scrollbar{width:6px;height:6px}
+.tsc::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead{position:sticky;top:0;z-index:10}
+th{background:var(--card);text-align:left;padding:12px 14px;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap}
+th:hover{color:var(--primary-light)}
+th .sa{margin-left:4px;opacity:.4}
+th.sorted .sa{opacity:1;color:var(--primary-light)}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;transition:background .15s}
+tr:hover td{background:var(--card-hover)}
+.cn{text-align:center;font-weight:600;white-space:nowrap;color:var(--primary-light)}
+td .fav-btn-cell{background:none;border:none;font-size:16px;cursor:pointer;opacity:.5;transition:all .15s}
+td .fav-btn-cell:hover,td .fav-btn-cell.saved{opacity:1;transform:scale(1.15)}
+
+.pg{display:none;align-items:center;justify-content:center;gap:8px;padding:14px;border-top:1px solid var(--border)}
+.pg.active{display:flex}
+.pb{padding:8px 16px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s}
+.pb:hover:not(:disabled){border-color:var(--primary);box-shadow:var(--glow)}
+.pb:disabled{opacity:.3;cursor:default}
+.pi{color:var(--muted);font-size:12px}
+
+.bp{display:none;position:fixed;top:0;right:0;width:380px;max-width:90vw;height:100vh;background:var(--card);border-left:1px solid var(--border);box-shadow:-8px 0 30px rgba(0,0,0,.4);z-index:100;flex-direction:column;transition:transform .3s}
+.bp.active{display:flex}
+.bp.closed{transform:translateX(100%)}
+.bph{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.bph h3{font-size:16px;font-weight:700;color:var(--text)}
+.bph button{background:none;border:none;font-size:22px;cursor:pointer;padding:4px;color:var(--muted)}
+.bpl{flex:1;overflow-y:auto;padding:12px}
+.bpl .empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px}
+.bitem{padding:12px;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;background:var(--card-hover)}
+.bitem .bn{font-weight:700;font-size:13px;color:var(--text)}
+.bitem .bm{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+.bitem .brm{background:none;border:none;color:#f87171;cursor:pointer;font-size:12px;margin-top:6px;padding:4px 0}
+
+.bt{display:none;position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 20px rgba(99,102,241,.5);z-index:99;transition:transform .2s}
+.bt.active{display:flex;align-items:center;justify-content:center}
+.bt:hover{transform:scale(1.1)}
+.bt:active{transform:scale(.9)}
+.bt .bc{position:absolute;top:-2px;right:-2px;background:#ef4444;color:#fff;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(239,68,68,.4)}
+
+.ov{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:99}
+.ov.active{display:block}
+
+/* Detail modal */
+.det-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:200;backdrop-filter:blur(4px)}
+.det-overlay.active{display:block}
+.det-modal{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:201;width:92%;max-width:480px;max-height:88vh;border-radius:16px;background:var(--card);border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5);overflow:hidden;animation:detIn .25s ease}
+@keyframes detIn{from{transform:translate(-50%,-50%) scale(.92);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.det-modal.active{display:block}
+.det-head{background:linear-gradient(135deg,#1a1a2e,#2d2d4a);border-bottom:1px solid var(--border);color:#fff;padding:20px 20px 16px;position:relative}
+.det-head h3{font-size:18px;font-weight:700;padding-right:32px;line-height:1.3;color:var(--text)}
+.det-head .det-x{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--card-hover);border:1px solid var(--border);color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.det-head .det-x:hover{background:var(--border);color:var(--text)}
+.det-head .det-badges{margin-top:8px;display:flex;gap:4px;flex-wrap:wrap}
+.det-body{padding:4px 0;overflow-y:auto;max-height:calc(88vh - 120px)}
+.det-row{display:flex;padding:14px 20px;border-bottom:1px solid var(--border);font-size:14px;line-height:1.4}
+.det-row:last-child{border-bottom:none}
+.det-lbl{color:var(--muted);min-width:90px;font-weight:600;font-size:12px;flex-shrink:0;padding-top:1px;text-transform:uppercase;letter-spacing:.3px}
+.det-val{color:var(--text);flex:1}
+.det-addr{font-size:13px;line-height:1.5;color:var(--muted)}
+.det-actions{padding:14px 20px 18px;display:flex;gap:8px;flex-wrap:wrap}
+.det-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;font-weight:600;font-size:13px;text-decoration:none;transition:all .2s;border:1px solid transparent;cursor:pointer}
+.det-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.det-btn-krdo{background:rgba(99,102,241,.15);color:#818cf8;border-color:rgba(99,102,241,.2)}
+.det-btn-google{background:rgba(234,67,53,.15);color:#fca5a5;border-color:rgba(234,67,53,.2)}
+.det-btn-maps{background:rgba(52,168,83,.15);color:#86efac;border-color:rgba(52,168,83,.2)}
+.det-btn-fav{background:rgba(245,158,11,.15);color:#fde68a;border-color:rgba(245,158,11,.2)}
+
+.lo{display:none;text-align:center;padding:40px;color:var(--muted)}
+.lo.active{display:block}
+.sp{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--primary-light);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
 </head>
-
 <body>
 
-    <header>
-        <h1>🏠 KRDO - Eksplorator</h1>
-        <p>Krajowy Rejestr Domów Opieki &bull; 3,475+ placówek</p>
-    </header>
+<header>
+  <h1>KRDO · Explorer</h1>
+  <p>Krajowy Rejestr Domów Opieki &bull; 3,475+ placówek</p>
+</header>
 
-    <div class="container">
+<div class="container">
 
-        <div class="stats" id="stats"></div>
+  <div class="stats" id="stats"></div>
 
-        <div class="fl" id="fileLoader">
-            <div class="ic">📂</div>
-            <h2>Ładowanie danych...</h2>
-            <p>Automatycznie pobieram dane z repozytorium</p>
-            <div class="sp" style="margin:12px auto"></div>
-            <label for="csvFile">📄 Lub wybierz plik ręcznie</label>
-            <input type="file" id="csvFile" accept=".csv">
-            <div class="note" id="loadStatus"></div>
-        </div>
+  <div class="fl" id="fileLoader">
+    <div class="ic">📂</div>
+    <h2>Ładowanie danych...</h2>
+    <p>Automatycznie pobieram dane z repozytorium</p>
+    <div class="sp"></div>
+    <label for="csvFile">📄 Wybierz plik ręcznie</label>
+    <input type="file" id="csvFile" accept=".csv">
+    <div class="note" id="loadStatus"></div>
+  </div>
 
-        <div class="lo" id="loading">
-            <div class="sp"></div>
-            <div>Przetwarzanie danych...</div>
-        </div>
+  <div class="lo" id="loading">
+    <div class="sp"></div>
+    <div>Przetwarzanie danych...</div>
+  </div>
 
-        <div class="presets" id="presets">
-            <button class="preset" data-preset="all"><span class="ico">🏠</span>Wszystkie</button>
-            <button class="preset" data-preset="intel"><span class="ico">🧠</span>Niepełnosprawni
-                intelektualnie</button>
-            <button class="preset" data-preset="psych"><span class="ico">💊</span>Przewlekle psychicznie chorzy</button>
-            <button class="preset" data-preset="public"><span class="ico">🏛️</span>Tylko publiczne</button>
-            <button class="preset" data-preset="private"><span class="ico">🏠</span>Tylko prywatne</button>
-            <button class="preset" data-preset="recommended"><span class="ico">⭐</span>Rekomendowane KIDO</button>
-            <button class="preset" data-preset="nearby"><span class="ico">📍</span>Najbliżej (do 50 km)</button>
-        </div>
+  <div class="presets" id="presets">
+    <button class="preset" data-preset="all"><span class="ico">🏠</span>Wszystkie</button>
+    <button class="preset" data-preset="intel"><span class="ico">🧠</span>Niepełnosprawni intelektualnie</button>
+    <button class="preset" data-preset="psych"><span class="ico">💊</span>Przewlekle psychicznie chorzy</button>
+    <button class="preset" data-preset="recommended"><span class="ico">⭐</span>Rekomendowane KIDO</button>
+    <button class="preset" data-preset="nearby"><span class="ico">📍</span>Najbliżej (50 km)</button>
+  </div>
 
-        <div class="controls" id="controls">
-            <div class="cr">
-                <input class="sb" id="searchBox" placeholder="🔍 Szukaj...">
-                <select class="fs" id="filterType">
-                    <option value="">Typ</option>
-                </select>
-                <select class="fs" id="filterPublic">
-                    <option value="">Własność</option>
-                    <option value="Publiczny">🏛️ Publiczny</option>
-                    <option value="Prywatny">🏠 Prywatny</option>
-                </select>
-            </div>
-            <div class="cr">
-                <select class="fs" id="filterBadge">
-                    <option value="">Oznaczenia</option>
-                    <option value="REKOMENDACJA KIDO">⭐ Rekomendowane</option>
-                    <option value="ZAREJESTROWANO W KIDO">✅ Zarejestrowane</option>
-                    <option value="none">Brak</option>
-                </select>
-                <select class="fs" id="filterVoivodeship">
-                    <option value="">Województwo</option>
-                </select>
-                <button class="cb" id="clearBtn">✕</button>
-            </div>
-            <div class="cy">
-                <label>📍 Odległość od:</label>
-                <input type="text" id="cityInput" value="Elbląg" placeholder="Miasto">
-                <button class="ub" id="updateCity">Oblicz</button>
-            </div>
-        </div>
-
-        <div class="ri" id="resultsInfo">
-            Znaleziono <strong id="resultCount">0</strong> placówek <span id="resultDetail"></span>
-        </div>
-
-        <div class="cl" id="cardList"></div>
-
-        <div class="tw" id="tableWrap">
-            <div class="tsc">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="text-align:center;width:40px;">★</th>
-                            <th data-col="distance" style="text-align:center;">📏 km <span class="sa">↕</span></th>
-                            <th data-col="nazwa_instytucji">Nazwa <span class="sa">↕</span></th>
-                            <th data-col="lokalizacja">Lokalizacja <span class="sa">↕</span></th>
-                            <th data-col="ilosc_miejsc" style="text-align:center;">Miejsca <span class="sa">↕</span>
-                            </th>
-                            <th>Rodzaj</th>
-                            <th>Oznaczenia</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
-            </div>
-            <div class="pg" id="pagination">
-                <button class="pb" id="prevBtn">←</button>
-                <span class="pi" id="pageInfo"></span>
-                <button class="pb" id="nextBtn">→</button>
-            </div>
-        </div>
+  <div class="controls" id="controls">
+    <div class="cr">
+      <input class="sb" id="searchBox" placeholder="🔍 Szukaj...">
+      <select class="fs" id="filterType"><option value="">Typ</option></select>
+      <select class="fs" id="filterPublic">
+        <option value="">Własność</option>
+        <option value="Publiczny">🏛️ Publiczny</option>
+        <option value="Prywatny">🏠 Prywatny</option>
+      </select>
     </div>
-
-    <div class="ov" id="overlay"></div>
-    <div class="bp" id="basketPanel">
-        <div class="bph">
-            <h3>⭐ Zapamiętane</h3>
-            <button id="closeBasket">✕</button>
-        </div>
-        <div class="bpl" id="basketList">
-            <div class="empty">Kliknij ★ przy placówce, aby ją zapamiętać</div>
-        </div>
+    <div class="cr">
+      <select class="fs" id="filterBadge">
+        <option value="">Oznaczenia</option>
+        <option value="REKOMENDACJA KIDO">⭐ Rekomendowane</option>
+        <option value="ZAREJESTROWANO W KIDO">✅ Zarejestrowane</option>
+        <option value="none">Brak</option>
+      </select>
+      <select class="fs" id="filterVoivodeship"><option value="">Województwo</option></select>
+      <button class="cb" id="clearBtn">✕</button>
     </div>
-
-    <div class="det-overlay" id="detailOverlay"></div>
-    <div class="det-modal" id="detailModal">
-        <div class="det-head">
-            <h3 id="detName"></h3>
-            <div class="det-badges" id="detBadges"></div>
-            <button class="det-x" id="closeDetail">✕</button>
-        </div>
-        <div class="det-body" id="detBody"></div>
-        <div class="det-actions" id="detActions"></div>
+    <div class="cy">
+      <label>📍 Odległość od:</label>
+      <input type="text" id="cityInput" value="Elbląg" placeholder="np. Gdańsk">
+      <button class="ub" id="updateCity">Oblicz</button>
     </div>
+  </div>
 
-    <button class="bt" id="basketToggle">⭐<span class="bc" id="basketCount">0</span></button>
+  <div class="ri" id="resultsInfo">
+    Znaleziono <strong id="resultCount">0</strong> placówek <span id="resultDetail"></span>
+  </div>
 
-    <script>
-        const ROWS_PER_PAGE = 50;
-        const ELBLAG = { lat: 54.1989, lon: 19.4411 };
+  <div class="cl" id="cardList"></div>
 
-        let allData = [], filteredData = [], currentPage = 1;
-        let sortCol = "distance", sortDir = 1;
-        let geoData = {}, cityCoords = ELBLAG, currentCity = "Elbląg";
-        let isMobile = window.innerWidth < 900;
-        let geocache = {};
-        let favorites = JSON.parse(localStorage.getItem('krdo_favs') || '[]');
-        let activePreset = null;
+  <div class="tw" id="tableWrap">
+    <div class="tsc">
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:center;width:40px;">★</th>
+            <th data-col="distance" style="text-align:center;">📏 km <span class="sa">↕</span></th>
+            <th data-col="nazwa_instytucji">Nazwa <span class="sa">↕</span></th>
+            <th data-col="lokalizacja">Lokalizacja <span class="sa">↕</span></th>
+            <th data-col="ilosc_miejsc" style="text-align:center;">Miejsca <span class="sa">↕</span></th>
+            <th>Rodzaj</th>
+            <th>Oznaczenia</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="pg" id="pagination">
+      <button class="pb" id="prevBtn">←</button>
+      <span class="pi" id="pageInfo"></span>
+      <button class="pb" id="nextBtn">→</button>
+    </div>
+  </div>
+</div>
 
-        function clean(t) { return t ? t.replace(/[\n\t]+/g, ' ').replace(/\s+/g, ' ').trim() : ''; }
+<div class="ov" id="overlay"></div>
 
-        function distKm(l1, o1, l2, o2) {
-            const R = 6371;
-            const dL = (l2 - l1) * Math.PI / 180;
-            const dO = (o2 - o1) * Math.PI / 180;
-            const a = Math.sin(dL / 2) ** 2 + Math.cos(l1 * Math.PI / 180) * Math.cos(l2 * Math.PI / 180) * Math.sin(dO / 2) ** 2;
-            return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-        }
+<div class="det-overlay" id="detailOverlay"></div>
+<div class="det-modal" id="detailModal">
+  <div class="det-head">
+    <h3 id="detName"></h3>
+    <div class="det-badges" id="detBadges"></div>
+    <button class="det-x" id="closeDetail">✕</button>
+  </div>
+  <div class="det-body" id="detBody"></div>
+  <div class="det-actions" id="detActions"></div>
+</div>
 
-        function parseType(r) {
-            const t = clean(r.rodzaj_dzialalnosci);
-            let cat = 'Inny';
-            if (t.includes('(Publiczny)')) cat = 'Publiczny';
-            else if (t.includes('(Prywatny)')) cat = 'Prywatny';
-            else if (t.includes('Zakład Opiekuńczo') || t.includes('Zakład Pielęgnacyjno')) cat = 'ZOL';
-            else if (t.includes('Środowiskowy Dom Samopomocy')) cat = 'ŚDS';
-            let ct = t.replace(/\((Publiczny|Prywatny|Zakład Opiekuńczo - Leczniczy|Zakład Pielęgnacyjno-Opiekuńczy|Środowiskowy Dom Samopomocy|Mieszkanie serwisowane|Dzienny Dom Seniora)\)/g, '').trim().replace(/[,\s-]+$/, '').trim();
-            if (!ct) ct = t;
-            return { clean: ct, cat };
-        }
+<div class="bp" id="basketPanel">
+  <div class="bph">
+    <h3>⭐ Zapamiętane</h3>
+    <button id="closeBasket">✕</button>
+  </div>
+  <div class="bpl" id="basketList"><div class="empty">Kliknij ★ przy placówce, aby ją zapamiętać</div></div>
+</div>
 
-        function getVoiv(l) {
-            const o = l.toLowerCase();
-            const m = { 'dolnośląskie': 'dolnośląskie', 'kujawsko-pomorskie': 'kujawsko-pomorskie', 'lubelskie': 'lubelskie', 'lubuskie': 'lubuskie', 'łódzkie': 'łódzkie', 'małopolskie': 'małopolskie', 'mazowieckie': 'mazowieckie', 'opolskie': 'opolskie', 'podkarpackie': 'podkarpackie', 'podlaskie': 'podlaskie', 'pomorskie': 'pomorskie', 'śląskie': 'śląskie', 'świętokrzyskie': 'świętokrzyskie', 'warmińsko-mazurskie': 'warmińsko-mazurskie', 'wielkopolskie': 'wielkopolskie', 'zachodniopomorskie': 'zachodniopomorskie' };
-            for (const [k, v] of Object.entries(m)) { if (o.includes(k)) return v; }
-            const c = { 'warszawa': 'mazowieckie', 'kraków': 'małopolskie', 'poznań': 'wielkopolskie', 'wrocław': 'dolnośląskie', 'łódź': 'łódzkie', 'gdańsk': 'pomorskie', 'katowice': 'śląskie', 'lublin': 'lubelskie', 'rzeszów': 'podkarpackie', 'szczecin': 'zachodniopomorskie', 'bydgoszcz': 'kujawsko-pomorskie', 'toruń': 'kujawsko-pomorskie', 'olsztyn': 'warmińsko-mazurskie', 'opole': 'opolskie', 'kielce': 'świętokrzyskie', 'białystok': 'podlaskie', 'elbląg': 'warmińsko-mazurskie' };
-            for (const [k, v] of Object.entries(c)) { if (o.includes(k)) return v; }
-            return 'inne';
-        }
+<button class="bt" id="basketToggle">⭐<span class="bc" id="basketCount">0</span></button>
 
-        function getRowId(r) { return r.wpis_krdo || r._n + r._l; }
-        function isFav(r) { const id = getRowId(r); return favorites.some(f => f.id === id); }
+<script>
+const ROWS_PER_PAGE = 50;
+const ELBLAG = { lat: 54.1989, lon: 19.4411 };
 
-        function krdoSlug(name) {
-            let s = name.toLowerCase().trim();
-            const reps = { 'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z','ä':'a','ö':'o','ü':'u','ß':'ss','ñ':'n' };
-            for (const [k,v] of Object.entries(reps)) s = s.replaceAll(k, v);
-            s = s.replace(/[^a-z0-9\s-]/g, '').replace(/[\s-]+/g, '-').replace(/^-+|-+$/g, '');
-            return s;
-        }
-        function krdoUrl(r) { return `https://krdo.pl/dom-opieki/${krdoSlug(r._n)}/`; }
+let allData = [], filteredData = [], currentPage = 1;
+let sortCol = "distance", sortDir = 1;
+let geoData = {}, cityCoords = ELBLAG, currentCity = "Elbląg";
+let isMobile = window.innerWidth < 900;
+let geocache = {};
+let favorites = JSON.parse(localStorage.getItem('krdo_favs') || '[]');
+let activePreset = null;
 
-        async function geocode(city) {
-            if (geocache[city]) return geocache[city];
-            try {
-                const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city + ', Polska')}&format=json&limit=1&accept-language=pl`, { headers: { 'User-Agent': 'KRDO-Explorer/1.0' } });
-                const d = await r.json();
-                if (d && d[0]) { const res = { lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon) }; geocache[city] = res; return res; }
-            } catch (e) { }
-            return null;
-        }
+function clean(t) { return t ? t.replace(/[\n\t]+/g,' ').replace(/\s+/g,' ').trim() : ''; }
 
-        function processData(csvData) {
-            allData = csvData.filter(r => r.nazwa_instytucji && r.nazwa_instytucji.trim());
-            allData.forEach(r => {
-                r._n = clean(r.nazwa_instytucji);
-                r._l = clean(r.lokalizacja);
-                const p = parseType(r);
-                r._t = p.clean;
-                r._c = p.cat;
-                r._p = parseInt(r.ilosc_miejsc) || 0;
-                r._b = clean(r.badges);
-                const g = geoData[r.lokalizacja];
-                r._lat = g ? g.lat : null;
-                r._lon = g ? g.lon : null;
-                r._d = 0;
-            });
-            document.getElementById('loading').classList.remove('active');
-            document.getElementById('fileLoader').classList.add('hidden');
-            document.getElementById('presets').classList.add('active');
-            document.getElementById('controls').classList.add('active');
-            document.getElementById('resultsInfo').classList.add('active');
-            document.getElementById('pagination').classList.add('active');
-            document.getElementById('basketToggle').classList.add('active');
-            if (isMobile) document.getElementById('cardList').classList.add('active');
-            else document.getElementById('tableWrap').classList.add('active');
-            populateFilters();
-            calcDists();
-            applyFilters();
-            renderBasket();
-        }
+function distKm(l1, o1, l2, o2) {
+  const R = 6371;
+  const dL = (l2 - l1) * Math.PI / 180;
+  const dO = (o2 - o1) * Math.PI / 180;
+  const a = Math.sin(dL/2)**2 + Math.cos(l1*Math.PI/180) * Math.cos(l2*Math.PI/180) * Math.sin(dO/2)**2;
+  return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+}
 
-        // ─── Auto-load CSV from server/repo ────────────
-        async function autoLoadCSV() {
-            document.getElementById('loadStatus').textContent = 'Pobieranie danych...';
-            try {
-                const resp = await fetch('krdo_dps_poland.csv');
-                if (!resp.ok) throw new Error('HTTP ' + resp.status);
-                const csvText = await resp.text();
-                document.getElementById('loadStatus').textContent = 'Parsowanie danych...';
-                Papa.parse(csvText, {
-                    header: true,
-                    complete: function (results) {
-                        processData(results.data);
-                    }
-                });
-            } catch (e) {
-                console.warn('Auto-load failed, waiting for manual upload:', e);
-                document.getElementById('loadStatus').textContent = 'Nie udało się automatycznie pobrać — wybierz plik ręcznie';
-                document.querySelector('.fl h2').textContent = 'Załaduj dane';
-                document.querySelector('.fl p').textContent = 'Wybierz plik krdo_dps_poland.csv';
-                document.querySelector('.fl .sp').style.display = 'none';
-            }
-        }
+function parseType(r) {
+  const t = clean(r.rodzaj_dzialalnosci);
+  let cat = 'Inny';
+  if (t.includes('(Publiczny)')) cat = 'Publiczny';
+  else if (t.includes('(Prywatny)')) cat = 'Prywatny';
+  else if (t.includes('Zakład Opiekuńczo') || t.includes('Zakład Pielęgnacyjno')) cat = 'ZOL';
+  else if (t.includes('Środowiskowy Dom Samopomocy')) cat = 'ŚDS';
+  let ct = t.replace(/\((Publiczny|Prywatny|Zakład Opiekuńczo - Leczniczy|Zakład Pielęgnacyjno-Opiekuńczy|Środowiskowy Dom Samopomocy|Mieszkanie serwisowane|Dzienny Dom Seniora)\)/g,'').trim().replace(/[,\s-]+$/,'').trim();
+  if (!ct) ct = t;
+  return { clean: ct, cat };
+}
 
-        // ─── Manual file upload fallback ──────────────
-        document.getElementById('csvFile').addEventListener('change', async function (e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            document.getElementById('loading').classList.add('active');
-            document.getElementById('fileLoader').classList.add('hidden');
-            Papa.parse(file, {
-                header: true, encoding: 'UTF-8',
-                complete: function (res) {
-                    processData(res.data);
-                }
-            });
-        });
+function getVoiv(l) {
+  const o = l.toLowerCase();
+  const m = { 'dolnośląskie':'dolnośląskie','kujawsko-pomorskie':'kujawsko-pomorskie','lubelskie':'lubelskie','lubuskie':'lubuskie','łódzkie':'łódzkie','małopolskie':'małopolskie','mazowieckie':'mazowieckie','opolskie':'opolskie','podkarpackie':'podkarpackie','podlaskie':'podlaskie','pomorskie':'pomorskie','śląskie':'śląskie','świętokrzyskie':'świętokrzyskie','warmińsko-mazurskie':'warmińsko-mazurskie','wielkopolskie':'wielkopolskie','zachodniopomorskie':'zachodniopomorskie' };
+  for (const [k,v] of Object.entries(m)) { if (o.includes(k)) return v; }
+  const c = { 'warszawa':'mazowieckie','kraków':'małopolskie','poznań':'wielkopolskie','wrocław':'dolnośląskie','łódź':'łódzkie','gdańsk':'pomorskie','katowice':'śląskie','lublin':'lubelskie','rzeszów':'podkarpackie','szczecin':'zachodniopomorskie','bydgoszcz':'kujawsko-pomorskie','toruń':'kujawsko-pomorskie','olsztyn':'warmińsko-mazurskie','opole':'opolskie','kielce':'świętokrzyskie','białystok':'podlaskie','elbląg':'warmińsko-mazurskie' };
+  for (const [k,v] of Object.entries(c)) { if (o.includes(k)) return v; }
+  return 'inne';
+}
 
-        // ─── Load geo data + auto-load CSV ────────────
-        (async function init() {
-            try {
-                const r = await fetch('locations_geo.json');
-                geoData = await r.json();
-            } catch (e) {
-                console.warn('Geo data not loaded:', e);
-            }
-            autoLoadCSV();
-        })();
+function getRowId(r) { return r.wpis_krdo || r._n + r._l; }
+function isFav(r) { const id = getRowId(r); return favorites.some(f => f.id === id); }
 
-        function populateFilters() {
-            const ts = new Set();
-            allData.forEach(r => { if (r._t) ts.add(r._t); });
-            const tS = document.getElementById('filterType');
-            tS.innerHTML = '<option value="">Typ</option>';
-            [...ts].sort().forEach(t => { let o = document.createElement('option'); o.value = t; o.textContent = t; tS.appendChild(o); });
-            const voivs = ['dolnośląskie', 'kujawsko-pomorskie', 'lubelskie', 'lubuskie', 'łódzkie', 'małopolskie', 'mazowieckie', 'opolskie', 'podkarpackie', 'podlaskie', 'pomorskie', 'śląskie', 'świętokrzyskie', 'warmińsko-mazurskie', 'wielkopolskie', 'zachodniopomorskie'];
-            const vS = document.getElementById('filterVoivodeship');
-            vS.innerHTML = '<option value="">Województwo</option>';
-            voivs.forEach(v => { let o = document.createElement('option'); o.value = v; o.textContent = v.charAt(0).toUpperCase() + v.slice(1); vS.appendChild(o); });
-        }
+function krdoSlug(name) {
+  let s = name.toLowerCase().trim();
+  const reps = { 'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z','ä':'a','ö':'o','ü':'u','ß':'ss','ñ':'n' };
+  for (const [k,v] of Object.entries(reps)) s = s.replaceAll(k, v);
+  s = s.replace(/[^a-z0-9\s-]/g, '').replace(/[\s-]+/g, '-').replace(/^-+|-+$/g, '');
+  return s;
+}
+function krdoUrl(r) { return `https://krdo.pl/dom-opieki/${krdoSlug(r._n)}/`; }
 
-        async function calcDists() {
-            if (currentCity.toLowerCase() !== 'elbląg') {
-                const c = await geocode(currentCity);
-                if (c) cityCoords = c;
-            } else {
-                cityCoords = ELBLAG;
-            }
-            allData.forEach(r => {
-                r._d = (r._lat && r._lon) ? distKm(cityCoords.lat, cityCoords.lon, r._lat, r._lon) : 99999;
-            });
-        }
+async function geocode(city) {
+  if (geocache[city]) return geocache[city];
+  try {
+    const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city+', Polska')}&format=json&limit=1&accept-language=pl`, { headers: { 'User-Agent':'KRDO-Explorer/1.0' } });
+    const d = await r.json();
+    if (d && d[0]) { const res = { lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon) }; geocache[city] = res; return res; }
+  } catch(e) {}
+  return null;
+}
 
-        document.getElementById('updateCity').addEventListener('click', async function () {
-            const c = document.getElementById('cityInput').value.trim();
-            if (!c) return;
-            currentCity = c;
-            document.getElementById('loading').classList.add('active');
-            await calcDists();
-            document.getElementById('loading').classList.remove('active');
-            if (activePreset === 'nearby') activePreset = null;
-            document.querySelectorAll('.preset').forEach(p => p.classList.remove('active'));
-            applyFilters();
-        });
+function processData(csvData) {
+  allData = csvData.filter(r => r.nazwa_instytucji && r.nazwa_instytucji.trim());
+  allData.forEach(r => {
+    r._n = clean(r.nazwa_instytucji);
+    r._l = clean(r.lokalizacja);
+    const p = parseType(r);
+    r._t = p.clean;
+    r._c = p.cat;
+    r._p = parseInt(r.ilosc_miejsc) || 0;
+    r._b = clean(r.badges);
+    const g = geoData[r.lokalizacja];
+    r._lat = g ? g.lat : null;
+    r._lon = g ? g.lon : null;
+    r._d = 0;
+  });
+  document.getElementById('loading').classList.remove('active');
+  document.getElementById('fileLoader').classList.add('hidden');
+  document.getElementById('presets').classList.add('active');
+  document.getElementById('controls').classList.add('active');
+  document.getElementById('resultsInfo').classList.add('active');
+  document.getElementById('pagination').classList.add('active');
+  document.getElementById('basketToggle').classList.add('active');
+  if (isMobile) document.getElementById('cardList').classList.add('active');
+  else document.getElementById('tableWrap').classList.add('active');
+  populateFilters();
+  calcDists();
+  applyFilters();
+  renderBasket();
+}
 
-        // ─── Presets ────────────────────────────────────
-        document.querySelectorAll('.preset').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const p = this.dataset.preset;
-                document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
-                if (activePreset === p) { activePreset = null; applyFilters(); return; }
-                this.classList.add('active');
-                activePreset = p;
-                document.getElementById('searchBox').value = '';
-                document.getElementById('filterType').value = '';
-                document.getElementById('filterPublic').value = '';
-                document.getElementById('filterBadge').value = '';
-                document.getElementById('filterVoivodeship').value = '';
-                applyFilters();
-            });
-        });
+async function autoLoadCSV() {
+  document.getElementById('loadStatus').textContent = 'Pobieranie danych...';
+  try {
+    const resp = await fetch('krdo_dps_poland.csv');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const csvText = await resp.text();
+    document.getElementById('loadStatus').textContent = 'Parsowanie danych...';
+    Papa.parse(csvText, {
+      header: true,
+      complete: function(results) { processData(results.data); }
+    });
+  } catch(e) {
+    console.warn('Auto-load failed:', e);
+    document.getElementById('loadStatus').textContent = 'Nie udało się pobrać — wybierz plik ręcznie';
+    document.querySelector('.fl h2').textContent = 'Załaduj dane';
+    document.querySelector('.fl p').textContent = 'Wybierz plik krdo_dps_poland.csv';
+    document.querySelector('.fl .sp').style.display = 'none';
+  }
+}
 
-        // ─── Filter & Sort ────────────────────────────
-        function applyFilters() {
-            const s = document.getElementById('searchBox').value.toLowerCase().trim();
-            const tf = document.getElementById('filterType').value;
-            const pf = document.getElementById('filterPublic').value;
-            const bf = document.getElementById('filterBadge').value;
-            const vf = document.getElementById('filterVoivodeship').value;
+document.getElementById('csvFile').addEventListener('change', async function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  document.getElementById('loading').classList.add('active');
+  document.getElementById('fileLoader').classList.add('hidden');
+  Papa.parse(file, { header: true, encoding: 'UTF-8', complete: function(res) { processData(res.data); } });
+});
 
-            filteredData = allData.filter(r => {
-                if (activePreset === 'intel' && !r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')) return false;
-                if (activePreset === 'psych' && !r.rodzaj_dzialalnosci.toLowerCase().includes('psychicznie')) return false;
-                if (activePreset === 'public' && r._c !== 'Publiczny') return false;
-                if (activePreset === 'private' && r._c !== 'Prywatny') return false;
-                if (activePreset === 'recommended' && !r._b.includes('REKOMENDACJA KIDO')) return false;
-                if (activePreset === 'nearby' && r._d > 50) return false;
-                if (s) { const h = (r._n + ' ' + r._l + ' ' + r._t + ' ' + r.rodzaj_dzialalnosci).toLowerCase(); if (!h.includes(s)) return false; }
-                if (tf && r._t !== tf) return false;
-                if (pf && r._c !== pf) return false;
-                if (bf === 'none' && r._b) return false;
-                if (bf && bf !== 'none' && !r._b.includes(bf)) return false;
-                if (vf && getVoiv(r.lokalizacja) !== vf) return false;
-                return true;
-            });
+(async function init() {
+  try { const r = await fetch('locations_geo.json'); geoData = await r.json(); } catch(e) {}
+  autoLoadCSV();
+})();
 
-            if (sortCol) {
-                filteredData.sort((a, b) => {
-                    let va, vb;
-                    if (sortCol === 'distance') { va = a._d; vb = b._d; }
-                    else if (sortCol === 'ilosc_miejsc') { va = a._p; vb = b._p; }
-                    else if (sortCol === 'nazwa_instytucji') { va = a._n; vb = b._n; }
-                    else if (sortCol === 'lokalizacja') { va = a._l; vb = b._l; }
-                    else { va = ''; vb = ''; }
-                    return typeof va === 'string' ? sortDir * va.localeCompare(vb, 'pl') : sortDir * (va - vb);
-                });
-            }
-            currentPage = 1;
-            render();
-            updateStats();
-        }
+function populateFilters() {
+  const ts = new Set();
+  allData.forEach(r => { if (r._t) ts.add(r._t); });
+  const tS = document.getElementById('filterType');
+  tS.innerHTML = '<option value="">Typ</option>';
+  [...ts].sort().forEach(t => { let o = document.createElement('option'); o.value = t; o.textContent = t; tS.appendChild(o); });
+  const voivs = ['dolnośląskie','kujawsko-pomorskie','lubelskie','lubuskie','łódzkie','małopolskie','mazowieckie','opolskie','podkarpackie','podlaskie','pomorskie','śląskie','świętokrzyskie','warmińsko-mazurskie','wielkopolskie','zachodniopomorskie'];
+  const vS = document.getElementById('filterVoivodeship');
+  vS.innerHTML = '<option value="">Województwo</option>';
+  voivs.forEach(v => { let o = document.createElement('option'); o.value = v; o.textContent = v.charAt(0).toUpperCase() + v.slice(1); vS.appendChild(o); });
+}
 
-        // ─── Render ────────────────────────────────────
-        function render() {
-            const total = filteredData.length, tp = Math.ceil(total / ROWS_PER_PAGE);
-            const s = (currentPage - 1) * ROWS_PER_PAGE, e = Math.min(s + ROWS_PER_PAGE, total);
-            const pd = filteredData.slice(s, e);
-            document.getElementById('resultCount').textContent = total;
-            document.getElementById('resultDetail').textContent = total < allData.length ? `(str. ${currentPage}/${tp})` : '';
-            document.getElementById('pageInfo').textContent = `${currentPage}/${tp || 1}`;
-            document.getElementById('prevBtn').disabled = currentPage <= 1;
-            document.getElementById('nextBtn').disabled = currentPage >= tp || tp === 0;
+async function calcDists() {
+  if (currentCity.toLowerCase() !== 'elbląg') { const c = await geocode(currentCity); if (c) cityCoords = c; }
+  else { cityCoords = ELBLAG; }
+  allData.forEach(r => { r._d = (r._lat && r._lon) ? distKm(cityCoords.lat, cityCoords.lon, r._lat, r._lon) : 99999; });
+}
 
-            const cityName = currentCity;
+document.getElementById('updateCity').addEventListener('click', async function() {
+  const c = document.getElementById('cityInput').value.trim();
+  if (!c) return;
+  currentCity = c;
+  document.getElementById('loading').classList.add('active');
+  await calcDists();
+  document.getElementById('loading').classList.remove('active');
+  if (activePreset === 'nearby') activePreset = null;
+  document.querySelectorAll('.preset').forEach(p => p.classList.remove('active'));
+  applyFilters();
+});
 
-            if (isMobile) {
-                document.getElementById('cardList').innerHTML = pd.map(r => {
-                    const d = r._d;
-                    let dc = 'dq', dt = d >= 99999 ? '❓' : `~${d} km`;
-                    if (d < 50) dc = 'dn';
-                    else if (d < 150) dc = 'dm';
-                    else if (d < 99999) dc = 'df';
-                    const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd'; return `<span class="bg ${c}">${b}</span>`; }).join('') : '';
-                    let ct = '';
-                    if (r._c === 'Publiczny') ct = '<span class="tg tp">Publiczny</span>';
-                    else if (r._c === 'Prywatny') ct = '<span class="tg tv">Prywatny</span>';
-                    else if (r._c === 'ZOL') ct = '<span class="tg tz">ZOL</span>';
-                    else if (r._c === 'ŚDS') ct = '<span class="tg ts">ŚDS</span>';
-                    const fid = getRowId(r);
-                    const saved = isFav(r);
-                    return `<div class="pc" data-detail="${fid}" style="cursor:pointer"><button class="fav-btn ${saved ? 'saved' : ''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved ? '⭐' : '☆'}</button>
+document.querySelectorAll('.preset').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const p = this.dataset.preset;
+    document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
+    if (activePreset === p) { activePreset = null; applyFilters(); return; }
+    this.classList.add('active');
+    activePreset = p;
+    document.getElementById('searchBox').value = '';
+    document.getElementById('filterType').value = '';
+    document.getElementById('filterPublic').value = '';
+    document.getElementById('filterBadge').value = '';
+    document.getElementById('filterVoivodeship').value = '';
+    applyFilters();
+  });
+});
+
+function applyFilters() {
+  const s = document.getElementById('searchBox').value.toLowerCase().trim();
+  const tf = document.getElementById('filterType').value;
+  const pf = document.getElementById('filterPublic').value;
+  const bf = document.getElementById('filterBadge').value;
+  const vf = document.getElementById('filterVoivodeship').value;
+
+  filteredData = allData.filter(r => {
+    if (activePreset === 'intel' && !r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')) return false;
+    if (activePreset === 'psych' && !r.rodzaj_dzialalnosci.toLowerCase().includes('psychicznie')) return false;
+    if (activePreset === 'recommended' && !r._b.includes('REKOMENDACJA KIDO')) return false;
+    if (activePreset === 'nearby' && r._d > 50) return false;
+    if (s) { const h = (r._n + ' ' + r._l + ' ' + r._t + ' ' + r.rodzaj_dzialalnosci).toLowerCase(); if (!h.includes(s)) return false; }
+    if (tf && r._t !== tf) return false;
+    if (pf && r._c !== pf) return false;
+    if (bf === 'none' && r._b) return false;
+    if (bf && bf !== 'none' && !r._b.includes(bf)) return false;
+    if (vf && getVoiv(r.lokalizacja) !== vf) return false;
+    return true;
+  });
+
+  if (sortCol) {
+    filteredData.sort((a, b) => {
+      let va, vb;
+      if (sortCol === 'distance') { va = a._d; vb = b._d; }
+      else if (sortCol === 'ilosc_miejsc') { va = a._p; vb = b._p; }
+      else if (sortCol === 'nazwa_instytucji') { va = a._n; vb = b._n; }
+      else if (sortCol === 'lokalizacja') { va = a._l; vb = b._l; }
+      else { va = ''; vb = ''; }
+      return typeof va === 'string' ? sortDir * va.localeCompare(vb, 'pl') : sortDir * (va - vb);
+    });
+  }
+  currentPage = 1;
+  render();
+  updateStats();
+}
+
+function render() {
+  const total = filteredData.length, tp = Math.ceil(total / ROWS_PER_PAGE);
+  const s = (currentPage - 1) * ROWS_PER_PAGE, e = Math.min(s + ROWS_PER_PAGE, total);
+  const pd = filteredData.slice(s, e);
+  document.getElementById('resultCount').textContent = total;
+  document.getElementById('resultDetail').textContent = total < allData.length ? `(str. ${currentPage}/${tp})` : '';
+  document.getElementById('pageInfo').textContent = `${currentPage}/${tp || 1}`;
+  document.getElementById('prevBtn').disabled = currentPage <= 1;
+  document.getElementById('nextBtn').disabled = currentPage >= tp || tp === 0;
+
+  const cityName = currentCity;
+
+  if (isMobile) {
+    document.getElementById('cardList').innerHTML = pd.map(r => {
+      const d = r._d;
+      let dc = 'dq', dt = d >= 99999 ? '?' : `~${d} km`;
+      if (d < 50) dc = 'dn'; else if (d < 150) dc = 'dm'; else if (d < 99999) dc = 'df';
+      const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd'; return `<span class="bg ${c}">${b}</span>`; }).join('') : '';
+      let ct = '';
+      if (r._c === 'Publiczny') ct = '<span class="tg tp">Publiczny</span>';
+      else if (r._c === 'Prywatny') ct = '<span class="tg tv">Prywatny</span>';
+      else if (r._c === 'ZOL') ct = '<span class="tg tz">ZOL</span>';
+      else if (r._c === 'ŚDS') ct = '<span class="tg ts">ŚDS</span>';
+      const fid = getRowId(r);
+      const saved = isFav(r);
+      return `<div class="pc"><button class="fav-btn ${saved?'saved':''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button>
         <div class="nm">${r._n}</div>
         <span class="dist ${dc}">📍 ${dt} od ${cityName}</span>
-        <div class="mt"><span>📍 ${r._l}</span><span>🛏️ ${r._p > 0 ? r._p : '?'}</span><span>📋 ${r.wpis_krdo}</span></div>
+        <div class="mt"><span>📍 ${r._l}</span><span>🛏️ ${r._p>0?r._p:'?'}</span><span>📋 ${r.wpis_krdo}</span></div>
         <div class="tl">${ct} ${r._t}</div>
         ${bgs ? `<div class="bgs">${bgs}</div>` : ''}
       </div>`;
-                }).join('');
-                document.querySelectorAll('.pc .fav-btn').forEach(btn => {
-                    btn.addEventListener('click', function (e) { e.stopPropagation(); toggleFav(this); });
-                });
-                document.querySelectorAll('.pc').forEach(card => {
-                    card.addEventListener('click', function (e) {
-                        const id = this.dataset.detail;
-                        const r = filteredData.find(item => getRowId(item) === id);
-                        if (r) showDetail(r);
-                    });
-                });
-            } else {
-                document.getElementById('tableBody').innerHTML = pd.map(r => {
-                    const d = r._d;
-                    const dt = d >= 99999 ? '?' : `${d} km`;
-                    const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd'; return `<span class="bg ${c}">${b}</span>`; }).join('') : '';
-                    const fid = getRowId(r);
-                    const saved = isFav(r);
-                    return `<tr style="cursor:pointer" data-detail="${fid}">
-        <td style="text-align:center;" onclick="event.stopPropagation()"><button class="fav-btn-cell ${saved ? 'saved' : ''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved ? '⭐' : '☆'}</button></td>
+    }).join('');
+    document.querySelectorAll('.pc .fav-btn').forEach(btn => { btn.addEventListener('click', function(e) { e.stopPropagation(); toggleFav(this); }); });
+    document.querySelectorAll('.pc').forEach(card => { card.addEventListener('click', function() { const id = this.dataset.detail; const r = filteredData.find(item => getRowId(item) === id); if (r) showDetail(r); }); });
+  } else {
+    document.getElementById('tableBody').innerHTML = pd.map(r => {
+      const d = r._d;
+      const dt = d >= 99999 ? '?' : `${d} km`;
+      const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd'; return `<span class="bg ${c}">${b}</span>`; }).join('') : '';
+      const fid = getRowId(r);
+      const saved = isFav(r);
+      return `<tr style="cursor:pointer" data-detail="${fid}">
+        <td style="text-align:center;" onclick="event.stopPropagation()"><button class="fav-btn-cell ${saved?'saved':''}" data-favid="${fid}" data-favname="${r._n}" data-favloc="${r._l}" data-favdist="${d}" data-favkrdo="${r.wpis_krdo}" data-favtype="${r._t}" data-favcat="${r._c}" data-favbadges="${r._b}">${saved?'⭐':'☆'}</button></td>
         <td class="cn">${dt}</td>
         <td style="font-weight:600;">${r._n}</td>
         <td>${r._l}</td>
         <td class="cn">${r._p > 0 ? r._p : '-'}</td>
-        <td style="font-size:12px;">${r._t}</td>
+        <td style="font-size:12px;color:var(--muted)">${r._t}</td>
         <td>${bgs}</td>
       </tr>`;
-                }).join('');
-                document.querySelectorAll('.fav-btn-cell').forEach(btn => {
-                    btn.addEventListener('click', function (e) { e.stopPropagation(); toggleFav(this); });
-                });
-                document.querySelectorAll('tr[data-detail]').forEach(row => {
-                    row.addEventListener('click', function () {
-                        const id = this.dataset.detail;
-                        const r = filteredData.find(item => getRowId(item) === id);
-                        if (r) showDetail(r);
-                    });
-                });
-            }
-        }
+    }).join('');
+    document.querySelectorAll('.fav-btn-cell').forEach(btn => { btn.addEventListener('click', function(e) { e.stopPropagation(); toggleFav(this); }); });
+    document.querySelectorAll('tr[data-detail]').forEach(row => { row.addEventListener('click', function() { const id = this.dataset.detail; const r = filteredData.find(item => getRowId(item) === id); if (r) showDetail(r); }); });
+  }
+}
 
-        function updateStats() {
-            const d = filteredData;
-            const tp = d.reduce((s, r) => s + r._p, 0);
-            document.getElementById('stats').innerHTML = `
+function updateStats() {
+  const d = filteredData;
+  const tp = d.reduce((s,r) => s + r._p, 0);
+  document.getElementById('stats').innerHTML = `
     <div class="sc"><div class="n">${d.length.toLocaleString()}</div><div class="l">Placówek</div></div>
     <div class="sc"><div class="n">${tp.toLocaleString()}</div><div class="l">Miejsc</div></div>
-    <div class="sc"><div class="n">${d.filter(r => r._c === 'Publiczny').length}</div><div class="l">Publiczne</div></div>
-    <div class="sc"><div class="n">${d.filter(r => r._c === 'Prywatny').length}</div><div class="l">Prywatne</div></div>
-    <div class="sc"><div class="n">${d.filter(r => r._b.includes('REKOMENDACJA KIDO')).length}</div><div class="l">Rekomend.</div></div>
-    <div class="sc"><div class="n">${d.filter(r => r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')).length}</div><div class="l">Niep. intel.</div></div>
+    <div class="sc"><div class="n">${d.filter(r=>r._c==='Publiczny').length}</div><div class="l">Publiczne</div></div>
+    <div class="sc"><div class="n">${d.filter(r=>r._c==='Prywatny').length}</div><div class="l">Prywatne</div></div>
+    <div class="sc"><div class="n">${d.filter(r=>r._b.includes('REKOMENDACJA KIDO')).length}</div><div class="l">Rekomend.</div></div>
+    <div class="sc"><div class="n">${d.filter(r=>r.rodzaj_dzialalnosci.toLowerCase().includes('intelektualnie')).length}</div><div class="l">Niep. intel.</div></div>
   `;
-        }
+}
 
-        // ─── Detail Modal ──────────────────────────────
-        function showDetail(r) {
-            const addr = clean(r.adres);
-            const googleQ = encodeURIComponent(`${r._n} ${addr}`);
-            const mapsQ = encodeURIComponent(`${r._n}, ${r._l}, ${addr}`);
-            const fid = getRowId(r);
-            const saved = isFav(r);
+function showDetail(r) {
+  const addr = clean(r.adres);
+  const googleQ = encodeURIComponent(`${r._n} ${addr}`);
+  const mapsQ = encodeURIComponent(`${r._n}, ${r._l}, ${addr}`);
+  const fid = getRowId(r);
+  const saved = isFav(r);
+  const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => { const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd'; return `<span class="bg ${c}">${b}</span>`; }).join('') : '';
+  document.getElementById('detName').textContent = r._n;
+  document.getElementById('detBadges').innerHTML = bgs || '';
+  document.getElementById('detBody').innerHTML = `
+    <div class="det-row"><div class="det-lbl">Adres</div><div class="det-val det-addr">${addr}</div></div>
+    <div class="det-row"><div class="det-lbl">Miejscowość</div><div class="det-val">${r._l}</div></div>
+    <div class="det-row"><div class="det-lbl">Rodzaj</div><div class="det-val">${r._t}</div></div>
+    <div class="det-row"><div class="det-lbl">Własność</div><div class="det-val">${r._c}</div></div>
+    <div class="det-row"><div class="det-lbl">Miejsca</div><div class="det-val">${r._p > 0 ? r._p + ' miejsc' : 'Nie podano'}</div></div>
+    <div class="det-row"><div class="det-lbl">Wpis</div><div class="det-val">${r.wpis_krdo}</div></div>
+    ${r._d < 99999 ? `<div class="det-row"><div class="det-lbl">Odległość</div><div class="det-val">~${r._d} km od ${currentCity}</div></div>` : ''}
+  `;
+  document.getElementById('detActions').innerHTML = `
+    <a class="det-btn det-btn-krdo" href="${krdoUrl(r)}" target="_blank" rel="noopener">🌐 Strona KRDO</a>
+    <a class="det-btn det-btn-google" href="https://www.google.com/search?q=${googleQ}" target="_blank" rel="noopener">🔍 Szukaj w Google</a>
+    <a class="det-btn det-btn-maps" href="https://www.google.com/maps/search/${mapsQ}" target="_blank" rel="noopener">📍 Zobacz na Mapach</a>
+    <button class="det-btn det-btn-fav" id="detFavBtn">${saved ? '⭐ Zapamiętane' : '☆ Zapamiętaj'}</button>
+  `;
+  document.getElementById('detailModal').classList.add('active');
+  document.getElementById('detailOverlay').classList.add('active');
+  document.getElementById('detFavBtn').addEventListener('click', function() {
+    const star = document.querySelector(`.fav-btn-cell[data-favid="${fid}"], .fav-btn[data-favid="${fid}"]`);
+    if (star) toggleFav(star);
+    this.textContent = isFav(r) ? '⭐ Zapamiętane' : '☆ Zapamiętaj';
+  });
+}
 
-            let catClass = '';
-            if (r._c === 'Publiczny') catClass = 'det-cat-pub';
-            else if (r._c === 'Prywatny') catClass = 'det-cat-priv';
-            else if (r._c === 'ZOL') catClass = 'det-cat-zol';
-            else if (r._c === 'ŚDS') catClass = 'det-cat-sds';
+document.getElementById('closeDetail').addEventListener('click', closeDetail);
+document.getElementById('detailOverlay').addEventListener('click', closeDetail);
+function closeDetail() {
+  const m = document.getElementById('detailModal');
+  const o = document.getElementById('detailOverlay');
+  if (m) m.classList.remove('active');
+  if (o) o.classList.remove('active');
+}
 
-            const bgs = r._b ? r._b.split(', ').filter(Boolean).map(b => {
-                const c = b.includes('REKOMENDACJA') ? 'bgr' : 'bgd';
-                return `<span class="bg ${c}">${b}</span>`;
-            }).join('') : '';
+function toggleFav(btn) {
+  const id = btn.dataset.favid;
+  const idx = favorites.findIndex(f => f.id === id);
+  if (idx >= 0) { favorites.splice(idx, 1); btn.textContent = '☆'; btn.classList.remove('saved'); }
+  else {
+    favorites.push({ id, nazwa: btn.dataset.favname, lokalizacja: btn.dataset.favloc, dystans: parseInt(btn.dataset.favdist) || 0, wpis: btn.dataset.favkrdo, typ: btn.dataset.favtype, kategoria: btn.dataset.favcat, badges: btn.dataset.favbadges });
+    btn.textContent = '⭐'; btn.classList.add('saved');
+  }
+  localStorage.setItem('krdo_favs', JSON.stringify(favorites));
+  renderBasket();
+}
 
-            document.getElementById('detName').textContent = r._n;
-            document.getElementById('detBadges').innerHTML = bgs ? bgs : '';
-
-            document.getElementById('detBody').innerHTML = `
-                <div class="det-row"><div class="det-lbl">Adres</div><div class="det-val det-addr">${addr}</div></div>
-                <div class="det-row"><div class="det-lbl">Miejscowość</div><div class="det-val">${r._l}</div></div>
-                <div class="det-row"><div class="det-lbl">Rodzaj</div><div class="det-val">${r._t}</div></div>
-                <div class="det-row"><div class="det-lbl">Własność</div><div class="det-val"><span class="det-cat ${catClass}">${r._c}</span></div></div>
-                <div class="det-row"><div class="det-lbl">Miejsca</div><div class="det-val">${r._p > 0 ? r._p + ' miejsc' : 'Nie podano'}</div></div>
-                <div class="det-row"><div class="det-lbl">Wpis KRDO</div><div class="det-val">${r.wpis_krdo}</div></div>
-                ${r._d < 99999 ? `<div class="det-row"><div class="det-lbl">Odległość</div><div class="det-val">~${r._d} km od ${currentCity}</div></div>` : ''}
-            `;
-
-            document.getElementById('detActions').innerHTML = `
-                <a class="det-btn det-btn-krdo" href="${krdoUrl(r)}" target="_blank" rel="noopener">🌐 Strona KRDO</a>
-                <a class="det-btn det-btn-google" href="https://www.google.com/search?q=${googleQ}" target="_blank" rel="noopener">🔍 Szukaj w Google</a>
-                <a class="det-btn det-btn-maps" href="https://www.google.com/maps/search/${mapsQ}" target="_blank" rel="noopener">📍 Zobacz na Mapach</a>
-                <button class="det-btn det-btn-fav" id="detFavBtn">${saved ? '⭐ Zapamiętane' : '☆ Zapamiętaj'}</button>
-            `;
-
-            document.getElementById('detailModal').classList.add('active');
-            document.getElementById('detailOverlay').classList.add('active');
-
-            document.getElementById('detFavBtn').addEventListener('click', function() {
-                // Find and click the corresponding star button
-                const star = document.querySelector(`.fav-btn-cell[data-favid="${fid}"], .fav-btn[data-favid="${fid}"]`);
-                if (star) { toggleFav(star); }
-                // Update button text
-                const newSaved = isFav(r);
-                this.textContent = newSaved ? '⭐ Zapamiętane' : '☆ Zapamiętaj';
-            });
-        }
-
-        document.getElementById('closeDetail').addEventListener('click', closeDetail);
-        document.getElementById('detailOverlay').addEventListener('click', closeDetail);
-        function closeDetail() {
-            const m = document.getElementById('detailModal');
-            const o = document.getElementById('detailOverlay');
-            if (m) m.classList.remove('active');
-            if (o) o.classList.remove('active');
-        }
-
-        // ─── Favorites / Basket ────────────────────────
-        function toggleFav(btn) {
-            const id = btn.dataset.favid;
-            const idx = favorites.findIndex(f => f.id === id);
-            if (idx >= 0) {
-                favorites.splice(idx, 1);
-                btn.textContent = '☆';
-                btn.classList.remove('saved');
-            } else {
-                favorites.push({
-                    id, nazwa: btn.dataset.favname, lokalizacja: btn.dataset.favloc,
-                    dystans: parseInt(btn.dataset.favdist) || 0,
-                    wpis: btn.dataset.favkrdo, typ: btn.dataset.favtype,
-                    kategoria: btn.dataset.favcat, badges: btn.dataset.favbadges
-                });
-                btn.textContent = '⭐';
-                btn.classList.add('saved');
-            }
-            localStorage.setItem('krdo_favs', JSON.stringify(favorites));
-            renderBasket();
-        }
-
-        function renderBasket() {
-            document.getElementById('basketCount').textContent = favorites.length;
-            const list = document.getElementById('basketList');
-            if (!favorites.length) { list.innerHTML = '<div class="empty">Kliknij ★ przy placówce, aby ją zapamiętać</div>'; return; }
-            list.innerHTML = favorites.map(f => `<div class="bitem">
+function renderBasket() {
+  document.getElementById('basketCount').textContent = favorites.length;
+  const list = document.getElementById('basketList');
+  if (!favorites.length) { list.innerHTML = '<div class="empty">Kliknij ★ przy placówce, aby ją zapamiętać</div>'; return; }
+  list.innerHTML = favorites.map(f => `<div class="bitem">
     <div class="bn">${f.nazwa}</div>
-    <div class="bm">📍 ${f.lokalizacja} ${f.dystans < 99999 ? `• ~${f.dystans} km` : ''} • 📋 ${f.wpis}</div>
-    <div class="bm">${f.typ} ${f.badges ? '• ' + f.badges : ''}</div>
+    <div class="bm">📍 ${f.lokalizacja} ${f.dystans < 99999 ? '• ~' + f.dystans + ' km' : ''} • 📋 ${f.wpis}</div>
+    <div class="bm">${f.typ}${f.badges ? ' • ' + f.badges : ''}</div>
     <button class="brm" data-favindex="${favorites.indexOf(f)}">🗑️ Usuń</button>
   </div>`).join('');
-            list.querySelectorAll('.brm').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    const i = parseInt(this.dataset.favindex);
-                    favorites.splice(i, 1);
-                    localStorage.setItem('krdo_favs', JSON.stringify(favorites));
-                    renderBasket();
-                    render();
-                });
-            });
-        }
+  list.querySelectorAll('.brm').forEach(btn => { btn.addEventListener('click', function() { const i = parseInt(this.dataset.favindex); favorites.splice(i, 1); localStorage.setItem('krdo_favs', JSON.stringify(favorites)); renderBasket(); render(); }); });
+}
 
-        document.getElementById('basketToggle').addEventListener('click', function () {
-            document.getElementById('basketPanel').classList.remove('closed');
-            document.getElementById('basketPanel').classList.add('active');
-            document.getElementById('overlay').classList.add('active');
-        });
-        document.getElementById('closeBasket').addEventListener('click', closeBasket);
-        document.getElementById('overlay').addEventListener('click', closeBasket);
-        function closeBasket() {
-            document.getElementById('basketPanel').classList.add('closed');
-            setTimeout(() => {
-                document.getElementById('basketPanel').classList.remove('active', 'closed');
-                document.getElementById('overlay').classList.remove('active');
-            }, 250);
-        }
+document.getElementById('basketToggle').addEventListener('click', function() { document.getElementById('basketPanel').classList.remove('closed'); document.getElementById('basketPanel').classList.add('active'); document.getElementById('overlay').classList.add('active'); });
+document.getElementById('closeBasket').addEventListener('click', closeBasket);
+document.getElementById('overlay').addEventListener('click', closeBasket);
+function closeBasket() { document.getElementById('basketPanel').classList.add('closed'); setTimeout(() => { document.getElementById('basketPanel').classList.remove('active', 'closed'); document.getElementById('overlay').classList.remove('active'); }, 250); }
 
-        // ─── Events ────────────────────────────────────
-        document.querySelectorAll('th[data-col]').forEach(th => {
-            th.addEventListener('click', function () {
-                const c = this.dataset.col;
-                if (sortCol === c) sortDir *= -1;
-                else { sortCol = c; sortDir = 1; }
-                document.querySelectorAll('th[data-col]').forEach(t => t.classList.remove('sorted'));
-                this.classList.add('sorted');
-                this.querySelector('.sa').textContent = sortDir === 1 ? '↑' : '↓';
-                applyFilters();
-            });
-        });
+document.querySelectorAll('th[data-col]').forEach(th => { th.addEventListener('click', function() { const c = this.dataset.col; if (sortCol === c) sortDir *= -1; else { sortCol = c; sortDir = 1; } document.querySelectorAll('th[data-col]').forEach(t => t.classList.remove('sorted')); this.classList.add('sorted'); this.querySelector('.sa').textContent = sortDir === 1 ? '↑' : '↓'; applyFilters(); }); });
 
-        document.getElementById('searchBox').addEventListener('input', () => { if (activePreset) { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); } applyFilters(); });
-        document.getElementById('filterType').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
-        document.getElementById('filterPublic').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
-        document.getElementById('filterBadge').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
-        document.getElementById('filterVoivodeship').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
-        document.getElementById('prevBtn').addEventListener('click', () => { if (currentPage > 1) { currentPage--; render(); } });
-        document.getElementById('nextBtn').addEventListener('click', () => { const tp = Math.ceil(filteredData.length / ROWS_PER_PAGE); if (currentPage < tp) { currentPage++; render(); } });
-        document.getElementById('clearBtn').addEventListener('click', () => {
-            ['searchBox', 'filterType', 'filterPublic', 'filterBadge', 'filterVoivodeship'].forEach(id => document.getElementById(id).value = '');
-            activePreset = null;
-            document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
-            sortCol = 'distance'; sortDir = 1;
-            document.querySelectorAll('th[data-col]').forEach(t => { t.classList.remove('sorted'); t.querySelector('.sa').textContent = '↕'; });
-            applyFilters();
-        });
+document.getElementById('searchBox').addEventListener('input', () => { if (activePreset) { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); } applyFilters(); });
+document.getElementById('filterType').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
+document.getElementById('filterPublic').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
+document.getElementById('filterBadge').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
+document.getElementById('filterVoivodeship').addEventListener('change', () => { activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); applyFilters(); });
+document.getElementById('prevBtn').addEventListener('click', () => { if (currentPage > 1) { currentPage--; render(); } });
+document.getElementById('nextBtn').addEventListener('click', () => { const tp = Math.ceil(filteredData.length / ROWS_PER_PAGE); if (currentPage < tp) { currentPage++; render(); } });
+document.getElementById('clearBtn').addEventListener('click', () => { ['searchBox','filterType','filterPublic','filterBadge','filterVoivodeship'].forEach(id => document.getElementById(id).value = ''); activePreset = null; document.querySelectorAll('.preset').forEach(b => b.classList.remove('active')); sortCol = 'distance'; sortDir = 1; document.querySelectorAll('th[data-col]').forEach(t => { t.classList.remove('sorted'); t.querySelector('.sa').textContent = '↕'; }); applyFilters(); });
 
-        window.addEventListener('resize', () => {
-            const m = window.innerWidth < 900;
-            if (m !== isMobile) {
-                isMobile = m;
-                if (m) { document.getElementById('cardList').classList.add('active'); document.getElementById('tableWrap').classList.remove('active'); }
-                else { document.getElementById('cardList').classList.remove('active'); document.getElementById('tableWrap').classList.add('active'); }
-                render();
-            }
-        });
-    </script>
+window.addEventListener('resize', () => { const m = window.innerWidth < 900; if (m !== isMobile) { isMobile = m; if (m) { document.getElementById('cardList').classList.add('active'); document.getElementById('tableWrap').classList.remove('active'); } else { document.getElementById('cardList').classList.remove('active'); document.getElementById('tableWrap').classList.add('active'); } render(); } });
+</script>
 </body>
-
 </html>
